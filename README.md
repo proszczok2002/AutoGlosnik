@@ -77,6 +77,10 @@ Wbudowany updater jest przeznaczony dla dystrybucji bezpośredniej przez GitHub.
 Wersja przeznaczona do Google Play musiałaby korzystać z mechanizmu aktualizacji
 Google Play i nie może używać tego mechanizmu samodzielnej instalacji.
 
+Numeracja pierwszych wydań tej linii to `1.0` (`versionCode 105`) oraz testowa
+aktualizacja `1.01` (`versionCode 106`). Android porównuje rosnący `versionCode`,
+natomiast `versionName` jest nazwą widoczną dla użytkownika.
+
 ## Wsparcie
 
 - Revolut: <https://revolut.me/r_rosiejka>
