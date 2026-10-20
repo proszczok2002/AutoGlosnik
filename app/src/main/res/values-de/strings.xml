@@ -66,9 +66,12 @@
     <string name='open_settings'>Einstellungen öffnen</string>
     <string name='update_waiting_permission'>Update bereit — Android-Berechtigung zur Installation erforderlich.</string>
     <string name='update_ready_title'>Update bereit</string>
-    <string name='update_ready_message'>Version %1$s wurde geprüft. Android-Installationsprogramm öffnen?</string>
+    <string name='update_ready_message'>Version %1$s wurde geprüft. Direkt an das Android-Systeminstallationsprogramm übergeben?</string>
     <string name='install_update'>Installieren</string>
-    <string name='update_install_failed'>Das Android-Installationsprogramm konnte nicht geöffnet werden.</string>
+    <string name='update_preparing_installer'>Sichere Installation wird vorbereitet…</string>
+    <string name='update_waiting_system_installer'>Das Update wurde direkt an das Android-Systeminstallationsprogramm übergeben.</string>
+    <string name='update_install_success'>Das Update wurde installiert.</string>
+    <string name='update_install_failed'>Das Android-Systeminstallationsprogramm konnte die Installation nicht starten.</string>
     <string name='status_service_running'>Dienst läuft — wartet auf einen Anruf.</string>
     <string name='status_call_ended'>Anruf beendet — wartet auf den nächsten.</string>
     <string name='status_external_audio'>Keine Änderung — Kopfhörer, Bluetooth oder ein Hörgerät ist aktiv.</string>

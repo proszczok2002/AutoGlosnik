@@ -14,7 +14,13 @@ Google/AOSP i Telefon Samsung. Nie zastępuje dialera i nie nagrywa rozmów.
 - dobrowolne wsparcie przez Revolut lub PayPal;
 - aktualizacje z publicznego repozytorium wydań GitHub;
 - kontrola HTTPS, SHA-256, nazwy pakietu, rosnącego `versionCode` i podpisu APK
-  przed uruchomieniem instalatora Androida.
+  przed uruchomieniem instalatora Androida;
+- bezpośrednie przekazanie zweryfikowanego APK do systemowego `PackageInstaller`,
+  bez wybierania zewnętrznego instalatora APK.
+
+Pełna instrukcja instalacji, konfiguracji, testu i aktualizacji znajduje się w
+[INSTRUKCJA.md](INSTRUKCJA.md). Opis techniczny projektu jest w
+[JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
 
 ## Ważne ujawnienie usługi dostępności
 
@@ -62,7 +68,7 @@ bezpieczną kopię zapasową całego katalogu `.signing` poza repozytorium.
 
 Wersja 1.0 rozpoczyna nową linię podpisu wydawniczego. Dawna wersja 1.3.1 była
 podpisana kluczem debug, dlatego przed pierwszą instalacją 1.0 trzeba ją
-jednorazowo odinstalować. Aktualizacja 1.0 → 1.01 zachowuje już wspólny,
+jednorazowo odinstalować. Aktualizacje 1.0 → 1.01 → 1.02 zachowują już wspólny,
 bezpieczny podpis.
 
 ## Dystrybucja i aktualizacje
@@ -77,9 +83,10 @@ Wbudowany updater jest przeznaczony dla dystrybucji bezpośredniej przez GitHub.
 Wersja przeznaczona do Google Play musiałaby korzystać z mechanizmu aktualizacji
 Google Play i nie może używać tego mechanizmu samodzielnej instalacji.
 
-Numeracja pierwszych wydań tej linii to `1.0` (`versionCode 105`) oraz testowa
-aktualizacja `1.01` (`versionCode 106`). Android porównuje rosnący `versionCode`,
-natomiast `versionName` jest nazwą widoczną dla użytkownika.
+Numeracja pierwszych wydań tej linii to `1.0` (`versionCode 105`), testowa
+aktualizacja `1.01` (`versionCode 106`) oraz poprawka instalatora `1.02`
+(`versionCode 107`). Android porównuje rosnący `versionCode`, natomiast
+`versionName` jest nazwą widoczną dla użytkownika.
 
 ## Wsparcie
 

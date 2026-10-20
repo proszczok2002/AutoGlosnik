@@ -66,9 +66,12 @@
     <string name='open_settings'>Otwórz ustawienia</string>
     <string name='update_waiting_permission'>Aktualizacja gotowa — wymagana zgoda Androida na instalację.</string>
     <string name='update_ready_title'>Aktualizacja gotowa</string>
-    <string name='update_ready_message'>Wersja %1$s została zweryfikowana. Czy otworzyć instalator Androida?</string>
+    <string name='update_ready_message'>Wersja %1$s została zweryfikowana. Czy przekazać ją bezpośrednio do systemowego instalatora Androida?</string>
     <string name='install_update'>Zainstaluj</string>
-    <string name='update_install_failed'>Nie udało się otworzyć instalatora Androida.</string>
+    <string name='update_preparing_installer'>Przygotowywanie bezpiecznej instalacji…</string>
+    <string name='update_waiting_system_installer'>Aktualizacja została przekazana bezpośrednio do systemowego instalatora Androida.</string>
+    <string name='update_install_success'>Aktualizacja została zainstalowana.</string>
+    <string name='update_install_failed'>Systemowy instalator Androida nie mógł rozpocząć instalacji.</string>
     <string name='status_service_running'>Usługa działa — czekam na połączenie.</string>
     <string name='status_call_ended'>Połączenie zakończone — czekam na następne.</string>
     <string name='status_external_audio'>Bez zmiany — aktywne są słuchawki, Bluetooth lub aparat słuchowy.</string>

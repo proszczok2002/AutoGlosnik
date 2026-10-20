@@ -66,9 +66,12 @@
     <string name='open_settings'>Открыть настройки</string>
     <string name='update_waiting_permission'>Обновление готово — требуется разрешение Android на установку.</string>
     <string name='update_ready_title'>Обновление готово</string>
-    <string name='update_ready_message'>Версия %1$s проверена. Открыть установщик Android?</string>
+    <string name='update_ready_message'>Версия %1$s проверена. Передать её напрямую системному установщику Android?</string>
     <string name='install_update'>Установить</string>
-    <string name='update_install_failed'>Не удалось открыть установщик Android.</string>
+    <string name='update_preparing_installer'>Подготовка безопасной установки…</string>
+    <string name='update_waiting_system_installer'>Обновление передано напрямую системному установщику Android.</string>
+    <string name='update_install_success'>Обновление установлено.</string>
+    <string name='update_install_failed'>Системному установщику Android не удалось начать установку.</string>
     <string name='status_service_running'>Служба работает — ожидание звонка.</string>
     <string name='status_call_ended'>Звонок завершён — ожидание следующего.</string>
     <string name='status_external_audio'>Без изменений — активны наушники, Bluetooth или слуховой аппарат.</string>

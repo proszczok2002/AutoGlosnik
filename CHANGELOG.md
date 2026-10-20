@@ -1,5 +1,15 @@
 # Historia zmian
 
+## 1.02 — systemowy instalator aktualizacji
+
+- Usunięto ogólny mechanizm `ACTION_VIEW`, który mógł uruchamiać Uptodown App
+  Installer zamiast instalatora systemowego.
+- Zweryfikowany APK jest teraz przekazywany bezpośrednio do sesji Android
+  `PackageInstaller`.
+- Dodano ponowną kontrolę SHA-256, pakietu, wersji i podpisu bezpośrednio przed
+  instalacją.
+- Dodano pełną instrukcję użytkownika i opis działania projektu.
+
 ## 1.01 — test aktualizacji
 
 - Zwiększono `versionCode` z 105 do 106.

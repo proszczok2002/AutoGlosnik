@@ -3,6 +3,7 @@ package pl.bumbox.autospeaker;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.PendingIntent;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.database.Cursor;
@@ -26,8 +28,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -41,12 +45,13 @@ final class UpdateManager {
     private static final String MANIFEST_URL = "https://raw.githubusercontent.com/proszczok2002/AutoGlosnik-Releases/main/update.json";
     private static final String TRUSTED_APK_PREFIX = "/proszczok2002/AutoGlosnik-Releases/releases/download/";
     private static final String MIME_APK = "application/vnd.android.package-archive";
+    static final String ACTION_INSTALL_STATUS = "pl.bumbox.autospeaker.INSTALL_STATUS";
     private static final String PREF_DOWNLOAD_ID = "update_download_id";
     private static final String PREF_SHA256 = "update_sha256";
     private static final String PREF_VERSION_CODE = "update_version_code";
     private static final String PREF_VERSION_NAME = "update_version_name";
     private static final String PREF_FILE_NAME = "update_file_name";
-    private static final String PREF_READY = "update_ready";
+    static final String PREF_READY = "update_ready";
 
     private final Activity activity;
     private final DownloadManager downloads;
@@ -122,6 +127,15 @@ final class UpdateManager {
 
     void onResume() {
         if (closed) return;
+        installationLaunched = false;
+        long pendingCode = preferences.getLong(PREF_VERSION_CODE, -1L);
+        try {
+            if (pendingCode > 0L && pendingCode <= currentVersionCode()) {
+                clearStoredUpdateState(activity);
+                updateStatus(activity.getString(R.string.update_up_to_date));
+                return;
+            }
+        } catch (PackageManager.NameNotFoundException ignored) { }
         long id = preferences.getLong(PREF_DOWNLOAD_ID, -1L);
         if (preferences.getBoolean(PREF_READY, false)) {
             if (activity.getPackageManager().canRequestPackageInstalls()) showInstallReadyDialog();
@@ -304,23 +318,103 @@ final class UpdateManager {
         new AlertDialog.Builder(activity).setTitle(R.string.update_ready_title)
                 .setMessage(activity.getString(R.string.update_ready_message, version))
                 .setNegativeButton(R.string.not_now, (dialog, which) -> installDialogShown = false)
-                .setPositiveButton(R.string.install_update, (dialog, which) -> { installDialogShown = false; launchInstaller(); })
+                .setPositiveButton(R.string.install_update, (dialog, which) -> { installDialogShown = false; installVerifiedUpdate(); })
                 .setOnCancelListener(dialog -> installDialogShown = false).show();
     }
 
-    private void launchInstaller() {
-        long id = preferences.getLong(PREF_DOWNLOAD_ID, -1L);
-        Uri uri = downloads == null ? null : downloads.getUriForDownloadedFile(id);
-        if (uri == null) { updateStatus(activity.getString(R.string.update_package_invalid)); return; }
-        try {
-            Intent install = new Intent(Intent.ACTION_VIEW).setDataAndType(uri, MIME_APK)
-                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            installationLaunched = true;
-            activity.startActivity(install);
-        } catch (Exception exception) {
-            installationLaunched = false;
-            updateStatus(activity.getString(R.string.update_install_failed));
+    private void installVerifiedUpdate() {
+        if (!activity.getPackageManager().canRequestPackageInstalls()) {
+            requestInstallPermissionOrShowDialog();
+            return;
         }
+        String fileName = preferences.getString(PREF_FILE_NAME, "");
+        File directory = activity.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        File apk = directory == null ? null : new File(directory, fileName);
+        if (apk == null || !apk.isFile()) {
+            updateStatus(activity.getString(R.string.update_package_invalid));
+            return;
+        }
+
+        installationLaunched = true;
+        updateStatus(activity.getString(R.string.update_preparing_installer));
+        executor.execute(() -> {
+            PackageInstaller installer = activity.getPackageManager().getPackageInstaller();
+            int sessionId = -1;
+            try {
+                String expectedHash = preferences.getString(PREF_SHA256, "");
+                if (!sha256(apk).equalsIgnoreCase(expectedHash))
+                    throw new VerificationException(R.string.update_integrity_failed);
+                verifyPackage(apk, preferences.getLong(PREF_VERSION_CODE, -1L));
+
+                PackageInstaller.SessionParams params = new PackageInstaller.SessionParams(
+                        PackageInstaller.SessionParams.MODE_FULL_INSTALL);
+                params.setAppPackageName(activity.getPackageName());
+                params.setSize(apk.length());
+                params.setRequireUserAction(PackageInstaller.SessionParams.USER_ACTION_REQUIRED);
+                sessionId = installer.createSession(params);
+
+                try (PackageInstaller.Session session = installer.openSession(sessionId)) {
+                    try (InputStream input = new FileInputStream(apk);
+                         OutputStream output = session.openWrite("AutoGlosnik.apk", 0, apk.length())) {
+                        byte[] buffer = new byte[32_768];
+                        int read;
+                        while ((read = input.read(buffer)) != -1) output.write(buffer, 0, read);
+                        session.fsync(output);
+                    }
+
+                    Intent result = new Intent(activity, InstallResultReceiver.class)
+                            .setAction(ACTION_INSTALL_STATUS);
+                    PendingIntent callback = PendingIntent.getBroadcast(activity, sessionId, result,
+                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+                    session.commit(callback.getIntentSender());
+                }
+
+                main.post(() -> {
+                    if (!closed) updateStatus(activity.getString(R.string.update_waiting_system_installer));
+                });
+            } catch (VerificationException exception) {
+                abandonSessionQuietly(installer, sessionId);
+                main.post(() -> {
+                    installationLaunched = false;
+                    if (!closed) updateStatus(activity.getString(exception.messageId));
+                });
+            } catch (Exception exception) {
+                abandonSessionQuietly(installer, sessionId);
+                main.post(() -> {
+                    installationLaunched = false;
+                    if (!closed) updateStatus(activity.getString(R.string.update_install_failed));
+                });
+            }
+        });
+    }
+
+    private static void abandonSessionQuietly(PackageInstaller installer, int sessionId) {
+        if (sessionId < 0) return;
+        try { installer.abandonSession(sessionId); }
+        catch (Exception ignored) { }
+    }
+
+    private String sha256(File file) throws Exception {
+        try (InputStream input = new FileInputStream(file)) {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] buffer = new byte[32_768];
+            int read;
+            while ((read = input.read(buffer)) != -1) digest.update(buffer, 0, read);
+            StringBuilder result = new StringBuilder(64);
+            for (byte value : digest.digest()) result.append(String.format(Locale.ROOT, "%02x", value));
+            return result.toString();
+        }
+    }
+
+    static void clearStoredUpdateState(Context context) {
+        context.getSharedPreferences(MainActivity.PREFS, Context.MODE_PRIVATE).edit()
+                .remove(PREF_DOWNLOAD_ID)
+                .remove(PREF_SHA256)
+                .remove(PREF_VERSION_CODE)
+                .remove(PREF_VERSION_NAME)
+                .remove(PREF_FILE_NAME)
+                .remove(PREF_READY)
+                .apply();
     }
 
     private long currentVersionCode() throws PackageManager.NameNotFoundException {

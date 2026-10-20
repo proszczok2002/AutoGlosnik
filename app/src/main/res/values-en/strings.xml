@@ -66,9 +66,12 @@
     <string name='open_settings'>Open settings</string>
     <string name='update_waiting_permission'>Update ready — Android installation permission is required.</string>
     <string name='update_ready_title'>Update ready</string>
-    <string name='update_ready_message'>Version %1$s has been verified. Open the Android installer?</string>
+    <string name='update_ready_message'>Version %1$s has been verified. Send it directly to the Android system installer?</string>
     <string name='install_update'>Install</string>
-    <string name='update_install_failed'>Could not open the Android installer.</string>
+    <string name='update_preparing_installer'>Preparing a secure installation…</string>
+    <string name='update_waiting_system_installer'>The update was sent directly to the Android system installer.</string>
+    <string name='update_install_success'>The update was installed.</string>
+    <string name='update_install_failed'>The Android system installer could not start the installation.</string>
     <string name='status_service_running'>Service is running — waiting for a call.</string>
     <string name='status_call_ended'>Call ended — waiting for the next one.</string>
     <string name='status_external_audio'>No change — headphones, Bluetooth or a hearing aid is active.</string>

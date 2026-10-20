@@ -1,14 +1,15 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-10-19
+Data aktualizacji: 2026-10-20
 
 ## Aktualna wersja
 
-- Wersja aplikacji: `1.01` (`versionCode 106`).
+- Wersja aplikacji: `1.02` (`versionCode 107`).
 - Podpis: nowy klucz wydawniczy RSA 4096.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- Artefakt lokalny: `hasiok/release-artifacts/AutoGlosnik-v1.01.apk`.
+- Najnowszy artefakt dla użytkownika: `AutoGlosnik-v1.02.apk`.
+- Kopia archiwalna: `hasiok/release-artifacts/AutoGlosnik-v1.02.apk`.
 - Źródła mają trafić do prywatnego repozytorium `proszczok2002/AutoGlosnik`.
 - APK i manifest aktualizacji mają trafić do publicznego repozytorium
   `proszczok2002/AutoGlosnik-Releases` bez kodu źródłowego.
@@ -25,6 +26,14 @@ Data aktualizacji: 2026-10-19
 - Aktualizacje wymagają potwierdzenia pobrania i osobnego potwierdzenia instalacji.
 - Dodano politykę prywatności oraz jawny opis usługi dostępności i uprawnień.
 - Ruch nieszyfrowany HTTP jest zablokowany konfiguracją sieciową Androida.
+
+## Wykonane w wersji 1.02
+
+- Zastąpiono ogólny `ACTION_VIEW` bezpośrednią sesją systemowego
+  `PackageInstaller`, dzięki czemu Uptodown nie przejmuje instalacji.
+- Dodano obsługę potwierdzenia i wyniku systemowej sesji instalacji.
+- APK jest ponownie weryfikowany bezpośrednio przed przekazaniem do systemu.
+- Dodano `INSTRUKCJA.md` i `JAK_TO_DZIALA.md`.
 
 ## Zgodność i migracja
 
@@ -44,10 +53,17 @@ mogą być instalowane jako aktualizacje.
 - APK 1.01 ma `versionCode 106` i ten sam certyfikat co 1.0.
 - SHA-256 APK 1.01:
   `022D93EEA103EB9A93FEE297B056A6E460C2BAE6A28E847AF367BB1F2CACD134`.
+- `assembleRelease` i `lintRelease` dla wersji 1.02: zakończone powodzeniem.
+- APK 1.02 ma `versionCode 107` i ten sam certyfikat co 1.0/1.01.
+- SHA-256 APK 1.02:
+  `FE84A901AED68C34A7330B2DF9C5645F8D44547BAD4D66EF0946B4268344D5F4`.
+- W chwili weryfikacji nie było podłączonego urządzenia ADB, dlatego końcowy
+  test kliknięcia potwierdzenia instalacji musi zostać wykonany na telefonie.
 
 ## Publikacja
 
 - Wersja 1.0 została opublikowana w publicznym repozytorium wydań.
-- Wersja 1.01 jest zbudowana i gotowa do publikacji jako aktualizacja testowa.
-- Po publikacji `update.json` ma wskazywać wersję 1.01.
-- Przetestować pełny przepływ instalacji 1.0 → 1.01 na urządzeniu.
+- Wersja 1.01 została opublikowana jako aktualizacja testowa.
+- Wersja 1.02 jest zbudowana i gotowa do publikacji jako poprawka instalatora.
+- Po publikacji `update.json` ma wskazywać wersję 1.02.
+- Przetestować pełny przepływ instalacji 1.01 → 1.02 na urządzeniu.
