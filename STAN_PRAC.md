@@ -57,6 +57,9 @@ mogą być instalowane jako aktualizacje.
 - APK 1.02 ma `versionCode 107` i ten sam certyfikat co 1.0/1.01.
 - SHA-256 APK 1.02:
   `FE84A901AED68C34A7330B2DF9C5645F8D44547BAD4D66EF0946B4268344D5F4`.
+- Publiczny zasób wydania został pobrany ponownie z GitHuba: SHA-256, pakiet
+  `pl.bumbox.autospeaker`, `versionCode 107`, `versionName 1.02` i certyfikat
+  są zgodne z lokalnym artefaktem.
 - W chwili weryfikacji nie było podłączonego urządzenia ADB, dlatego końcowy
   test kliknięcia potwierdzenia instalacji musi zostać wykonany na telefonie.
 
@@ -64,6 +67,7 @@ mogą być instalowane jako aktualizacje.
 
 - Wersja 1.0 została opublikowana w publicznym repozytorium wydań.
 - Wersja 1.01 została opublikowana jako aktualizacja testowa.
-- Wersja 1.02 jest zbudowana i gotowa do publikacji jako poprawka instalatora.
-- Po publikacji `update.json` ma wskazywać wersję 1.02.
+- Wersja 1.02 została opublikowana jako najnowsze stabilne wydanie:
+  <https://github.com/proszczok2002/AutoGlosnik-Releases/releases/tag/v1.02>.
+- Publiczny `update.json` wskazuje wersję 1.02 i jej zweryfikowany zasób APK.
 - Przetestować pełny przepływ instalacji 1.01 → 1.02 na urządzeniu.
