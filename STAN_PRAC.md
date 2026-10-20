@@ -73,6 +73,9 @@ mogą być instalowane jako aktualizacje.
 - Publiczne repozytorium ma nowy opis, tematy, stronę główną README z logo,
   odnośnikami pobierania, instrukcją, sumami kontrolnymi i ujawnieniem usługi
   dostępności.
+- Dokumentacja publiczna zawiera listę urządzeń, na których według wykonanych
+  testów działa wersja 1.02: POCO F8 Ultra, Galaxy S25, Galaxy S26 Ultra,
+  Galaxy S23, Galaxy S21, Pixel 10 i Pixel 11 Pro.
 - GitHub rozpoznaje szablon zgłoszenia błędu oraz linki wsparcia Revolut/PayPal;
   prywatne zgłaszanie podatności jest włączone.
 - Przetestować pełny przepływ instalacji 1.01 → 1.02 na urządzeniu.

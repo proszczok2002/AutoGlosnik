@@ -4,6 +4,11 @@ AutoGłośnik automatycznie przełącza dźwięk zwykłej rozmowy telefonicznej 
 słuchawką a głośnikiem na podstawie czujnika zbliżeniowego. Obsługuje Telefon
 Google/AOSP i Telefon Samsung. Nie zastępuje dialera i nie nagrywa rozmów.
 
+Wersja 1.02 była testowana na POCO F8 Ultra, Samsung Galaxy S25, Samsung Galaxy
+S26 Ultra, Samsung Galaxy S23, Samsung Galaxy S21, Google Pixel 10 oraz Google
+Pixel 11 Pro. Aplikacja może działać także na innych zgodnych telefonach z
+Androidem 12 lub nowszym.
+
 ## Funkcje
 
 - automatyczne przełączanie: przy uchu — słuchawka, po odsunięciu — głośnik;
