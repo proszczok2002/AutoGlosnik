@@ -70,4 +70,9 @@ mogą być instalowane jako aktualizacje.
 - Wersja 1.02 została opublikowana jako najnowsze stabilne wydanie:
   <https://github.com/proszczok2002/AutoGlosnik-Releases/releases/tag/v1.02>.
 - Publiczny `update.json` wskazuje wersję 1.02 i jej zweryfikowany zasób APK.
+- Publiczne repozytorium ma nowy opis, tematy, stronę główną README z logo,
+  odnośnikami pobierania, instrukcją, sumami kontrolnymi i ujawnieniem usługi
+  dostępności.
+- GitHub rozpoznaje szablon zgłoszenia błędu oraz linki wsparcia Revolut/PayPal;
+  prywatne zgłaszanie podatności jest włączone.
 - Przetestować pełny przepływ instalacji 1.01 → 1.02 na urządzeniu.
