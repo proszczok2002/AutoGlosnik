@@ -90,6 +90,21 @@ Data aktualizacji: 2026-10-24
 Kontrole kodu i build nie są tym samym co ręczny test TalkBacka lub rozmowy na
 urządzeniu. Takie testy należy opisywać osobno w Issue albo Pull Requeście.
 
+## Otwarte automatyczne Pull Requesty
+
+Dependabot utworzył po publikacji dwa Pull Requesty. Nie zostały scalone:
+
+- [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1) aktualizuje
+  Gradle Wrapper z 9.4.1 do 9.8.2; workflow zakończył się powodzeniem;
+- [PR #2](https://github.com/proszczok2002/AutoGlosnik/pull/2) aktualizuje
+  Android Gradle Plugin z 9.2.0 do 9.4.1; workflow nie przeszedł, ponieważ ten
+  plugin wymaga Gradle co najmniej 9.6.0, a gałąź PR #2 nadal ma Gradle 9.4.1.
+
+PR #2 nie powinien być scalany samodzielnie. Aktualizacje narzędzi należy
+sprawdzić razem na jednej gałęzi albo najpierw bezpiecznie rozstrzygnąć PR #1.
+Nie zmienia to działającego kodu na gałęzi `main`; jej ostatni wykonany workflow
+zakończył się powodzeniem.
+
 ## Urządzenia zgłoszone jako przetestowane
 
 Wersja 1.02 została przetestowana na:
