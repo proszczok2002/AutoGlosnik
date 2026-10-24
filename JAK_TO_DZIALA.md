@@ -14,12 +14,15 @@
 
 ## Architektura aktualizatora
 
-Updater rozdziela kod źródłowy od publicznej dystrybucji:
+Głównym repozytorium projektu jest publiczne
+`proszczok2002/AutoGlosnik`. Zawiera kod źródłowy, dokumentację, Issues, Pull
+Requesty i kopię najnowszego oficjalnego APK.
 
-- prywatne repozytorium `proszczok2002/AutoGlosnik` zawiera źródła;
-- publiczne `proszczok2002/AutoGlosnik-Releases` zawiera dokumentację, manifest
-  `update.json` i binarne zasoby GitHub Releases;
-- aplikacja pobiera tylko publiczny manifest i wskazany przez niego APK.
+Wersja 1.02 ma zapisany adres publicznego repozytorium
+`proszczok2002/AutoGlosnik-Releases`, z którego pobiera manifest `update.json`
+i wskazany przez niego APK. Repozytorium to jest utrzymywane jako kanał
+zgodności dla istniejących instalacji. Nie zawiera sekretów ani nie daje
+aplikacji dostępu do konta GitHub.
 
 APK przechodzi dwie weryfikacje: po pobraniu oraz bezpośrednio przed utworzeniem
 sesji instalacji. Sprawdzane są SHA-256, pakiet `pl.bumbox.autospeaker`, rosnący
@@ -35,14 +38,15 @@ Wymagane są JDK 17 i Android SDK 36. W tym katalogu SDK wskazuje
 
 ```powershell
 .\gradlew.bat assembleDebug
-.\gradlew.bat lintRelease
-.\gradlew.bat assembleRelease
+.\gradlew.bat lintDebug
+.\gradlew.bat testDebugUnitTest
 ```
 
 Wyniki:
 
 - debug: `app/build/outputs/apk/debug/app-debug.apk`;
-- release: `app/build/outputs/apk/release/app-release.apk`.
+- release: `app/build/outputs/apk/release/app-release.apk` — tylko po lokalnym
+  skonfigurowaniu oficjalnego podpisu przez właściciela projektu.
 
 Podpis wydawniczy jest ładowany wyłącznie z ignorowanego katalogu `.signing`.
 Nie wolno dodawać klucza, pliku właściwości ani haseł do Gita. Utrata klucza
@@ -68,5 +72,6 @@ podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 - `PRIVACY.md` — polityka prywatności i uprawnienia;
 - `CHANGELOG.md` — historia wydań;
 - `STAN_PRAC.md` — aktualny stan techniczny oraz wyniki weryfikacji;
-- `hasiok/` — odzyskiwalne archiwum starych artefaktów i lokalna kopia repo
-  dystrybucyjnego; nie jest częścią prywatnego repozytorium źródłowego.
+- `CONTRIBUTING.md` — budowanie, standard zmian i proces Pull Requestów;
+- `SECURITY.md` — prywatne zgłaszanie podatności i weryfikacja APK;
+- `hasiok/` — odzyskiwalne lokalne archiwum; katalog jest ignorowany przez Git.

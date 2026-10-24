@@ -1,6 +1,6 @@
 # Polityka prywatności — AutoGłośnik
 
-Ostatnia aktualizacja: 2026-10-19
+Ostatnia aktualizacja: 2026-10-24
 
 ## W skrócie
 
@@ -50,17 +50,17 @@ wersji i zgodność podpisu cyfrowego z zainstalowaną aplikacją.
 
 ## Kontakt i zmiany
 
-Pytania oraz zgłoszenia można przekazywać przez publiczne repozytorium wydań:
-<https://github.com/proszczok2002/AutoGlosnik-Releases>.
+Pytania oraz zgłoszenia można przekazywać przez publiczne repozytorium projektu:
+<https://github.com/proszczok2002/AutoGlosnik>.
 
-Istotne zmiany tej polityki będą publikowane w repozytorium wydań oraz w
+Istotne zmiany tej polityki będą publikowane w repozytorium projektu oraz w
 informacjach o nowej wersji.
 
 ---
 
 # Privacy Policy — AutoSpeaker
 
-Last updated: 2026-10-19
+Last updated: 2026-10-24
 
 AutoSpeaker does not create accounts, show ads, use analytics, record calls,
 read phone numbers or retain screen content. Its accessibility service is used
@@ -77,4 +77,4 @@ package identity, increasing version code and the APK signing certificate.
 Android presents the final installation confirmation.
 
 Questions can be submitted at
-<https://github.com/proszczok2002/AutoGlosnik-Releases>.
+<https://github.com/proszczok2002/AutoGlosnik>.

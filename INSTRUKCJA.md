@@ -27,7 +27,7 @@ polski, angielski, niemiecki i rosyjski.
 ## 3. Pierwsza instalacja
 
 1. Otwórz oficjalne wydania:
-   <https://github.com/proszczok2002/AutoGlosnik-Releases/releases>.
+   <https://github.com/proszczok2002/AutoGlosnik/releases/latest>.
 2. Pobierz najnowszy plik `AutoGlosnik-v*.apk`.
 3. Otwórz pobrany plik i zatwierdź instalację w systemie Android.
 4. Jeśli Android poprosi o zgodę „Instaluj nieznane aplikacje”, zezwól tylko
@@ -74,8 +74,11 @@ Na dole ekranu są dwie zakładki:
 
 ## 6. Aktualizacje z GitHuba
 
-Aplikacja sprawdza publiczny manifest w oficjalnym repozytorium wydań. Nie ma
-dostępu do prywatnego repozytorium z kodem.
+Aplikacja sprawdza publiczny manifest w repozytorium zgodności
+`proszczok2002/AutoGlosnik-Releases`. Kod źródłowy, najnowsze APK, zgłoszenia
+i Pull Requesty znajdują się w głównym publicznym repozytorium
+`proszczok2002/AutoGlosnik`. Rozdzielenie pozostaje zachowane, aby aktualizator
+już zainstalowanej wersji 1.02 nadal działał.
 
 Przebieg aktualizacji:
 
@@ -102,14 +105,16 @@ jest zmodyfikowany, ale ostrzeżenia nie należy ignorować w ciemno.
 
 Przed instalacją sprawdź, czy:
 
-- plik pochodzi z oficjalnego repozytorium `proszczok2002/AutoGlosnik-Releases`;
+- plik pochodzi z oficjalnego wydania
+  `github.com/proszczok2002/AutoGlosnik/releases` albo z kanału zgodności
+  `github.com/proszczok2002/AutoGlosnik-Releases/releases`;
 - suma SHA-256 jest taka sama jak w opisie wydania;
 - SHA-256 certyfikatu podpisu wynosi
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
 
 Nie wyłączaj Play Protect na stałe. Jeżeli system blokuje instalację albo nazwa
 źródła, suma lub podpis się nie zgadzają, przerwij instalację i zgłoś problem w
-repozytorium wydań.
+głównym repozytorium projektu.
 
 ## 8. Najczęstsze problemy
 
@@ -153,3 +158,6 @@ ekranu. Szczegóły: [PRIVACY.md](PRIVACY.md).
 - PayPal: <https://paypal.me/proszczok>
 
 Wsparcie jest dobrowolne i nie odblokowuje żadnych funkcji.
+
+Kod źródłowy, zgłoszenia błędów i propozycje zmian:
+<https://github.com/proszczok2002/AutoGlosnik>.

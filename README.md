@@ -1,101 +1,182 @@
 # AutoGłośnik
 
-AutoGłośnik automatycznie przełącza dźwięk zwykłej rozmowy telefonicznej między
-słuchawką a głośnikiem na podstawie czujnika zbliżeniowego. Obsługuje Telefon
-Google/AOSP i Telefon Samsung. Nie zastępuje dialera i nie nagrywa rozmów.
+<p align="center">
+  <img src="assets/autoglosnik-icon.svg" width="128" height="128" alt="Logo AutoGłośnika">
+</p>
 
-Wersja 1.02 była testowana na POCO F8 Ultra, Samsung Galaxy S25, Samsung Galaxy
-S26 Ultra, Samsung Galaxy S23, Samsung Galaxy S21, Google Pixel 10 oraz Google
-Pixel 11 Pro. Aplikacja może działać także na innych zgodnych telefonach z
-Androidem 12 lub nowszym.
+<p align="center">
+  <a href="https://github.com/proszczok2002/AutoGlosnik/releases/latest"><img alt="Najnowsze wydanie" src="https://img.shields.io/github/v/release/proszczok2002/AutoGlosnik?display_name=release&label=wersja"></a>
+  <a href="https://github.com/proszczok2002/AutoGlosnik/actions/workflows/android.yml"><img alt="Android CI" src="https://github.com/proszczok2002/AutoGlosnik/actions/workflows/android.yml/badge.svg"></a>
+  <img alt="Android 12+" src="https://img.shields.io/badge/Android-12%2B-3DDC84?logo=android&logoColor=white">
+  <a href="LICENSE"><img alt="Licencja Apache 2.0" src="https://img.shields.io/badge/licencja-Apache%202.0-blue"></a>
+</p>
 
-## Funkcje
+<p align="center">
+  <strong>Automatyczne przełączanie rozmowy między słuchawką i głośnikiem.</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/proszczok2002/AutoGlosnik/releases/latest"><strong>Pobierz najnowsze APK</strong></a>
+  ·
+  <a href="INSTRUKCJA.md">Instrukcja</a>
+  ·
+  <a href="https://github.com/proszczok2002/AutoGlosnik/issues">Zgłoś problem lub pomysł</a>
+</p>
+
+AutoGłośnik przełącza dźwięk zwykłej rozmowy telefonicznej na podstawie czujnika
+zbliżeniowego: przy uchu pozostawia słuchawkę, a po odsunięciu telefonu włącza
+głośnik. Obsługuje Telefon Google/AOSP i Telefon Samsung. Nie zastępuje dialera,
+nie nagrywa rozmów i nie odczytuje ich treści.
+
+Kod źródłowy, dokumentacja i oficjalne APK są publiczne w tym repozytorium.
+Możesz zgłosić błąd, zaproponować zmianę, utworzyć fork i wysłać Pull Request.
+
+## Najważniejsze funkcje
 
 - automatyczne przełączanie: przy uchu — słuchawka, po odsunięciu — głośnik;
-- zgodność z TalkBackiem i czytnikami ekranu;
 - pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
 - interfejs po polsku, angielsku, niemiecku i rosyjsku;
-- zakładki `Strona główna` i `Wsparcie`;
-- dobrowolne wsparcie przez Revolut lub PayPal;
-- aktualizacje z publicznego repozytorium wydań GitHub;
-- kontrola HTTPS, SHA-256, nazwy pakietu, rosnącego `versionCode` i podpisu APK
-  przed uruchomieniem instalatora Androida;
-- bezpośrednie przekazanie zweryfikowanego APK do systemowego `PackageInstaller`,
-  bez wybierania zewnętrznego instalatora APK.
+- zakładki **Strona główna** i **Wsparcie**;
+- zgodność interfejsu z TalkBackiem i czytnikami ekranu;
+- aktualizacje z GitHuba, zatwierdzane przez użytkownika;
+- weryfikacja HTTPS, SHA-256, pakietu, rosnącego `versionCode` i podpisu APK;
+- instalacja przez systemowy `PackageInstaller`, bez przekazywania pliku do
+  zewnętrznego instalatora APK;
+- brak reklam, kont i analityki.
 
-Pełna instrukcja instalacji, konfiguracji, testu i aktualizacji znajduje się w
-[INSTRUKCJA.md](INSTRUKCJA.md). Opis techniczny projektu jest w
-[JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
+## Zgodność
 
-## Ważne ujawnienie usługi dostępności
+Wymagany jest Android 12 lub nowszy, czujnik zbliżeniowy oraz Telefon
+Google/AOSP albo Telefon Samsung.
 
-AutoGłośnik używa ograniczonej usługi dostępności podczas trwającej rozmowy,
-aby znaleźć i aktywować istniejący przycisk głośnika w obsługiwanej aplikacji
-Telefon. Usługa jest ograniczona w konfiguracji do pakietów Telefonu Google,
-AOSP i Samsunga. Aplikacja nie zapisuje, nie przesyła i nie analizuje treści
-ekranu. Użytkownik sam włącza i może w każdej chwili wyłączyć usługę w
-ustawieniach Androida.
+Wersja 1.02 została przetestowana na:
 
-## Uprawnienia
+- POCO F8 Ultra;
+- Samsung Galaxy S25;
+- Samsung Galaxy S26 Ultra;
+- Samsung Galaxy S23;
+- Samsung Galaxy S21;
+- Google Pixel 10;
+- Google Pixel 11 Pro.
 
-- `READ_PHONE_STATE` — sprawdza, czy trwa rozmowa; nie odczytuje numerów ani
-  historii połączeń;
-- `MODIFY_AUDIO_SETTINGS` — wspomaga wybór trasy dźwięku rozmowy;
-- usługa dostępności — aktywuje przycisk głośnika wyłącznie w obsługiwanym
-  interfejsie rozmowy;
-- `INTERNET` — łączy się wyłącznie z GitHub w celu sprawdzania i pobierania
-  aktualizacji oraz po wybraniu zewnętrznego łącza wsparcia;
-- `REQUEST_INSTALL_PACKAGES` — pozwala otworzyć instalator wyłącznie po
-  świadomym wybraniu aktualizacji przez użytkownika. Nie ma cichej instalacji.
+Lista nie jest zamknięta — aplikacja może działać także na innych zgodnych
+telefonach. Rzeczywiste działanie zależy m.in. od wersji aplikacji Telefon,
+nakładki producenta i sposobu udostępnienia przycisku głośnika.
 
-Szczegóły opisuje [polityka prywatności](PRIVACY.md).
+## Instalacja
 
-## Budowanie
+1. Otwórz [najnowsze wydanie](https://github.com/proszczok2002/AutoGlosnik/releases/latest).
+2. Pobierz plik `AutoGlosnik-v*.apk`.
+3. Porównaj SHA-256 z wartością podaną w opisie wydania.
+4. Otwórz APK i potwierdź instalację w Androidzie.
+5. W aplikacji przyznaj uprawnienie Telefon i świadomie włącz usługę
+   dostępności AutoGłośnika.
 
-Projekt wymaga Android SDK 36 oraz JDK 17 lub nowszego. Lokalne SDK jest
-skonfigurowane w `.tools/android-sdk`.
+Pełna instrukcja instalacji, konfiguracji, testowania i aktualizacji znajduje
+się w [INSTRUKCJA.md](INSTRUKCJA.md).
 
-```powershell
-.\gradlew.bat assembleDebug
-.\gradlew.bat lintRelease
-.\gradlew.bat assembleRelease
+## Budowanie ze źródeł
+
+### Wymagania
+
+- JDK 17;
+- Android SDK 36;
+- system Windows, Linux lub macOS;
+- połączenie z internetem przy pierwszym pobraniu zależności Gradle.
+
+Sklonuj repozytorium:
+
+```bash
+git clone https://github.com/proszczok2002/AutoGlosnik.git
+cd AutoGlosnik
 ```
 
-APK debug powstaje w `app/build/outputs/apk/debug/app-debug.apk`, a podpisane
-APK wydawnicze w `app/build/outputs/apk/release/app-release.apk`.
+Na Windows:
 
-## Podpis wydawniczy
+```powershell
+.\gradlew.bat lintDebug testDebugUnitTest assembleDebug
+```
 
-Klucz i hasło są przechowywane lokalnie w ignorowanym katalogu `.signing` i
-nie mogą trafić do GitHuba. Utrata pliku `autoglosnik-release.p12` uniemożliwi
-publikowanie aktualizacji instalowanych na istniejącej wersji. Należy wykonać
-bezpieczną kopię zapasową całego katalogu `.signing` poza repozytorium.
+Na Linuxie lub macOS:
 
-Wersja 1.0 rozpoczyna nową linię podpisu wydawniczego. Dawna wersja 1.3.1 była
-podpisana kluczem debug, dlatego przed pierwszą instalacją 1.0 trzeba ją
-jednorazowo odinstalować. Aktualizacje 1.0 → 1.01 → 1.02 zachowują już wspólny,
-bezpieczny podpis.
+```bash
+./gradlew lintDebug testDebugUnitTest assembleDebug
+```
 
-## Dystrybucja i aktualizacje
+Gotowy wariant deweloperski znajduje się w
+`app/build/outputs/apk/debug/app-debug.apk`.
 
-- źródła: prywatne repozytorium `proszczok2002/AutoGlosnik`;
-- APK, dokumentacja i `update.json`: publiczne repozytorium
-  `proszczok2002/AutoGlosnik-Releases`;
-- manifest aktualizacji nie zawiera sekretów ani tokenów;
-- aplikacja nie uzyskuje dostępu do prywatnego repozytorium.
+Klucz wydawniczy i hasła nie są częścią repozytorium ani CI. Oficjalne wydania
+są podpisywane poza GitHub Actions, a Pull Requesty budują bezpieczny wariant
+debug. Nie dodawaj kluczy, plików `local.properties`, katalogów `build` ani
+plików APK do commita.
 
-Wbudowany updater jest przeznaczony dla dystrybucji bezpośredniej przez GitHub.
-Wersja przeznaczona do Google Play musiałaby korzystać z mechanizmu aktualizacji
-Google Play i nie może używać tego mechanizmu samodzielnej instalacji.
+## Współpraca i Pull Requesty
 
-Numeracja pierwszych wydań tej linii to `1.0` (`versionCode 105`), testowa
-aktualizacja `1.01` (`versionCode 106`) oraz poprawka instalatora `1.02`
-(`versionCode 107`). Android porównuje rosnący `versionCode`, natomiast
-`versionName` jest nazwą widoczną dla użytkownika.
+Szczegółowy proces opisuje [CONTRIBUTING.md](CONTRIBUTING.md). W skrócie:
+
+1. utwórz fork i osobną gałąź;
+2. wykonaj małą, opisaną zmianę;
+3. uzupełnij wszystkie cztery wersje językowe tekstów widocznych w aplikacji;
+4. uruchom lint, testy i build debug;
+5. opisz sposób weryfikacji i wyślij Pull Request do gałęzi `main`.
+
+Automatyczny workflow sprawdza każdy Pull Request. Błędy i pomysły zgłaszaj w
+[Issues](https://github.com/proszczok2002/AutoGlosnik/issues), a podatności
+zgodnie z [SECURITY.md](SECURITY.md).
+
+## Dostępność i prywatność
+
+Ograniczona usługa dostępności działa podczas rozmowy i wyszukuje istniejący
+przycisk głośnika wyłącznie w obsługiwanych aplikacjach Telefon. Treść ekranu
+nie jest zapisywana ani wysyłana. Użytkownik sam włącza usługę i może ją w
+każdej chwili wyłączyć.
+
+Uprawnienie `INTERNET` służy do sprawdzania i pobierania aktualizacji z GitHuba
+oraz otwierania wybranego przez użytkownika linku do polityki prywatności lub
+wsparcia. Szczegóły: [PRIVACY.md](PRIVACY.md).
+
+## Aktualizator i repozytorium zgodności
+
+To repozytorium jest głównym miejscem kodu, wydań APK, zgłoszeń i Pull
+Requestów. Wersja 1.02 nadal odczytuje manifest aktualizacji z publicznego
+repozytorium
+[`AutoGlosnik-Releases`](https://github.com/proszczok2002/AutoGlosnik-Releases).
+Repozytorium to pozostaje aktywne jako kanał zgodności dla już zainstalowanych
+wersji. Nie należy go usuwać ani zmieniać istniejących zasobów wydań.
+
+Opis architektury i procedury wydawniczej: [JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
+
+## Dokumentacja
+
+- [Instrukcja użytkownika](INSTRUKCJA.md)
+- [Opis techniczny i utrzymanie](JAK_TO_DZIALA.md)
+- [Historia zmian](CHANGELOG.md)
+- [Stan projektu i wyniki weryfikacji](STAN_PRAC.md)
+- [Polityka prywatności](PRIVACY.md)
+- [Zasady współpracy](CONTRIBUTING.md)
+- [Zasady bezpieczeństwa](SECURITY.md)
 
 ## Wsparcie
 
 - Revolut: <https://revolut.me/r_rosiejka>
 - PayPal: <https://paypal.me/proszczok>
 
-Wsparcie jest całkowicie dobrowolne i nie odblokowuje żadnych funkcji.
+Wsparcie jest całkowicie dobrowolne, nie odblokowuje funkcji i nie wpływa na
+możliwość korzystania z kodu na warunkach licencji.
+
+## Licencja
+
+Copyright 2026 proszczok2002.
+
+Projekt jest udostępniony na licencji [Apache License 2.0](LICENSE). Możesz go
+używać, modyfikować i rozpowszechniać zgodnie z jej warunkami. Zachowaj
+informacje o prawach autorskich, licencji oraz plik `NOTICE`.
+
+---
+
+**English summary:** AutoSpeaker is an open-source Android 12+ app that switches
+an active phone call between the earpiece and speaker using the proximity
+sensor. It supports Google/AOSP Phone and Samsung Phone, includes PL/EN/DE/RU
+locales, and accepts issues and Pull Requests. See the installation and build
+sections above or open an issue if you need help.
