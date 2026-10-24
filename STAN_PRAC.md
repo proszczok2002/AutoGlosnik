@@ -9,6 +9,9 @@ Data aktualizacji: 2026-10-24
 - Najnowszy artefakt: `AutoGlosnik-v1.02.apk`.
 - SHA-256 APK:
   `FE84A901AED68C34A7330B2DF9C5645F8D44547BAD4D66EF0946B4268344D5F4`.
+- Publiczny pakiet kodu: `AutoGlosnik-v1.02-source.zip`.
+- SHA-256 pakietu kodu:
+  `04246115E0BBCD62A60A76CF03568D87BC15351E2877080DE8E2632C555A23B4`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
 - Wydania 1.0 (`105`), 1.01 (`106`) i 1.02 (`107`) korzystają z tej
@@ -27,16 +30,25 @@ Data aktualizacji: 2026-10-24
   jest dostępny dla GitHub Actions.
 - Każdy push i Pull Request przechodzi workflow: `lintDebug`,
   `testDebugUnitTest` i `assembleDebug`.
+- Pierwszy publiczny workflow dla commita `08df323` zakończył się powodzeniem:
+  <https://github.com/proszczok2002/AutoGlosnik/actions/runs/40085173839>.
+- Commit `08df323` zawiera kompletną warstwę open source. Pakiet źródeł z
+  wydania powstał bezpośrednio z tego commita przez `git archive`.
 
 ## Dystrybucja i aktualizator
 
 - Oficjalne wydanie 1.02 jest dostępne w głównym repozytorium:
   <https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.02>.
+- Wydanie zawiera dwa samodzielnie pobieralne zasoby: podpisane APK oraz ZIP z
+  kodem, licencją Apache 2.0, dokumentacją, Gradle Wrapperem i plikami
+  współpracy.
 - Wersja 1.02 nadal pobiera `update.json` i wskazany APK z
   <https://github.com/proszczok2002/AutoGlosnik-Releases>.
 - Repozytorium `AutoGlosnik-Releases` pozostaje publicznym kanałem zgodności
   dla istniejących instalacji i nie może zostać usunięte.
 - Publiczny manifest wskazuje wersję 1.02 i zweryfikowany zasób APK.
+- Dokumentacja kanału zgodności została zaktualizowana w commicie `aebd3ba`,
+  aby prowadzić do głównego repozytorium kodu, Issues i Pull Requestów.
 - Opublikowanego APK nie wolno podmieniać pod istniejącym tagiem.
 
 ## Funkcje gotowe w 1.02
@@ -63,6 +75,14 @@ Data aktualizacji: 2026-10-24
   powodzeniem;
 - publiczny APK 1.02 został wcześniej pobrany ponownie i potwierdzono zgodność
   SHA-256, pakietu, `versionCode 107`, `versionName 1.02` i certyfikatu;
+- publiczny pakiet źródeł został pobrany ponownie; jego rozmiar to 110662 bajty,
+  hash jest zgodny, a archiwum zawiera `LICENSE`, `NOTICE`, `README.md`,
+  `CONTRIBUTING.md` i projekt aplikacji;
+- w publicznym pakiecie źródeł nie ma `.signing`, `local.properties`, kluczy,
+  plików APK ani innych lokalnych danych;
+- porównanie tagu `v1.02` z commitem pakietu źródeł nie wykazało zmian w
+  kodzie aplikacji ani konfiguracji jej wersji; nowszy commit dodaje
+  dokumentację, licencję i obsługę współpracy;
 - nie było podłączonego urządzenia ADB podczas ostatniej automatycznej
   weryfikacji, dlatego kliknięcie końcowego potwierdzenia instalacji pozostaje
   testem wykonywanym na fizycznym telefonie.
