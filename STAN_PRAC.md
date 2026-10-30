@@ -4,12 +4,16 @@ Data aktualizacji: 2026-10-30
 
 ## Aktualna wersja
 
-- Przygotowana wersja aplikacji: `1.03` (`versionCode 108`).
+- Opublikowana wersja aplikacji: `1.03` (`versionCode 108`).
 - Pakiet: `pl.bumbox.autospeaker`.
 - Artefakt lokalny: `AutoGlosnik-v1.03.apk`.
 - Rozmiar APK: 2181618 bajtów.
 - SHA-256 APK:
   `6F532F3B6BFFA4D88C2C43581075E7063D7A5305CF3FE261A62AFD9D46E7B0E5`.
+- Publiczny pakiet kodu: `AutoGlosnik-v1.03-source.zip`.
+- Rozmiar pakietu kodu: 111722 bajty.
+- SHA-256 pakietu kodu:
+  `5B450B0B85F1E4BECCDEB002541B42BCA142EE7897AD942E45954BE38FDC5749`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
 - APK 1.02 przeniesiono lokalnie do
@@ -32,17 +36,20 @@ Kontrole HTTPS, SHA-256, pakietu, rosnącego `versionCode` i certyfikatu oraz
 instalacja przez systemowy `PackageInstaller` nie zostały osłabione. Android
 nadal wymaga świadomego potwierdzenia pobrania i instalacji.
 
-## Plan zgodnej publikacji
+## Zrealizowana publikacja
 
-1. Podpisane APK 1.03 trafia do głównego
-   `proszczok2002/AutoGlosnik`.
-2. To samo binarnie identyczne APK trafia również do
-   `proszczok2002/AutoGlosnik-Releases`.
+1. Podpisane APK 1.03 opublikowano w głównym
+   [`proszczok2002/AutoGlosnik`](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.03).
+2. To samo binarnie identyczne APK opublikowano również w
+   [`proszczok2002/AutoGlosnik-Releases`](https://github.com/proszczok2002/AutoGlosnik-Releases/releases/tag/v1.03).
 3. Główny `update.json` wskazuje zasób w głównym repozytorium.
 4. Stary `update.json` wskazuje zasób 1.03 w starym repozytorium, ponieważ
    wersja 1.02 ufa wyłącznie temu adresowi.
 5. Po instalacji 1.03 urządzenie pobiera następne aktualizacje już z głównego
    repozytorium.
+
+Kod wersji 1.03 i główny manifest zapisano w commicie `9950d7b` i tagu
+`v1.03`. Stary manifest migracyjny zapisano w commicie `95ff1dc`.
 
 `AutoGlosnik-Releases` nie może zostać usunięte natychmiast po publikacji.
 Urządzenia pozostające na 1.02 potrzebują go do znalezienia wersji migracyjnej.
@@ -64,6 +71,14 @@ aktualizacji.
 - `versionCode 108`, `versionName 1.03`;
 - `minSdk 31`, `targetSdk 36`, `compileSdk 36`;
 - certyfikat jest identyczny z wersjami 1.0–1.02;
+- publiczne APK pobrane z obu repozytoriów mają identyczny rozmiar i SHA-256;
+- publiczne APK ma pakiet `pl.bumbox.autospeaker`, `versionCode 108`,
+  `versionName 1.03` oraz właściwy certyfikat;
+- publiczny pakiet źródeł został pobrany ponownie i ma zgodny hash;
+- publiczny pakiet źródeł nie zawiera `.signing`, `local.properties`, APK ani
+  plików kluczy;
+- Android CI dla commita wydania zakończył się powodzeniem:
+  <https://github.com/proszczok2002/AutoGlosnik/actions/runs/41132243042>;
 - podczas weryfikacji nie było podłączonego urządzenia ADB.
 
 Kontrole kodu i pliku APK nie zastępują fizycznego testu rozmowy, TalkBacka ani
