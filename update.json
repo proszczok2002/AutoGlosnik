@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "versionCode": 108,
+  "versionName": "1.03",
+  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.03/AutoGlosnik-v1.03.apk",
+  "sha256": "6f532f3b6bffa4d88c2c43581075e7063d7a5305cf3fe261a62afd9d46e7b0e5",
+  "notes": {
+    "pl": "Przeniesiono aktualizacje i politykę prywatności do głównego repozytorium AutoGlosnik. Zachowano bezpieczną weryfikację i systemowy instalator Androida.",
+    "en": "Updates and the privacy policy were moved to the main AutoGlosnik repository. Secure verification and the Android system installer remain unchanged.",
+    "de": "Updates und die Datenschutzrichtlinie wurden in das Haupt-Repository AutoGlosnik verschoben. Sichere Prüfung und das Android-Systeminstallationsprogramm bleiben unverändert.",
+    "ru": "Обновления и политика конфиденциальности перенесены в основной репозиторий AutoGlosnik. Безопасная проверка и системный установщик Android сохранены."
+  }
+}

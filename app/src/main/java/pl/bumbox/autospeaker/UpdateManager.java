@@ -42,8 +42,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 final class UpdateManager {
-    private static final String MANIFEST_URL = "https://raw.githubusercontent.com/proszczok2002/AutoGlosnik-Releases/main/update.json";
-    private static final String TRUSTED_APK_PREFIX = "/proszczok2002/AutoGlosnik-Releases/releases/download/";
+    private static final String MANIFEST_URL = "https://raw.githubusercontent.com/proszczok2002/AutoGlosnik/main/update.json";
+    private static final String TRUSTED_APK_PREFIX = "/proszczok2002/AutoGlosnik/releases/download/";
     private static final String MIME_APK = "application/vnd.android.package-archive";
     static final String ACTION_INSTALL_STATUS = "pl.bumbox.autospeaker.INSTALL_STATUS";
     private static final String PREF_DOWNLOAD_ID = "update_download_id";

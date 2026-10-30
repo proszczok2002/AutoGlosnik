@@ -1,5 +1,17 @@
 # Historia zmian
 
+## 1.03 — migracja aktualizatora do głównego repozytorium
+
+- Zwiększono `versionCode` z 107 do 108.
+- Manifest przyszłych aktualizacji jest pobierany z publicznego repozytorium
+  `proszczok2002/AutoGlosnik`.
+- Aktualizator ufa wyłącznie zasobom Releases głównego repozytorium.
+- Link polityki prywatności prowadzi do głównego repozytorium.
+- Zachowano kontrole HTTPS, SHA-256, pakietu, rosnącego numeru wersji i podpisu.
+- Zachowano systemowy `PackageInstaller` oraz wymagane potwierdzenie użytkownika.
+- Wersja 1.03 jest publikowana także w starym kanale zgodności, aby zainstalowana
+  wersja 1.02 mogła bezpiecznie przejść do nowego kanału.
+
 ## 1.02 — systemowy instalator aktualizacji
 
 - Usunięto ogólny mechanizm `ACTION_VIEW`, który mógł uruchamiać Uptodown App

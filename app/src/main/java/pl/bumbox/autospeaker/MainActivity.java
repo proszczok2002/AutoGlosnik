@@ -38,7 +38,7 @@ public final class MainActivity extends Activity {
     private static final String REVOLUT_URL = "https://revolut.me/r_rosiejka";
     private static final String PAYPAL_URL = "https://paypal.me/proszczok";
     private static final String PRIVACY_URL =
-            "https://github.com/proszczok2002/AutoGlosnik-Releases/blob/main/PRIVACY.md";
+            "https://github.com/proszczok2002/AutoGlosnik/blob/main/PRIVACY.md";
 
     private FrameLayout content;
     private Button homeTab;

@@ -1,6 +1,6 @@
 # Polityka prywatności — AutoGłośnik
 
-Ostatnia aktualizacja: 2026-10-24
+Ostatnia aktualizacja: 2026-10-30
 
 ## W skrócie
 
@@ -60,7 +60,7 @@ informacjach o nowej wersji.
 
 # Privacy Policy — AutoSpeaker
 
-Last updated: 2026-10-24
+Last updated: 2026-10-30
 
 AutoSpeaker does not create accounts, show ads, use analytics, record calls,
 read phone numbers or retain screen content. Its accessibility service is used

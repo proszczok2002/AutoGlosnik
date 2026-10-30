@@ -1,113 +1,96 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-10-24
+Data aktualizacji: 2026-10-30
 
 ## Aktualna wersja
 
-- Wersja aplikacji: `1.02` (`versionCode 107`).
+- Przygotowana wersja aplikacji: `1.03` (`versionCode 108`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Najnowszy artefakt: `AutoGlosnik-v1.02.apk`.
+- Artefakt lokalny: `AutoGlosnik-v1.03.apk`.
+- Rozmiar APK: 2181618 bajtów.
 - SHA-256 APK:
-  `FE84A901AED68C34A7330B2DF9C5645F8D44547BAD4D66EF0946B4268344D5F4`.
-- Publiczny pakiet kodu: `AutoGlosnik-v1.02-source.zip`.
-- SHA-256 pakietu kodu:
-  `04246115E0BBCD62A60A76CF03568D87BC15351E2877080DE8E2632C555A23B4`.
+  `6F532F3B6BFFA4D88C2C43581075E7063D7A5305CF3FE261A62AFD9D46E7B0E5`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- Wydania 1.0 (`105`), 1.01 (`106`) i 1.02 (`107`) korzystają z tej
-  samej linii podpisu wydawniczego.
+- APK 1.02 przeniesiono lokalnie do
+  `hasiok/release-artifacts/AutoGlosnik-v1.02.apk`; w katalogu głównym pozostaje
+  tylko najnowsze APK.
 
-## Repozytorium i licencja
+## Cel wersji 1.03
 
-- Główne publiczne repozytorium:
-  <https://github.com/proszczok2002/AutoGlosnik>.
-- Repozytorium zawiera kod źródłowy, dokumentację, Issues, Pull Requesty oraz
-  kopię najnowszego oficjalnego APK w GitHub Releases.
-- Projekt jest udostępniony na licencji Apache License 2.0.
-- Historia Gita została sprawdzona przed publikacją: nie zawiera klucza
-  podpisu, pliku właściwości podpisu, haseł, tokenów ani plików APK.
-- Klucz wydawniczy pozostaje lokalnie w ignorowanym katalogu `.signing` i nie
-  jest dostępny dla GitHub Actions.
-- Każdy push i Pull Request przechodzi workflow: `lintDebug`,
-  `testDebugUnitTest` i `assembleDebug`.
-- Pierwszy publiczny workflow dla commita `08df323` zakończył się powodzeniem:
-  <https://github.com/proszczok2002/AutoGlosnik/actions/runs/40085173839>.
-- Commit `08df323` zawiera kompletną warstwę open source. Pakiet źródeł z
-  wydania powstał bezpośrednio z tego commita przez `git archive`.
+Wersja 1.03 jest wydaniem migracyjnym pozwalającym zakończyć podział projektu na
+dwa aktywne repozytoria:
 
-## Dystrybucja i aktualizator
+- manifest przyszłych aktualizacji:
+  `https://raw.githubusercontent.com/proszczok2002/AutoGlosnik/main/update.json`;
+- dozwolone APK:
+  `/proszczok2002/AutoGlosnik/releases/download/`;
+- polityka prywatności:
+  `https://github.com/proszczok2002/AutoGlosnik/blob/main/PRIVACY.md`.
 
-- Oficjalne wydanie 1.02 jest dostępne w głównym repozytorium:
-  <https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.02>.
-- Wydanie zawiera dwa samodzielnie pobieralne zasoby: podpisane APK oraz ZIP z
-  kodem, licencją Apache 2.0, dokumentacją, Gradle Wrapperem i plikami
-  współpracy.
-- Wersja 1.02 nadal pobiera `update.json` i wskazany APK z
-  <https://github.com/proszczok2002/AutoGlosnik-Releases>.
-- Repozytorium `AutoGlosnik-Releases` pozostaje publicznym kanałem zgodności
-  dla istniejących instalacji i nie może zostać usunięte.
-- Publiczny manifest wskazuje wersję 1.02 i zweryfikowany zasób APK.
-- Dokumentacja kanału zgodności została zaktualizowana w commicie `aebd3ba`,
-  aby prowadzić do głównego repozytorium kodu, Issues i Pull Requestów.
-- Opublikowanego APK nie wolno podmieniać pod istniejącym tagiem.
+Kontrole HTTPS, SHA-256, pakietu, rosnącego `versionCode` i certyfikatu oraz
+instalacja przez systemowy `PackageInstaller` nie zostały osłabione. Android
+nadal wymaga świadomego potwierdzenia pobrania i instalacji.
 
-## Funkcje gotowe w 1.02
+## Plan zgodnej publikacji
 
-- automatyczne przełączanie rozmowy na podstawie czujnika zbliżeniowego;
-- obsługa Telefonu Google/AOSP i Telefonu Samsung;
-- pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
-- interfejs PL, EN, DE i RU;
-- dolne zakładki **Strona główna** i **Wsparcie**;
-- dobrowolne wsparcie przez Revolut i PayPal;
-- kontrola HTTPS, SHA-256, pakietu, rosnącego `versionCode` i podpisu APK;
-- bezpośrednia instalacja przez systemową sesję `PackageInstaller`, bez
-  przekazywania pliku do Uptodown ani innego zewnętrznego instalatora;
-- dokumentacja użytkownika, prywatności, architektury, bezpieczeństwa i
-  współpracy.
+1. Podpisane APK 1.03 trafia do głównego
+   `proszczok2002/AutoGlosnik`.
+2. To samo binarnie identyczne APK trafia również do
+   `proszczok2002/AutoGlosnik-Releases`.
+3. Główny `update.json` wskazuje zasób w głównym repozytorium.
+4. Stary `update.json` wskazuje zasób 1.03 w starym repozytorium, ponieważ
+   wersja 1.02 ufa wyłącznie temu adresowi.
+5. Po instalacji 1.03 urządzenie pobiera następne aktualizacje już z głównego
+   repozytorium.
 
-## Weryfikacja
+`AutoGlosnik-Releases` nie może zostać usunięte natychmiast po publikacji.
+Urządzenia pozostające na 1.02 potrzebują go do znalezienia wersji migracyjnej.
+Po fizycznym teście 1.02 → 1.03 i okresie przejściowym repozytorium można
+oznaczyć jako archiwalne. Usunięcie pozostawiłoby niemigrowane instalacje bez
+aktualizacji.
 
-- lokalne `lintDebug`: zakończone powodzeniem 2026-10-24;
-- lokalne `testDebugUnitTest`: zakończone powodzeniem; projekt nie zawiera
-  obecnie testów jednostkowych, więc zadanie miało stan `NO-SOURCE`;
-- lokalne `assembleDebug`: zakończone powodzeniem 2026-10-24;
-- wcześniejsze `lintRelease` i `assembleRelease` dla 1.02: zakończone
-  powodzeniem;
-- publiczny APK 1.02 został wcześniej pobrany ponownie i potwierdzono zgodność
-  SHA-256, pakietu, `versionCode 107`, `versionName 1.02` i certyfikatu;
-- publiczny pakiet źródeł został pobrany ponownie; jego rozmiar to 110662 bajty,
-  hash jest zgodny, a archiwum zawiera `LICENSE`, `NOTICE`, `README.md`,
-  `CONTRIBUTING.md` i projekt aplikacji;
-- w publicznym pakiecie źródeł nie ma `.signing`, `local.properties`, kluczy,
-  plików APK ani innych lokalnych danych;
-- porównanie tagu `v1.02` z commitem pakietu źródeł nie wykazało zmian w
-  kodzie aplikacji ani konfiguracji jej wersji; nowszy commit dodaje
-  dokumentację, licencję i obsługę współpracy;
-- nie było podłączonego urządzenia ADB podczas ostatniej automatycznej
-  weryfikacji, dlatego kliknięcie końcowego potwierdzenia instalacji pozostaje
-  testem wykonywanym na fizycznym telefonie.
+## Weryfikacja lokalna 1.03
 
-Kontrole kodu i build nie są tym samym co ręczny test TalkBacka lub rozmowy na
-urządzeniu. Takie testy należy opisywać osobno w Issue albo Pull Requeście.
+- `clean`: powodzenie;
+- `lintDebug`: powodzenie;
+- `testDebugUnitTest`: powodzenie, ale projekt nie ma jeszcze testów
+  jednostkowych, więc zadanie ma stan `NO-SOURCE`;
+- `assembleDebug`: powodzenie;
+- `lintRelease`: powodzenie;
+- `assembleRelease`: powodzenie;
+- weryfikacja APK Signature Scheme v2: powodzenie;
+- pakiet: `pl.bumbox.autospeaker`;
+- `versionCode 108`, `versionName 1.03`;
+- `minSdk 31`, `targetSdk 36`, `compileSdk 36`;
+- certyfikat jest identyczny z wersjami 1.0–1.02;
+- podczas weryfikacji nie było podłączonego urządzenia ADB.
+
+Kontrole kodu i pliku APK nie zastępują fizycznego testu rozmowy, TalkBacka ani
+potwierdzenia instalacji Androida. Test migracji 1.02 → 1.03 na telefonie
+pozostaje wymagany przed wyłączeniem starego kanału.
+
+## Repozytorium główne
+
+<https://github.com/proszczok2002/AutoGlosnik>
+
+Repozytorium jest publiczne na licencji Apache 2.0 i zawiera kod, dokumentację,
+Issues, Pull Requesty, zasady bezpieczeństwa, Dependabot i Android CI. Klucz
+wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
+`.signing`.
 
 ## Otwarte automatyczne Pull Requesty
 
-Dependabot utworzył po publikacji dwa Pull Requesty. Nie zostały scalone:
+- [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1) proponuje Gradle
+  Wrapper 9.8.2 i ma poprawny workflow.
+- [PR #2](https://github.com/proszczok2002/AutoGlosnik/pull/2) proponuje Android
+  Gradle Plugin 9.4.1 i samodzielnie nie przechodzi, ponieważ wymaga Gradle co
+  najmniej 9.6.0.
 
-- [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1) aktualizuje
-  Gradle Wrapper z 9.4.1 do 9.8.2; workflow zakończył się powodzeniem;
-- [PR #2](https://github.com/proszczok2002/AutoGlosnik/pull/2) aktualizuje
-  Android Gradle Plugin z 9.2.0 do 9.4.1; workflow nie przeszedł, ponieważ ten
-  plugin wymaga Gradle co najmniej 9.6.0, a gałąź PR #2 nadal ma Gradle 9.4.1.
+Żaden z tych PR-ów nie jest częścią wydania 1.03. Narzędzia pozostają w
+zweryfikowanej konfiguracji Gradle 9.4.1 i Android Gradle Plugin 9.2.0.
 
-PR #2 nie powinien być scalany samodzielnie. Aktualizacje narzędzi należy
-sprawdzić razem na jednej gałęzi albo najpierw bezpiecznie rozstrzygnąć PR #1.
-Nie zmienia to działającego kodu na gałęzi `main`; jej ostatni wykonany workflow
-zakończył się powodzeniem.
-
-## Urządzenia zgłoszone jako przetestowane
-
-Wersja 1.02 została przetestowana na:
+## Urządzenia bazowo przetestowane dla linii 1.02
 
 - POCO F8 Ultra;
 - Samsung Galaxy S25;
@@ -117,15 +100,5 @@ Wersja 1.02 została przetestowana na:
 - Google Pixel 10;
 - Google Pixel 11 Pro.
 
-Lista nie jest ograniczeniem zgodności. Aplikacja może działać także na innych
-telefonach z Androidem 12 lub nowszym, czujnikiem zbliżeniowym i obsługiwaną
-aplikacją Telefon.
-
-## Następne wydanie
-
-Zmiany funkcjonalne wymagają nowego, rosnącego `versionCode`, osobnego tagu,
-podpisanego APK oraz aktualizacji manifestu. Przed wskazaniem nowej wersji w
-`update.json` trzeba pobrać publiczny zasób i ponownie sprawdzić hash, pakiet,
-wersję i certyfikat. Migrację adresu aktualizatora do głównego repozytorium
-należy wykonać dopiero w nowej wersji, zachowując działanie już zainstalowanej
-1.02.
+Lista pochodzi z wcześniejszych testów 1.02 i nie jest twierdzeniem, że 1.03
+została ponownie sprawdzona na wszystkich tych telefonach.

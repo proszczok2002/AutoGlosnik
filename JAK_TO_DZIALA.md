@@ -18,15 +18,15 @@ Głównym repozytorium projektu jest publiczne
 `proszczok2002/AutoGlosnik`. Zawiera kod źródłowy, dokumentację, Issues, Pull
 Requesty i kopię najnowszego oficjalnego APK.
 
-Wersja 1.02 ma zapisany adres publicznego repozytorium
-`proszczok2002/AutoGlosnik-Releases`, z którego pobiera manifest `update.json`
-i wskazany przez niego APK. Repozytorium to jest utrzymywane jako kanał
-zgodności dla istniejących instalacji. Nie zawiera sekretów ani nie daje
-aplikacji dostępu do konta GitHub.
+Wersja 1.03 pobiera manifest `update.json` i APK z głównego repozytorium
+`proszczok2002/AutoGlosnik`. Wersja 1.02 ma jeszcze zapisany adres
+`proszczok2002/AutoGlosnik-Releases`. Dlatego podpisane wydanie 1.03 trafia do
+obu repozytoriów: stary kanał dostarcza jednorazową migrację urządzeniom z 1.02,
+a po instalacji 1.03 kolejne aktualizacje są obsługiwane przez główne repo.
 
 APK przechodzi dwie weryfikacje: po pobraniu oraz bezpośrednio przed utworzeniem
 sesji instalacji. Sprawdzane są SHA-256, pakiet `pl.bumbox.autospeaker`, rosnący
-`versionCode` i zgodność certyfikatu podpisu. Wersja 1.02 przekazuje bajty APK
+`versionCode` i zgodność certyfikatu podpisu. Wersja 1.02 i nowsze przekazują bajty APK
 bezpośrednio do systemowej sesji `PackageInstaller`; ogólny `ACTION_VIEW` nie
 jest używany, więc zewnętrzny instalator APK nie przejmuje tego etapu. Android
 nadal zawsze wymaga decyzji użytkownika.
@@ -62,7 +62,7 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - po publikacji trzeba ponownie pobrać publiczny APK i porównać SHA-256, pakiet,
   wersję oraz certyfikat z artefaktem lokalnym.
 
-Wydania 1.0 (`105`), 1.01 (`106`) i 1.02 (`107`) należą do jednej linii
+Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`) i 1.03 (`108`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 
 ## Pliki stanu

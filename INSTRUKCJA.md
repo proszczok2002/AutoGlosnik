@@ -39,7 +39,7 @@ polski, angielski, niemiecki i rosyjski.
 Stara wersja 1.3.1 była podpisana innym, testowym kluczem. Jeżeli Android
 wyświetla błąd konfliktu pakietu lub podpisu, odinstaluj 1.3.1 i dopiero wtedy
 zainstaluj wydanie 1.0 lub nowsze. Jest to jednorazowa operacja. Wydania od 1.0
-do 1.02 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
+do 1.03 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
 
 ## 4. Konfiguracja po uruchomieniu
 
@@ -74,11 +74,13 @@ Na dole ekranu są dwie zakładki:
 
 ## 6. Aktualizacje z GitHuba
 
-Aplikacja sprawdza publiczny manifest w repozytorium zgodności
-`proszczok2002/AutoGlosnik-Releases`. Kod źródłowy, najnowsze APK, zgłoszenia
-i Pull Requesty znajdują się w głównym publicznym repozytorium
-`proszczok2002/AutoGlosnik`. Rozdzielenie pozostaje zachowane, aby aktualizator
-już zainstalowanej wersji 1.02 nadal działał.
+Wersja 1.03 i nowsze sprawdzają publiczny manifest w głównym repozytorium
+`proszczok2002/AutoGlosnik`. Kod źródłowy, najnowsze APK, zgłoszenia i Pull
+Requesty znajdują się w tym samym miejscu.
+
+Wersja 1.02 korzysta jeszcze z repozytorium zgodności
+`proszczok2002/AutoGlosnik-Releases`. Wydanie 1.03 jest publikowane także tam,
+aby istniejące instalacje mogły przejść do nowego kanału bez odinstalowania.
 
 Przebieg aktualizacji:
 
@@ -135,7 +137,7 @@ głównym repozytorium projektu.
 - upewnij się, że instalujesz nowszy `versionCode` i APK z tym samym podpisem;
 - jeśli pojawia się konflikt ze starą wersją 1.3.1, wykonaj jednorazową migrację
   opisaną w punkcie 3;
-- wersja 1.02 używa bezpośrednio systemowego instalatora i nie powinna uruchamiać
+- wersja 1.02 i nowsze używają bezpośrednio systemowego instalatora i nie powinny uruchamiać
   Uptodown App Installer.
 
 ### Android zatrzymuje usługę

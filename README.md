@@ -136,14 +136,17 @@ Uprawnienie `INTERNET` służy do sprawdzania i pobierania aktualizacji z GitHub
 oraz otwierania wybranego przez użytkownika linku do polityki prywatności lub
 wsparcia. Szczegóły: [PRIVACY.md](PRIVACY.md).
 
-## Aktualizator i repozytorium zgodności
+## Aktualizator i migracja repozytorium
 
 To repozytorium jest głównym miejscem kodu, wydań APK, zgłoszeń i Pull
-Requestów. Wersja 1.02 nadal odczytuje manifest aktualizacji z publicznego
-repozytorium
+Requestów. Wersja 1.03 i nowsze pobierają manifest oraz APK bezpośrednio z
+`proszczok2002/AutoGlosnik`.
+
+Wersja 1.02 nadal odczytuje manifest z publicznego repozytorium
 [`AutoGlosnik-Releases`](https://github.com/proszczok2002/AutoGlosnik-Releases).
-Repozytorium to pozostaje aktywne jako kanał zgodności dla już zainstalowanych
-wersji. Nie należy go usuwać ani zmieniać istniejących zasobów wydań.
+Wydanie 1.03 jest więc publikowane w obu miejscach. Stare repozytorium pozostaje
+tymczasowym mostem dla urządzeń z wersją 1.02 i nie może zostać usunięte przed
+zakończeniem migracji.
 
 Opis architektury i procedury wydawniczej: [JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
 
