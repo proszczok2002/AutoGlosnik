@@ -74,6 +74,9 @@ aktualizacji.
 - publiczne APK pobrane z obu repozytoriów mają identyczny rozmiar i SHA-256;
 - publiczne APK ma pakiet `pl.bumbox.autospeaker`, `versionCode 108`,
   `versionName 1.03` oraz właściwy certyfikat;
+- dokładne publiczne adresy `raw.githubusercontent.com/.../main/update.json`
+  używane przez aplikacje zwracają wersję 1.03/108 i właściwe zasoby w
+  odpowiednich repozytoriach;
 - publiczny pakiet źródeł został pobrany ponownie i ma zgodny hash;
 - publiczny pakiet źródeł nie zawiera `.signing`, `local.properties`, APK ani
   plików kluczy;
