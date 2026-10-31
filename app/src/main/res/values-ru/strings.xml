@@ -5,6 +5,8 @@
     <string name='service_description'>Во время звонков в приложении «Телефон» Google или Samsung использует датчик приближения для переключения между разговорным и внешним динамиком. Не читает и не сохраняет содержимое экрана.</string>
     <string name='tab_home'>Главная</string>
     <string name='tab_support'>Поддержка</string>
+    <string name='tab_selected'>Выбранная вкладка</string>
+    <string name='tab_not_selected'>Не выбранная вкладка</string>
     <string name='home_lead'>Автоматически переключает звук звонка в поддерживаемом приложении «Телефон»: у уха — разговорный динамик, на расстоянии — громкая связь.</string>
     <string name='automatic_switching'>Автоматическое переключение</string>
     <string name='configuration_status'>Состояние настройки</string>

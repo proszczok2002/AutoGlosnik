@@ -1,24 +1,39 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-10-30
+Data aktualizacji: 2026-10-31
 
 ## Aktualna wersja
 
-- Opublikowana wersja aplikacji: `1.03` (`versionCode 108`).
+- Przygotowana wersja aplikacji: `1.04` (`versionCode 109`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Artefakt lokalny: `AutoGlosnik-v1.03.apk`.
-- Rozmiar APK: 2181618 bajtów.
+- Artefakt lokalny: `AutoGlosnik-v1.04.apk`.
+- Rozmiar APK: 2183262 bajty.
 - SHA-256 APK:
-  `6F532F3B6BFFA4D88C2C43581075E7063D7A5305CF3FE261A62AFD9D46E7B0E5`.
-- Publiczny pakiet kodu: `AutoGlosnik-v1.03-source.zip`.
-- Rozmiar pakietu kodu: 111722 bajty.
-- SHA-256 pakietu kodu:
-  `5B450B0B85F1E4BECCDEB002541B42BCA142EE7897AD942E45954BE38FDC5749`.
+  `FABD8B03A79205431FCCA2405787C31A8D2689C150BB487E6A0AC29CE952F1EB`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- APK 1.02 przeniesiono lokalnie do
-  `hasiok/release-artifacts/AutoGlosnik-v1.02.apk`; w katalogu głównym pozostaje
-  tylko najnowsze APK.
+- APK 1.02 i 1.03 są przechowywane w `hasiok/release-artifacts/`;
+  w katalogu głównym pozostaje tylko najnowsze APK.
+
+## Cel wersji 1.04
+
+Dolne zakładki mają teraz większy obszar dotyku, czytelny tekst, obramowanie
+i osobne, kontrastowe tło wybranej pozycji. Dla czytnika ekranu mają nazwy
+oraz opis stanu wyboru w czterech językach. W kolejności dostępności są przed
+treścią ekranu; nagłówki ekranów i obszar treści są odpowiednio oznaczone.
+
+## Weryfikacja lokalna 1.04
+
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- `testDebugUnitTest`: powodzenie zadania, stan `NO-SOURCE` — projekt nie ma
+  jeszcze testów jednostkowych;
+- podpis APK Signature Scheme v2: poprawny, certyfikat zgodny z linią 1.0–1.03;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 109`, `versionName 1.04`;
+- w chwili kompilacji nie było podłączonego urządzenia ADB.
+
+Kontrole statyczne nie zastępują testu wizualnego na telefonie ani testu
+faktycznych wypowiedzi i nawigacji TalkBacka. Działanie rozmów telefonicznych
+nie było ponownie testowane na urządzeniu w tej wersji.
 
 ## Cel wersji 1.03
 
@@ -36,7 +51,7 @@ Kontrole HTTPS, SHA-256, pakietu, rosnącego `versionCode` i certyfikatu oraz
 instalacja przez systemowy `PackageInstaller` nie zostały osłabione. Android
 nadal wymaga świadomego potwierdzenia pobrania i instalacji.
 
-## Zrealizowana publikacja
+## Zrealizowana publikacja 1.03
 
 1. Podpisane APK 1.03 opublikowano w głównym
    [`proszczok2002/AutoGlosnik`](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.03).

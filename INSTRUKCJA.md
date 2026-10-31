@@ -72,6 +72,10 @@ Na dole ekranu są dwie zakładki:
 - **Wsparcie** — dobrowolne wsparcie, wersja programu, aktualizacje i polityka
   prywatności.
 
+W wersji 1.04 zakładki mają większe, wyraźnie obramowane przyciski. Wybrana
+zakładka jest wyróżniona kolorem. Czytnik ekranu odczytuje nazwę i stan
+zakładki; w kolejności dostępności zakładki znajdują się przed treścią ekranu.
+
 ## 6. Aktualizacje z GitHuba
 
 Wersja 1.03 i nowsze sprawdzają publiczny manifest w głównym repozytorium

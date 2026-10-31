@@ -43,6 +43,7 @@ public final class MainActivity extends Activity {
     private FrameLayout content;
     private Button homeTab;
     private Button supportTab;
+    private TextView contentHeading;
     private TextView phoneStatus;
     private TextView deviceStatus;
     private TextView serviceStatus;
@@ -96,15 +97,22 @@ public final class MainActivity extends Activity {
         LinearLayout navigation = new LinearLayout(this);
         navigation.setOrientation(LinearLayout.HORIZONTAL);
         navigation.setGravity(Gravity.CENTER);
-        navigation.setPadding(dp(8), dp(6), dp(8), dp(8));
+        navigation.setPadding(dp(12), dp(10), dp(12), dp(12));
         navigation.setBackgroundColor(getColor(R.color.surface_nav));
 
         homeTab = navigationButton(R.string.tab_home);
         supportTab = navigationButton(R.string.tab_support);
+        homeTab.setId(View.generateViewId());
+        supportTab.setId(View.generateViewId());
+        homeTab.setAccessibilityTraversalBefore(supportTab.getId());
         homeTab.setOnClickListener(v -> showHome());
         supportTab.setOnClickListener(v -> showSupport());
-        navigation.addView(homeTab, new LinearLayout.LayoutParams(0, dp(54), 1f));
-        navigation.addView(supportTab, new LinearLayout.LayoutParams(0, dp(54), 1f));
+        LinearLayout.LayoutParams homeParams = new LinearLayout.LayoutParams(0, dp(64), 1f);
+        homeParams.setMarginEnd(dp(6));
+        navigation.addView(homeTab, homeParams);
+        LinearLayout.LayoutParams supportParams = new LinearLayout.LayoutParams(0, dp(64), 1f);
+        supportParams.setMarginStart(dp(6));
+        navigation.addView(supportTab, supportParams);
         shell.addView(navigation);
         return shell;
     }
@@ -112,6 +120,8 @@ public final class MainActivity extends Activity {
     private void showHome() {
         content.removeAllViews();
         content.addView(buildHomeContent());
+        content.setAccessibilityPaneTitle(getString(R.string.tab_home));
+        supportTab.setAccessibilityTraversalBefore(contentHeading.getId());
         updateTabStyles(true);
         refreshStatus();
     }
@@ -119,6 +129,8 @@ public final class MainActivity extends Activity {
     private void showSupport() {
         content.removeAllViews();
         content.addView(buildSupportContent());
+        content.setAccessibilityPaneTitle(getString(R.string.tab_support));
+        supportTab.setAccessibilityTraversalBefore(contentHeading.getId());
         updateTabStyles(false);
     }
 
@@ -129,7 +141,10 @@ public final class MainActivity extends Activity {
         root.setPadding(pad, dp(28), pad, dp(28));
         root.setBackgroundColor(getColor(R.color.surface));
 
-        root.addView(text(getString(R.string.app_name), 30, true, R.color.text_primary));
+        contentHeading = text(getString(R.string.app_name), 30, true, R.color.text_primary);
+        contentHeading.setId(View.generateViewId());
+        contentHeading.setAccessibilityHeading(true);
+        root.addView(contentHeading);
 
         TextView lead = text(getString(R.string.home_lead), 17, false, R.color.text_secondary);
         lead.setPadding(0, dp(8), 0, dp(22));
@@ -194,7 +209,10 @@ public final class MainActivity extends Activity {
         root.setPadding(pad, dp(28), pad, dp(28));
         root.setBackgroundColor(getColor(R.color.surface));
 
-        root.addView(text(getString(R.string.support_title), 30, true, R.color.text_primary));
+        contentHeading = text(getString(R.string.support_title), 30, true, R.color.text_primary);
+        contentHeading.setId(View.generateViewId());
+        contentHeading.setAccessibilityHeading(true);
+        root.addView(contentHeading);
         TextView lead = text(getString(R.string.support_lead), 17, false, R.color.text_secondary);
         lead.setPadding(0, dp(8), 0, dp(18));
         root.addView(lead);
@@ -308,17 +326,29 @@ public final class MainActivity extends Activity {
         Button result = new Button(this);
         result.setText(stringId);
         result.setAllCaps(false);
-        result.setTextSize(15);
+        result.setTextSize(17);
         result.setTypeface(result.getTypeface(), Typeface.BOLD);
-        result.setBackgroundColor(Color.TRANSPARENT);
+        result.setPadding(dp(10), dp(8), dp(10), dp(8));
+        result.setMinimumHeight(dp(64));
         return result;
     }
 
     private void updateTabStyles(boolean homeSelected) {
-        homeTab.setTextColor(getColor(homeSelected ? R.color.brand : R.color.text_secondary));
-        supportTab.setTextColor(getColor(homeSelected ? R.color.text_secondary : R.color.brand));
+        styleTab(homeTab, homeSelected);
+        styleTab(supportTab, !homeSelected);
         homeTab.setSelected(homeSelected);
         supportTab.setSelected(!homeSelected);
+    }
+
+    private void styleTab(Button tab, boolean selected) {
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(getColor(selected ? R.color.tab_selected : R.color.tab_unselected));
+        background.setCornerRadius(dp(16));
+        background.setStroke(dp(2), getColor(selected ? R.color.tab_selected_border
+                : R.color.tab_unselected_border));
+        tab.setBackground(background);
+        tab.setTextColor(getColor(R.color.text_primary));
+        tab.setStateDescription(getString(selected ? R.string.tab_selected : R.string.tab_not_selected));
     }
 
     private TextView text(String value, int sp, boolean bold, int color) {

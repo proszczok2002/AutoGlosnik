@@ -1,5 +1,12 @@
 # Historia zmian
 
+## 1.04 — czytelniejsze i łatwiej dostępne zakładki
+
+- Zwiększono dolne przyciski nawigacji i ich tekst oraz dodano wyraźne tło i obramowanie.
+- Wybrana zakładka ma osobny, kontrastowy wygląd; jej stan jest podawany czytnikowi ekranu w czterech językach.
+- Ustawiono zakładki przed treścią w kolejności dostępności, oznaczono nagłówki ekranów i nazwano obszary treści.
+- Zwiększono `versionCode` z 108 do 109.
+
 ## 1.03 — migracja aktualizatora do głównego repozytorium
 
 - Zwiększono `versionCode` z 107 do 108.

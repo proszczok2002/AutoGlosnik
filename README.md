@@ -36,8 +36,9 @@ Możesz zgłosić błąd, zaproponować zmianę, utworzyć fork i wysłać Pull 
 - automatyczne przełączanie: przy uchu — słuchawka, po odsunięciu — głośnik;
 - pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
 - interfejs po polsku, angielsku, niemiecku i rosyjsku;
-- zakładki **Strona główna** i **Wsparcie**;
-- zgodność interfejsu z TalkBackiem i czytnikami ekranu;
+- wyraźne dolne zakładki **Strona główna** i **Wsparcie** z dużymi przyciskami;
+- nazwy, stan wyboru i kolejność zakładek udostępnione TalkBackowi i innym
+  czytnikom ekranu;
 - aktualizacje z GitHuba, zatwierdzane przez użytkownika;
 - weryfikacja HTTPS, SHA-256, pakietu, rosnącego `versionCode` i podpisu APK;
 - instalacja przez systemowy `PackageInstaller`, bez przekazywania pliku do

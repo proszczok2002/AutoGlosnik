@@ -62,7 +62,7 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - po publikacji trzeba ponownie pobrać publiczny APK i porównać SHA-256, pakiet,
   wersję oraz certyfikat z artefaktem lokalnym.
 
-Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`) i 1.03 (`108`) należą do jednej linii
+Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`), 1.03 (`108`) i 1.04 (`109`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 
 ## Pliki stanu

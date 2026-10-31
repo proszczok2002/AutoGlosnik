@@ -5,6 +5,8 @@
     <string name='service_description'>During calls in Google Phone or Samsung Phone, uses the proximity sensor to switch between the earpiece and speaker. It does not read or store screen content.</string>
     <string name='tab_home'>Home</string>
     <string name='tab_support'>Support</string>
+    <string name='tab_selected'>Selected tab</string>
+    <string name='tab_not_selected'>Unselected tab</string>
     <string name='home_lead'>Automatically switches call audio in a supported Phone app: at your ear — earpiece, moved away — speaker.</string>
     <string name='automatic_switching'>Automatic switching</string>
     <string name='configuration_status'>Setup status</string>

@@ -5,6 +5,8 @@
     <string name='service_description'>Podczas rozmowy w Telefonie Google lub Samsung używa czujnika zbliżeniowego, aby przełączać słuchawkę i głośnik. Nie odczytuje ani nie zapisuje treści ekranu.</string>
     <string name='tab_home'>Strona główna</string>
     <string name='tab_support'>Wsparcie</string>
+    <string name='tab_selected'>Wybrana zakładka</string>
+    <string name='tab_not_selected'>Niewybrana zakładka</string>
     <string name='home_lead'>Automatycznie przełącza rozmowę w obsługiwanej aplikacji Telefon: przy uchu — słuchawka, po odsunięciu — głośnik.</string>
     <string name='automatic_switching'>Automatyczne przełączanie</string>
     <string name='configuration_status'>Stan konfiguracji</string>

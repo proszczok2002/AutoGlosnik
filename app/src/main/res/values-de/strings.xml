@@ -5,6 +5,8 @@
     <string name='service_description'>Verwendet bei Anrufen in Google Telefon oder Samsung Telefon den Näherungssensor, um zwischen Hörer und Lautsprecher umzuschalten. Bildschirminhalte werden weder gelesen noch gespeichert.</string>
     <string name='tab_home'>Startseite</string>
     <string name='tab_support'>Unterstützung</string>
+    <string name='tab_selected'>Ausgewählter Tab</string>
+    <string name='tab_not_selected'>Nicht ausgewählter Tab</string>
     <string name='home_lead'>Schaltet den Anrufton in einer unterstützten Telefon-App automatisch um: am Ohr — Hörer, entfernt — Lautsprecher.</string>
     <string name='automatic_switching'>Automatisches Umschalten</string>
     <string name='configuration_status'>Einrichtungsstatus</string>
