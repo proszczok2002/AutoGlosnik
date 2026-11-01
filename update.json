@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "versionCode": 109,
-  "versionName": "1.04",
-  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.04/AutoGlosnik-v1.04.apk",
-  "sha256": "fabd8b03a79205431fcca2405787c31a8d2689c150bb487e6a0ac29ce952f1eb",
+  "versionCode": 110,
+  "versionName": "1.05",
+  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.05/AutoGlosnik-v1.05.apk",
+  "sha256": "d838c1e8fedf626249e8e7b396a6b992ef950681059d16fb0b5a2c74ca52cf0a",
   "notes": {
-    "pl": "Dolne zakładki są teraz wyraźniejsze i większe. Czytnik ekranu odczytuje ich stan, a nawigacja jest bliżej początku kolejności dostępności.",
-    "en": "The bottom tabs are larger and easier to see. Screen readers announce their state, and navigation appears earlier in accessibility order.",
-    "de": "Die unteren Tabs sind größer und besser sichtbar. Screenreader geben ihren Zustand an, und die Navigation steht früher in der Bedienreihenfolge.",
-    "ru": "Нижние вкладки стали крупнее и заметнее. Программа чтения с экрана сообщает их состояние, а навигация расположена раньше в порядке доступности."
+    "pl": "W zakładce Wsparcie usunięto widoczne adresy i identyfikatory kont nad przyciskami Revolut i PayPal. Przyciski nadal otwierają właściwe strony.",
+    "en": "Visible account addresses and identifiers above the Revolut and PayPal buttons were removed from Support. The buttons still open the correct pages.",
+    "de": "Sichtbare Kontoadressen und Kennungen über den Revolut- und PayPal-Schaltflächen wurden aus dem Bereich Unterstützung entfernt. Die Schaltflächen öffnen weiterhin die richtigen Seiten.",
+    "ru": "На вкладке поддержки убраны видимые адреса и идентификаторы учётных записей над кнопками Revolut и PayPal. Кнопки по-прежнему открывают нужные страницы."
   }
 }

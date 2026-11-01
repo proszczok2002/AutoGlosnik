@@ -4,12 +4,16 @@ Data aktualizacji: 2026-11-01
 
 ## Aktualna wersja
 
-- Przygotowana wersja aplikacji: `1.05` (`versionCode 110`).
+- Opublikowana wersja aplikacji: `1.05` (`versionCode 110`).
 - Pakiet: `pl.bumbox.autospeaker`.
 - Artefakt lokalny: `AutoGlosnik-v1.05.apk`.
 - Rozmiar APK: 2183170 bajtów.
 - SHA-256 APK:
   `D838C1E8FEDF626249E8E7B396A6B992EF950681059D16FB0B5A2C74CA52CF0A`.
+- Publiczny pakiet kodu: `AutoGlosnik-v1.05-source.zip`.
+- Rozmiar pakietu kodu: 110407 bajtów.
+- SHA-256 pakietu kodu:
+  `14426C4539850DD65F925796785525B0A395E1C396A0245C28DAFB8F7726E37F`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
 - APK 1.04 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
@@ -32,6 +36,16 @@ przycisków, więc nie jest to ukrywanie danych w samym pakiecie APK.
   przyciskami, a przyciski nadal wywołują odpowiednie linki;
 - nie było podłączonego urządzenia ADB, więc nie wykonano testu dotykowego
   ani testu TalkBacka na telefonie.
+
+## Publikacja 1.05
+
+- Kod i tag `v1.05` opublikowano w głównym repozytorium.
+- [Wydanie 1.05](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.05)
+  zawiera podpisany APK i pakiet źródeł.
+- Oba zasoby pobrano ponownie przez publiczny HTTPS; rozmiary i SHA-256 są
+  identyczne z lokalnymi plikami.
+- Główny `update.json` wskazuje APK 1.05; stary kanał zgodności pozostawia
+  migracyjną wersję 1.03 dla instalacji 1.02.
 
 ## Cel wersji 1.04
 
