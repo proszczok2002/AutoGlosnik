@@ -1,5 +1,11 @@
 # Historia zmian
 
+## 1.05 — dyskretniejsza zakładka Wsparcie
+
+- Usunięto z widoku Wsparcie adresy i identyfikatory kont nad przyciskami Revolut i PayPal.
+- Przyciski nadal otwierają właściwe strony usług po ich wybraniu.
+- Zwiększono `versionCode` z 109 do 110.
+
 ## 1.04 — czytelniejsze i łatwiej dostępne zakładki
 
 - Zwiększono dolne przyciski nawigacji i ich tekst oraz dodano wyraźne tło i obramowanie.

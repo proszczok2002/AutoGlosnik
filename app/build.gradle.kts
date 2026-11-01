@@ -19,8 +19,8 @@ android {
         applicationId = "pl.bumbox.autospeaker"
         minSdk = 31
         targetSdk = 36
-        versionCode = 109
-        versionName = "1.04"
+        versionCode = 110
+        versionName = "1.05"
     }
 
     signingConfigs {

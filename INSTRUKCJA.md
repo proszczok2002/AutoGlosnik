@@ -72,6 +72,10 @@ Na dole ekranu są dwie zakładki:
 - **Wsparcie** — dobrowolne wsparcie, wersja programu, aktualizacje i polityka
   prywatności.
 
+W wersji 1.05 w zakładce Wsparcie przyciski Revolut i PayPal nie pokazują nad
+sobą adresów ani identyfikatorów kont. Wybranie przycisku otwiera odpowiednią
+stronę usługi poza aplikacją.
+
 W wersji 1.04 zakładki mają większe, wyraźnie obramowane przyciski. Wybrana
 zakładka jest wyróżniona kolorem. Czytnik ekranu odczytuje nazwę i stan
 zakładki; w kolejności dostępności zakładki znajdują się przed treścią ekranu.

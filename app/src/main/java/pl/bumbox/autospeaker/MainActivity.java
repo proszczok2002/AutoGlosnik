@@ -219,7 +219,6 @@ public final class MainActivity extends Activity {
 
         LinearLayout supportCard = card();
         supportCard.addView(text(getString(R.string.revolut_title), 20, true, R.color.text_primary));
-        supportCard.addView(text("revolut.me/r_rosiejka", 15, false, R.color.text_secondary));
         Button revolut = primaryButton(R.string.open_revolut);
         revolut.setOnClickListener(v -> openExternal(REVOLUT_URL));
         supportCard.addView(revolut);
@@ -229,7 +228,6 @@ public final class MainActivity extends Activity {
         supportCard.addView(spacer);
 
         supportCard.addView(text(getString(R.string.paypal_title), 20, true, R.color.text_primary));
-        supportCard.addView(text("paypal.me/proszczok", 15, false, R.color.text_secondary));
         Button paypal = primaryButton(R.string.open_paypal);
         paypal.setOnClickListener(v -> openExternal(PAYPAL_URL));
         supportCard.addView(paypal);

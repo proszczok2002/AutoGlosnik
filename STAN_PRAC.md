@@ -1,23 +1,37 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-10-31
+Data aktualizacji: 2026-11-01
 
 ## Aktualna wersja
 
-- Opublikowana wersja aplikacji: `1.04` (`versionCode 109`).
+- Przygotowana wersja aplikacji: `1.05` (`versionCode 110`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Artefakt lokalny: `AutoGlosnik-v1.04.apk`.
-- Rozmiar APK: 2183262 bajty.
+- Artefakt lokalny: `AutoGlosnik-v1.05.apk`.
+- Rozmiar APK: 2183170 bajtów.
 - SHA-256 APK:
-  `FABD8B03A79205431FCCA2405787C31A8D2689C150BB487E6A0AC29CE952F1EB`.
-- Publiczny pakiet kodu: `AutoGlosnik-v1.04-source.zip`.
-- Rozmiar pakietu kodu: 109786 bajtów.
-- SHA-256 pakietu kodu:
-  `6C9FE82BF8055191FF7F4FD0D041F87BCD5DEC8AB59AD47C08FC9D1E58CF562F`.
+  `D838C1E8FEDF626249E8E7B396A6B992EF950681059D16FB0B5A2C74CA52CF0A`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- APK 1.02 i 1.03 są przechowywane w `hasiok/release-artifacts/`;
-  w katalogu głównym pozostaje tylko najnowsze APK.
+- APK 1.04 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
+  pozostają na GitHubie. W katalogu głównym jest tylko najnowsze APK.
+
+## Cel wersji 1.05
+
+Zakładka Wsparcie nie pokazuje nad przyciskami identyfikatorów ani adresów
+Revolut i PayPal. Nazwy usług i przyciski pozostają widoczne, a ich wybranie
+otwiera dotychczasowe strony. Adresy są nadal zapisane w kodzie jako cele
+przycisków, więc nie jest to ukrywanie danych w samym pakiecie APK.
+
+## Weryfikacja lokalna 1.05
+
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- `testDebugUnitTest`: zadanie `NO-SOURCE` — brak testów jednostkowych;
+- podpis APK Signature Scheme v2: poprawny, certyfikat zgodny z wersją 1.04;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 110`, `versionName 1.05`;
+- kontrola kodu widoku Wsparcie: tylko nazwy Revolut i PayPal są tekstem nad
+  przyciskami, a przyciski nadal wywołują odpowiednie linki;
+- nie było podłączonego urządzenia ADB, więc nie wykonano testu dotykowego
+  ani testu TalkBacka na telefonie.
 
 ## Cel wersji 1.04
 
