@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "versionCode": 110,
-  "versionName": "1.05",
-  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.05/AutoGlosnik-v1.05.apk",
-  "sha256": "d838c1e8fedf626249e8e7b396a6b992ef950681059d16fb0b5a2c74ca52cf0a",
+  "versionCode": 111,
+  "versionName": "1.06",
+  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.06/AutoGlosnik-v1.06.apk",
+  "sha256": "1f8e106f7e40311ab3acafdb78bfad865f50cf05efb17260d40a62e1779375c6",
   "notes": {
-    "pl": "W zakładce Wsparcie usunięto widoczne adresy i identyfikatory kont nad przyciskami Revolut i PayPal. Przyciski nadal otwierają właściwe strony.",
-    "en": "Visible account addresses and identifiers above the Revolut and PayPal buttons were removed from Support. The buttons still open the correct pages.",
-    "de": "Sichtbare Kontoadressen und Kennungen über den Revolut- und PayPal-Schaltflächen wurden aus dem Bereich Unterstützung entfernt. Die Schaltflächen öffnen weiterhin die richtigen Seiten.",
-    "ru": "На вкладке поддержки убраны видимые адреса и идентификаторы учётных записей над кнопками Revolut и PayPal. Кнопки по-прежнему открывают нужные страницы."
+    "pl": "Dodano osobne reguły przełączania dźwięku dla Telefonu Google na Pixelach i innych urządzeniach oraz zachowano ścieżkę Telefonu Samsung. Wymagany jest test rozmowy na urządzeniu.",
+    "en": "Added separate audio routing rules for Google Phone on Pixels and other devices while retaining the Samsung Phone path. An on-device call test is still needed.",
+    "de": "Separate Regeln für die Audio-Umschaltung mit Google Telefon auf Pixel- und anderen Geräten wurden hinzugefügt; der Samsung-Pfad bleibt erhalten. Ein Anruftest am Gerät ist noch nötig.",
+    "ru": "Добавлены отдельные правила переключения звука для приложения «Телефон Google» на Pixel и других устройствах; путь Samsung сохранён. Требуется проверка звонка на устройстве."
   }
 }

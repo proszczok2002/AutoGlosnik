@@ -4,12 +4,16 @@ Data aktualizacji: 2026-11-13
 
 ## Aktualna wersja
 
-- Przygotowana wersja aplikacji: `1.06` (`versionCode 111`).
+- Opublikowana wersja aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.
 - Artefakt lokalny: `AutoGlosnik-v1.06.apk`.
 - Rozmiar APK: 2185410 bajtów.
 - SHA-256 APK:
   `1F8E106F7E40311AB3ACAFDB78BFAD865F50CF05EFB17260D40A62E1779375C6`.
+- Publiczny pakiet kodu: `AutoGlosnik-v1.06-source.zip`.
+- Rozmiar pakietu kodu: 114401 bajtów.
+- SHA-256 pakietu kodu:
+  `8B251E81E6131C3AD3E1A971D5FFB5BE3F759BE732E62CC58B99170D1B421379`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
 - APK 1.05 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
@@ -42,6 +46,16 @@ odinstalowania tej wersji testowej.
 - pakiet: `pl.bumbox.autospeaker`, `versionCode 111`, `versionName 1.06`;
 - w tej sesji nie było podłączonego urządzenia ADB. Nie potwierdzono jeszcze
   faktycznej rozmowy na Pixelu, innym telefonie Google ani Samsungu z TalkBackiem.
+
+## Publikacja 1.06
+
+- Kod i tag `v1.06` opublikowano w głównym repozytorium.
+- [Wydanie 1.06](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.06)
+  zawiera podpisany APK i pakiet źródeł.
+- Oba pliki pobrano ponownie przez publiczny HTTPS; rozmiary i SHA-256 są
+  identyczne z plikami lokalnymi.
+- Główny `update.json` wskazuje APK 1.06; kanał zgodności pozostaje przy
+  migracyjnej wersji 1.03 dla instalacji 1.02.
 
 ## Cel wersji 1.05
 
