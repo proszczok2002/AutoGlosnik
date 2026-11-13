@@ -1,23 +1,47 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-11-01
+Data aktualizacji: 2026-11-13
 
 ## Aktualna wersja
 
-- Opublikowana wersja aplikacji: `1.05` (`versionCode 110`).
+- Przygotowana wersja aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Artefakt lokalny: `AutoGlosnik-v1.05.apk`.
-- Rozmiar APK: 2183170 bajtów.
+- Artefakt lokalny: `AutoGlosnik-v1.06.apk`.
+- Rozmiar APK: 2185410 bajtów.
 - SHA-256 APK:
-  `D838C1E8FEDF626249E8E7B396A6B992EF950681059D16FB0B5A2C74CA52CF0A`.
-- Publiczny pakiet kodu: `AutoGlosnik-v1.05-source.zip`.
-- Rozmiar pakietu kodu: 110407 bajtów.
-- SHA-256 pakietu kodu:
-  `14426C4539850DD65F925796785525B0A395E1C396A0245C28DAFB8F7726E37F`.
+  `1F8E106F7E40311AB3ACAFDB78BFAD865F50CF05EFB17260D40A62E1779375C6`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- APK 1.04 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
-  pozostają na GitHubie. W katalogu głównym jest tylko najnowsze APK.
+- APK 1.05 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
+  pozostają na GitHubie. W katalogu głównym są nowy APK oraz dostarczony do
+  porównania `AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk`.
+
+## Cel wersji 1.06
+
+Przywrócić dla domyślnego Telefonu Google reguły z referencyjnego APK 1.2.0,
+niezależnie od producenta telefonu, i zachować aktualną ścieżkę Samsunga dla
+Telefonu Samsung. Wykrywanie opiera się na pakiecie domyślnego dialera; jeśli
+Android go nie zwraca, wykorzystywany jest zaobserwowany interfejs rozmowy.
+Zmiana profilu unieważnia oczekujące próby poprzedniego dialera. Dla Google
+starszy wybór przycisku ma pierwszeństwo, a rozszerzone etykiety stanowią
+zapasową metodę. Zewnętrzne trasy audio nadal mają pierwszeństwo.
+
+Referencyjny APK: SHA-256
+`6DF582606DE8A6F63449B2A4926492CE092DF5EFE8460AE59266F912D2AB07BC`,
+`versionCode 102`, `versionName 1.2.0`, pakiet `pl.bumbox.autospeaker`.
+Jego certyfikat SHA-256
+`C033826456D8A38F662306C5D3253EF0A7B8B4D19582DD50408D0861CD4CC41E`
+jest inny od certyfikatu wydań GitHub; instalacja na nim wymaga wcześniejszego
+odinstalowania tej wersji testowej.
+
+## Weryfikacja lokalna 1.06
+
+- `testDebugUnitTest`: 4 testy profilu, 0 błędów;
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- APK Signature Scheme v2: poprawny, certyfikat zgodny z wersją 1.05;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 111`, `versionName 1.06`;
+- w tej sesji nie było podłączonego urządzenia ADB. Nie potwierdzono jeszcze
+  faktycznej rozmowy na Pixelu, innym telefonie Google ani Samsungu z TalkBackiem.
 
 ## Cel wersji 1.05
 

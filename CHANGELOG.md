@@ -1,5 +1,18 @@
 # Historia zmian
 
+## 1.06 — osobne ścieżki dla Telefonu Google i Samsunga
+
+- Wykrywanie sposobu obsługi rozmowy opiera się na domyślnej aplikacji Telefon,
+  więc ścieżka Google działa także na urządzeniach innych producentów z Telefonem Google.
+- Dla Telefonu Google przywrócono kolejność wyboru interfejsu i wyszukiwania
+  przycisku głośnika ze sprawdzonego APK 1.2.0; rozszerzone etykiety pozostają
+  zapasową metodą dla innych języków.
+- Dla Telefonu Samsung zachowano aktualną ścieżkę z jego interfejsem rozmowy,
+  gestem i opóźnieniem dla TalkBacka.
+- Zablokowano wykonywanie oczekujących prób przełączenia po zmianie wykrytego
+  profilu aplikacji Telefon.
+- Zwiększono `versionCode` z 110 do 111.
+
 ## 1.05 — dyskretniejsza zakładka Wsparcie
 
 - Usunięto z widoku Wsparcie adresy i identyfikatory kont nad przyciskami Revolut i PayPal.

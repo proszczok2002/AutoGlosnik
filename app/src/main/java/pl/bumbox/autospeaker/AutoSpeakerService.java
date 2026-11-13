@@ -38,10 +38,6 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private static final long LATE_RETRY_DELAY_MS = 600L;
     private static final long TOUCH_EXPLORATION_ACTIVATION_DELAY_MS = 250L;
     private static final long SAMSUNG_TOUCH_EXPLORATION_ACTIVATION_DELAY_MS = 700L;
-    private static final String GOOGLE_DIALER = "com.google.android.dialer";
-    private static final String AOSP_DIALER = "com.android.dialer";
-    private static final String SAMSUNG_DIALER = "com.samsung.android.dialer";
-    private static final String SAMSUNG_INCALL_UI = "com.samsung.android.incallui";
     private static final float GOOGLE_SPEAKER_BUTTON_X_RATIO = 0.6125f;
     private static final float GOOGLE_SPEAKER_BUTTON_Y_RATIO = 0.7671f;
     private static final float SAMSUNG_SPEAKER_BUTTON_X_RATIO = 0.2250f;
@@ -64,6 +60,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private int routeGeneration;
     private int lateRetryCount;
     private long lastCallUiSeen;
+    private String lastObservedCallUiPackage;
+    private CallUiProfile.Mode routeMode = CallUiProfile.Mode.NONE;
 
     private final Runnable debounceRunnable = () -> {
         if (pendingNear == null) return;
@@ -101,8 +99,12 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (!isEnabledByUser() || event == null) return;
         CharSequence packageName = event.getPackageName();
-        if (isSupportedCallUiPackage(packageName)) {
-            AccessibilityNodeInfo routeButton = findRouteButton();
+        if (CallUiProfile.modeForPackage(packageName) != CallUiProfile.Mode.NONE) {
+            lastObservedCallUiPackage = packageName.toString();
+        }
+        CallUiProfile.Mode mode = activeMode();
+        if (CallUiProfile.acceptsEvent(mode, packageName)) {
+            AccessibilityNodeInfo routeButton = findRouteButton(mode);
             if (routeButton != null) {
                 lastCallUiSeen = SystemClock.elapsedRealtime();
             }
@@ -147,6 +149,18 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private void requestRouteForProximity(boolean near) {
         if (!isEnabledByUser()) return;
+        CallUiProfile.Mode mode = activeMode();
+        if (mode != routeMode) {
+            clearDirectAudioRequest();
+            routeGeneration++;
+            stabilizationTarget = null;
+            lastAppliedSpeaker = null;
+            coordinateGesturePending = false;
+            routeMode = mode;
+        }
+        if (mode == CallUiProfile.Mode.NONE) {
+            return;
+        }
         boolean wantsSpeaker = !near;
         boolean inCall = isCallActive();
         if (!inCall) {
@@ -155,6 +169,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
             stabilizationTarget = null;
             if (lastKnownInCall) reportStatus(getString(R.string.status_call_ended));
             lastKnownInCall = false;
+            lastObservedCallUiPackage = null;
             lastAppliedSpeaker = null;
             lateRetryCount = 0;
             coordinateGesturePending = false;
@@ -207,7 +222,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private void attemptRouteChange(
             boolean wantsSpeaker, boolean firstAttempt, boolean lastAttempt, int generation) {
         if (generation != routeGeneration || !isEnabledByUser()
-                || !isCallActive() || isExternalAudioRoute()
+                || activeMode() != routeMode || !isCallActive() || isExternalAudioRoute()
                 || coordinateGesturePending) return;
 
         Boolean actualSpeaker = currentSpeakerState();
@@ -273,7 +288,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private void scheduleCoordinateRouteGesture(boolean wantsSpeaker, int generation) {
         handler.postDelayed(() -> {
-            if (generation != routeGeneration || coordinateGesturePending
+            if (generation != routeGeneration || activeMode() != routeMode
+                    || coordinateGesturePending
                     || !isCallActive() || isExternalAudioRoute()) return;
             Boolean actualSpeaker = currentSpeakerState();
             if (actualSpeaker != null && actualSpeaker == wantsSpeaker) return;
@@ -287,7 +303,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         }, 0L);
     }
     private boolean dispatchCoordinateRouteGesture(boolean wantsSpeaker, int generation) {
-        if (!isCallActive() || coordinateGesturePending) return false;
+        if (activeMode() != routeMode || !isCallActive() || coordinateGesturePending) return false;
         AccessibilityNodeInfo callRoot = findCallUiRoot();
         if (callRoot == null) {
             return false;
@@ -303,10 +319,10 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         CharSequence callPackage = callRoot.getPackageName();
         float xRatio;
         float yRatio;
-        if (GOOGLE_DIALER.contentEquals(callPackage)) {
+        if (CallUiProfile.GOOGLE.contentEquals(callPackage)) {
             xRatio = GOOGLE_SPEAKER_BUTTON_X_RATIO;
             yRatio = GOOGLE_SPEAKER_BUTTON_Y_RATIO;
-        } else if (SAMSUNG_INCALL_UI.contentEquals(callPackage)) {
+        } else if (CallUiProfile.SAMSUNG_INCALL.contentEquals(callPackage)) {
             // Samsung SM-S931B / One UI 8.5: fourth_button, środek [243,1711]
             // przy bazowym ekranie 1080x2340. Ułamki zachowują się przy skalowaniu.
             xRatio = SAMSUNG_SPEAKER_BUTTON_X_RATIO;
@@ -340,12 +356,13 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
                     singleTapGesture(x, y), new GestureResultCallback() {
                         @Override
                         public void onCompleted(GestureDescription gestureDescription) {
-                            if (generation != routeGeneration || !isCallActive()) {
+                            if (generation != routeGeneration || activeMode() != routeMode
+                                    || !isCallActive()) {
                                 coordinateGesturePending = false;
                                 return;
                             }
                             Log.i(TAG, "Ustawiono fokus CSR na przycisku Glosnik.");
-                            long activationDelay = SAMSUNG_INCALL_UI.contentEquals(callPackage)
+                            long activationDelay = CallUiProfile.SAMSUNG_INCALL.contentEquals(callPackage)
                                     ? SAMSUNG_TOUCH_EXPLORATION_ACTIVATION_DELAY_MS
                                     : TOUCH_EXPLORATION_ACTIVATION_DELAY_MS;
                             handler.postDelayed(() -> dispatchCsrActivationGesture(
@@ -370,7 +387,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 coordinateGesturePending = false;
-                if (generation != routeGeneration || !isCallActive()) return;
+                if (generation != routeGeneration || activeMode() != routeMode
+                        || !isCallActive()) return;
                 clearDirectAudioRequest();
                 lastAppliedSpeaker = wantsSpeaker;
                 Log.i(TAG, "Wykonano gest przycisku Glosnik: x=" + x + ", y=" + y);
@@ -401,7 +419,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private void dispatchCsrActivationGesture(
             boolean wantsSpeaker, int generation, float x, float y) {
-        if (generation != routeGeneration || !isCallActive() || isExternalAudioRoute()) {
+        if (generation != routeGeneration || activeMode() != routeMode
+                || !isCallActive() || isExternalAudioRoute()) {
             coordinateGesturePending = false;
             return;
         }
@@ -419,7 +438,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
             @Override
             public void onCompleted(GestureDescription gestureDescription) {
                 coordinateGesturePending = false;
-                if (generation != routeGeneration || !isCallActive()) return;
+                if (generation != routeGeneration || activeMode() != routeMode
+                        || !isCallActive()) return;
                 clearDirectAudioRequest();
                 lastAppliedSpeaker = wantsSpeaker;
                 Log.i(TAG, "Wykonano aktywacyjny dwuklik CSR przycisku Glosnik.");
@@ -441,7 +461,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     }
     private void scheduleFinalConfirmation(boolean wantsSpeaker, int generation) {
         handler.postDelayed(() -> {
-            if (generation != routeGeneration || !isCallActive()) return;
+            if (generation != routeGeneration || activeMode() != routeMode
+                    || !isCallActive()) return;
             Boolean actualSpeaker = currentSpeakerState();
             if (actualSpeaker != null && actualSpeaker == wantsSpeaker) {
                 lateRetryCount = 0;
@@ -458,7 +479,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
                 if (lateRetryCount < MAX_LATE_RETRIES) {
                     lateRetryCount++;
                     handler.postDelayed(() -> {
-                        if (generation != routeGeneration || stableNear == null
+                        if (generation != routeGeneration || activeMode() != routeMode
+                                || stableNear == null
                                 || !isCallActive()) return;
                         requestRouteForProximity(stableNear);
                     }, LATE_RETRY_DELAY_MS);
@@ -543,34 +565,53 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         };
     }
 
+    private CallUiProfile.Mode activeMode() {
+        String defaultDialer = null;
+        if (telecomManager != null) {
+            try {
+                defaultDialer = telecomManager.getDefaultDialerPackage();
+            } catch (SecurityException ignored) {
+                // An observed call UI is still usable if the platform hides the default.
+            }
+        }
+        return CallUiProfile.select(defaultDialer, lastObservedCallUiPackage);
+    }
+
     private AccessibilityNodeInfo findRouteButton() {
+        return findRouteButton(activeMode());
+    }
+
+    private AccessibilityNodeInfo findRouteButton(CallUiProfile.Mode mode) {
+        if (mode == CallUiProfile.Mode.NONE) return null;
         List<AccessibilityWindowInfo> windows = getWindows();
         for (AccessibilityWindowInfo window : windows) {
             AccessibilityNodeInfo root = window.getRoot();
             if (root == null) continue;
-            if (!isSupportedCallUiPackage(root.getPackageName())) continue;
-            AccessibilityNodeInfo candidate = findRouteButtonInRoot(root);
+            if (!CallUiProfile.acceptsWindow(mode, root.getPackageName())) continue;
+            AccessibilityNodeInfo candidate = findRouteButtonInRoot(root, mode);
             if (candidate != null) return candidate;
         }
 
         AccessibilityNodeInfo activeRoot = getRootInActiveWindow();
-        if (activeRoot != null && isSupportedCallUiPackage(activeRoot.getPackageName())) {
-            return findRouteButtonInRoot(activeRoot);
+        if (activeRoot != null && CallUiProfile.acceptsWindow(mode, activeRoot.getPackageName())) {
+            return findRouteButtonInRoot(activeRoot, mode);
         }
         return null;
     }
 
     private AccessibilityNodeInfo findCallUiRoot() {
+        CallUiProfile.Mode mode = activeMode();
+        if (mode == CallUiProfile.Mode.NONE) return null;
         AccessibilityNodeInfo best = null;
         long bestArea = 0L;
         int bestPriority = -1;
         for (AccessibilityWindowInfo window : getWindows()) {
             AccessibilityNodeInfo root = window.getRoot();
-            if (root == null || !isSupportedCallUiPackage(root.getPackageName())) continue;
+            if (root == null || !CallUiProfile.acceptsWindow(mode, root.getPackageName())) continue;
             Rect bounds = new Rect();
             root.getBoundsInScreen(bounds);
             long area = (long) bounds.width() * bounds.height();
-            int priority = callUiPriority(root.getPackageName());
+            int priority = CallUiProfile.windowPriority(mode, root.getPackageName());
             if (!bounds.isEmpty()
                     && (priority > bestPriority || (priority == bestPriority && area > bestArea))) {
                 best = root;
@@ -581,7 +622,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         if (best != null) return best;
 
         AccessibilityNodeInfo activeRoot = getRootInActiveWindow();
-        return activeRoot != null && isSupportedCallUiPackage(activeRoot.getPackageName())
+        return activeRoot != null && CallUiProfile.acceptsWindow(mode, activeRoot.getPackageName())
                 ? activeRoot : null;
     }
 
@@ -615,53 +656,67 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         return best;
     }
 
-    private AccessibilityNodeInfo findRouteButtonInRoot(AccessibilityNodeInfo root) {
+    private AccessibilityNodeInfo findRouteButtonInRoot(
+            AccessibilityNodeInfo root, CallUiProfile.Mode mode) {
         AccessibilityNodeInfo best = null;
         int bestScore = 0;
+        AccessibilityNodeInfo fallback = null;
+        int fallbackScore = 0;
         Deque<AccessibilityNodeInfo> queue = new ArrayDeque<>();
         queue.add(root);
         while (!queue.isEmpty()) {
             AccessibilityNodeInfo node = queue.removeFirst();
-            int score = routeButtonScore(node);
+            int score = routeButtonScore(node, mode == CallUiProfile.Mode.GOOGLE_PHONE);
             if (score > bestScore) {
                 best = node;
                 bestScore = score;
+            }
+            if (mode == CallUiProfile.Mode.GOOGLE_PHONE) {
+                int extendedScore = routeButtonScore(node, false);
+                if (extendedScore > fallbackScore) {
+                    fallback = node;
+                    fallbackScore = extendedScore;
+                }
             }
             for (int i = 0; i < node.getChildCount(); i++) {
                 AccessibilityNodeInfo child = node.getChild(i);
                 if (child != null) queue.addLast(child);
             }
         }
-        return bestScore >= 50 ? best : null;
+        if (bestScore >= 50) return best;
+        return fallbackScore >= 50 ? fallback : null;
     }
 
-    private int routeButtonScore(AccessibilityNodeInfo node) {
+    private int routeButtonScore(AccessibilityNodeInfo node, boolean legacyGoogle) {
         String id = normalize(node.getViewIdResourceName());
         String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
         int score = 0;
         if (id.contains("audio_route") || id.contains("audioroute") || id.contains("speaker")) {
             score += 100;
         }
-        if (containsSpeakerWord(label)) score += 70;
+        if (containsSpeakerWord(label, legacyGoogle)) score += 70;
         boolean genericAudioLabel = label.equals("audio")
                 || label.contains("wyjscie audio")
                 || label.contains("urzadzenie audio")
-                || label.contains("dzwiek")
-                || label.contains("audioausgabe")
-                || label.contains("audiogerat")
-                || label.equals("ton")
-                || label.contains("аудиовыход")
-                || label.contains("аудиоустройство")
-                || label.equals("звук");
+                || label.contains("dzwiek");
+        if (!legacyGoogle) {
+            genericAudioLabel |= label.contains("audioausgabe")
+                    || label.contains("audiogerat")
+                    || label.equals("ton")
+                    || label.contains("аудиовыход")
+                    || label.contains("аудиоустройство")
+                    || label.equals("звук");
+        }
         if (genericAudioLabel && (node.isClickable() || node.isCheckable())) score += 55;
         if (normalize(String.valueOf(node.getClassName())).contains("button")) score += 5;
         if (label.contains("bluetooth") || label.contains("sluchawki")
                 || label.contains("headset") || label.contains("wycisz")
                 || label.contains("mute") || label.contains("glosnosc")
-                || label.contains("volume") || label.contains("kopfhorer")
+                || label.contains("volume")
+                || (!legacyGoogle && (label.contains("kopfhorer")
                 || label.contains("stumm") || label.contains("lautstarke")
                 || label.contains("наушник") || label.contains("без звука")
-                || label.contains("громкость")) {
+                || label.contains("громкость")))) {
             score -= 100;
         }
         return score;
@@ -670,7 +725,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private Boolean inferSpeakerState(AccessibilityNodeInfo node) {
         if (node.isCheckable()) return node.isChecked();
         String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
-        if (!containsSpeakerWord(label)) return null;
+        if (!containsSpeakerWord(label, false)) return null;
         if (label.contains("wylaczony") || label.contains("speaker off")) return false;
         if (label.contains("wlaczony") || label.contains("speaker on")) return true;
         if (label.contains("wylacz glos") || label.contains("turn speaker off")) return true;
@@ -717,34 +772,14 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         return preferences == null || preferences.getBoolean(MainActivity.KEY_ENABLED, true);
     }
 
-    private static boolean isSupportedCallUiPackage(CharSequence packageName) {
-        if (packageName == null) return false;
-        return GOOGLE_DIALER.contentEquals(packageName)
-                || AOSP_DIALER.contentEquals(packageName)
-                || SAMSUNG_DIALER.contentEquals(packageName)
-                || SAMSUNG_INCALL_UI.contentEquals(packageName)
-                || "com.android.systemui".contentEquals(packageName);
-    }
-
-    private static int callUiPriority(CharSequence packageName) {
-        if (packageName == null) return 0;
-        if (GOOGLE_DIALER.contentEquals(packageName)
-                || AOSP_DIALER.contentEquals(packageName)
-                || SAMSUNG_DIALER.contentEquals(packageName)
-                || SAMSUNG_INCALL_UI.contentEquals(packageName)) {
-            return 2;
-        }
-        return 0;
-    }
-
-    private static boolean containsSpeakerWord(String value) {
+    private static boolean containsSpeakerWord(String value, boolean legacyGoogle) {
         return value.contains("glosnik") || value.contains("glosnomow")
                 || value.contains("speaker")
                 || value.contains("speakerphone")
-                || value.contains("lautsprecher")
+                || (!legacyGoogle && (value.contains("lautsprecher")
                 || value.contains("freisprech")
                 || value.contains("динамик")
-                || value.contains("громкая связь");
+                || value.contains("громкая связь")));
     }
 
     private static String join(CharSequence... values) {

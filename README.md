@@ -34,6 +34,8 @@ Możesz zgłosić błąd, zaproponować zmianę, utworzyć fork i wysłać Pull 
 ## Najważniejsze funkcje
 
 - automatyczne przełączanie: przy uchu — słuchawka, po odsunięciu — głośnik;
+- osobne reguły dla Telefonu Google na Pixelach i innych telefonach oraz dla
+  Telefonu Samsung;
 - pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
 - interfejs po polsku, angielsku, niemiecku i rosyjsku;
 - wyraźne dolne zakładki **Strona główna** i **Wsparcie** z dużymi przyciskami;

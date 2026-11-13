@@ -12,6 +12,22 @@
 5. Stan działania i diagnostyka są prezentowane lokalnie w aplikacji. Dane
    zdarzeń nie opuszczają telefonu.
 
+## Profil aplikacji Telefon
+
+Usługa sprawdza pakiet domyślnej aplikacji Telefon. `com.google.android.dialer`
+wybiera ścieżkę Google na Pixelu i na telefonach innych producentów. Dla tej
+ścieżki ogranicza zdarzenia i okna rozmowy do Telefonu Google, preferuje jego
+okno przed System UI i najpierw używa reguł wyboru przycisku z dostarczonego
+APK 1.2.0. Rozszerzone etykiety pomagają, jeżeli starsze reguły nie znajdą
+przycisku. `com.samsung.android.dialer` wybiera obecną ścieżkę Samsunga wraz z
+`com.samsung.android.incallui`; `com.android.dialer` ma własny profil AOSP.
+Gdy Android nie zwróci domyślnego pakietu, usługa korzysta z zaobserwowanego
+interfejsu rozmowy. Nie przełącza trasy dla nieobsługiwanej aplikacji Telefon.
+
+Przełączenie domyślnego dialera podczas działania usługi unieważnia oczekujące
+próby poprzedniego profilu. Zachowano pierwszeństwo zewnętrznych urządzeń audio.
+Reguły kodu nie zastępują testów rozmowy na rzeczywistych telefonach.
+
 ## Architektura aktualizatora
 
 Głównym repozytorium projektu jest publiczne
@@ -62,7 +78,7 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - po publikacji trzeba ponownie pobrać publiczny APK i porównać SHA-256, pakiet,
   wersję oraz certyfikat z artefaktem lokalnym.
 
-Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`), 1.03 (`108`), 1.04 (`109`) i 1.05 (`110`) należą do jednej linii
+Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`), 1.03 (`108`), 1.04 (`109`), 1.05 (`110`) i 1.06 (`111`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 
 ## Pliki stanu

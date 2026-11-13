@@ -34,12 +34,17 @@ polski, angielski, niemiecki i rosyjski.
    przeglądarce lub menedżerowi plików, z którego otwierasz oficjalny APK.
 5. Uruchom AutoGłośnik z listy aplikacji.
 
-### Migracja ze starej wersji 1.3.1
+### Migracja ze starszych wydań testowych
 
 Stara wersja 1.3.1 była podpisana innym, testowym kluczem. Jeżeli Android
 wyświetla błąd konfliktu pakietu lub podpisu, odinstaluj 1.3.1 i dopiero wtedy
 zainstaluj wydanie 1.0 lub nowsze. Jest to jednorazowa operacja. Wydania od 1.0
-do 1.03 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
+do 1.06 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
+
+Dostarczony do porównania plik `AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk` również
+ma inny, testowy certyfikat niż wydania z GitHuba. Android nie zainstaluje 1.06
+bezpośrednio na tej wersji. Przed przejściem z tego APK trzeba go odinstalować,
+a potem ponownie skonfigurować usługę dostępności i uprawnienie Telefon.
 
 ## 4. Konfiguracja po uruchomieniu
 
@@ -65,6 +70,12 @@ do 1.03 korzystają z tego samego certyfikatu i aktualizują się bez odinstalow
 3. Zbliż telefon do ucha. Dźwięk powinien wrócić do słuchawki.
 4. Powtórz test z podłączonym Bluetooth albo słuchawkami — aplikacja nie powinna
    przejmować trasy dźwięku z urządzenia zewnętrznego.
+
+W wersji 1.06 wykonaj ten sam test osobno na Pixelu lub innym telefonie z
+domyślną aplikacją **Telefon Google** oraz na Samsungu z domyślnym **Telefonem
+Samsung**. Na stronie głównej sprawdź nazwę wykrytej aplikacji Telefon. W obu
+przypadkach przetestuj rozmowę z TalkBackiem i bez niego; sama kompilacja nie
+potwierdza przełączania dźwięku na konkretnym urządzeniu.
 
 Na dole ekranu są dwie zakładki:
 
