@@ -16,8 +16,11 @@ Data aktualizacji: 2026-11-16
 - `testDebugUnitTest` (4 testy), `lintDebug`, `lintRelease`, `assembleRelease`:
   powodzenie; oba raporty lint: bez problemów.
 - Na Pixelu 11 potwierdzono nakładanie się interfejsu 1.06 na pasek stanu i
-  systemową nawigację. APK 1.07 przekazano do systemowego instalatora;
-  wynik kontroli nowego interfejsu na urządzeniu jest jeszcze oczekiwany.
+  systemową nawigację. Po zatwierdzonej instalacji 1.07 oba ekrany i obie
+  zakładki są widoczne ponad przyciskami Androida. Hierarchia UI pokazuje
+  granice zakładek do `y=2266` na ekranie 2424 px i właściwy stan zaznaczenia.
+  Przy skali czcionki 1,6 podpisy pozostają czytelne; przywrócono skalę 1,0.
+  Szczegóły i ograniczenia testu są w audycie dostępności.
 - [Wydanie 1.07](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.07)
   i tag opublikowano w głównym repozytorium. Publiczne APK i ZIP źródeł
   pobrano niezależnie: ich rozmiary i SHA-256 są identyczne z lokalnymi.

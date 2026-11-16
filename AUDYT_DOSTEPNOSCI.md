@@ -38,12 +38,25 @@ stanu. Potwierdzono to zrzutem ekranu i hierarchią UI z urządzenia.
   6,51:1, biały na głównym niebieskim przycisku 5,12:1.
 - `lintDebug` i `lintRelease`: bez problemów; `testDebugUnitTest`: cztery testy
   profili aplikacji Telefon; kompilacja podpisanego APK: poprawna.
-- Kontrola na urządzeniu obejmuje granice kontrolek w hierarchii UI i zrzuty
-  ekranów. Wynik testu wersji 1.07 zostanie dopisany po instalacji zatwierdzonej
-  w systemie Android.
+- Pixel 11 po systemowej instalacji 1.07: na ekranie głównym i Wsparcie zakładki
+  mają granice `[32,2077][524,2266]` i `[556,2077][1048,2266]` w obrazie
+  1080 × 2424 px. Są w całości nad trzema przyciskami systemowymi; nagłówki
+  są pod paskiem stanu. Przełączanie obu zakładek działa, a hierarchia UI
+  pokazuje ich nazwy, klasę przycisku i właściwy stan zaznaczenia.
+- Przy skali czcionki 1,6 zakładki przyjmują układ poziomy. Podpis „Strona
+  główna” zawija się do dwóch linii bez obcięcia; zakładki nadal kończą się
+  nad systemową nawigacją. Przewinięcie ekranu Wsparcie pozwala dosięgnąć
+  przycisku polityki prywatności i końcowej informacji. Po teście przywrócono
+  skalę 1,0.
+- Na ekranie Wsparcie hierarchia i zrzut pokazują wyłącznie nazwy Revolut i
+  PayPal nad przyciskami. Numery kont i adresy nie występują w tekście widoku.
 
 ## Granice audytu
 
-Zrzut ekranu i hierarchia UI nie potwierdzają rzeczywistej wypowiedzi
-TalkBacka ani fizycznej obsługi gestami. Nie wykonano rozmowy SIM, więc
-działanie przełączania audio w 1.07 nie zostało ponownie ocenione.
+TalkBack był włączony podczas testu, ale zrzut ekranu i hierarchia UI nie
+potwierdzają jego rzeczywistej wypowiedzi ani fizycznej obsługi gestami.
+Przełączenie zakładek wykonano przez wstrzyknięte dotknięcia ADB. Nie wykonano
+rozmowy SIM, więc działanie przełączania audio w 1.07 nie zostało ponownie
+ocenione.
+Test interakcyjny wykonano w polskiej wersji językowej; pozostałe tłumaczenia
+sprawdzono przez kompilację i lint, bez osobnego testu na telefonie.
