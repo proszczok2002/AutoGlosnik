@@ -2,7 +2,7 @@
 
 Data aktualizacji: 2026-11-16
 
-## Wersja 1.07 — przygotowanie
+## Aktualna wersja — 1.07
 
 - Poprawiono bezpieczne marginesy względem systemowych pasków Androida oraz
   przebudowano zakładki na wzór Androidowej nawigacji YouTube Downloadera.
@@ -18,14 +18,23 @@ Data aktualizacji: 2026-11-16
 - Na Pixelu 11 potwierdzono nakładanie się interfejsu 1.06 na pasek stanu i
   systemową nawigację. APK 1.07 przekazano do systemowego instalatora;
   wynik kontroli nowego interfejsu na urządzeniu jest jeszcze oczekiwany.
-- Główny `update.json` wskazuje 1.07; manifest migracyjny w
+- [Wydanie 1.07](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.07)
+  i tag opublikowano w głównym repozytorium. Publiczne APK i ZIP źródeł
+  pobrano niezależnie: ich rozmiary i SHA-256 są identyczne z lokalnymi.
+  ZIP: 122489 bajtów, SHA-256
+  `501FF6ECCFF52ECC933376068AB0FFF5C0D90F7DC5F733915DEA4F7C25843CA3`.
+- Publiczny surowy `update.json` wskazuje 1.07/112 i właściwy hash APK;
+  manifest migracyjny w
   `AutoGlosnik-Releases` pozostaje przy 1.03 dla wersji 1.02.
+- [Android CI dla commita wydania](https://github.com/proszczok2002/AutoGlosnik/actions/runs/43869380190):
+  lint, cztery testy i kompilacja debug zakończone powodzeniem.
+- Poprzedni APK 1.06 przeniesiono odwracalnie do `hasiok/release-artifacts/`.
 
 ## Poprzednia wersja
 
-- Opublikowana wersja aplikacji: `1.06` (`versionCode 111`).
+- Wcześniejsze wydanie aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Artefakt lokalny: `AutoGlosnik-v1.06.apk`.
+- Archiwalny artefakt lokalny: `hasiok/release-artifacts/AutoGlosnik-v1.06.apk`.
 - Rozmiar APK: 2185410 bajtów.
 - SHA-256 APK:
   `1F8E106F7E40311AB3ACAFDB78BFAD865F50CF05EFB17260D40A62E1779375C6`.
