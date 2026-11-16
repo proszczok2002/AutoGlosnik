@@ -2,7 +2,7 @@
 <resources>
     <string name='app_name'>AutoGłośnik</string>
     <string name='service_name'>AutoGłośnik — przełączanie rozmowy</string>
-    <string name='service_description'>Podczas rozmowy w Telefonie Google lub Samsung używa czujnika zbliżeniowego, aby przełączać słuchawkę i głośnik. Nie odczytuje ani nie zapisuje treści ekranu.</string>
+    <string name='service_description'>Podczas rozmowy w Telefonie Google lub Samsung używa czujnika zbliżeniowego i odczytuje kontrolkę głośnika, aby przełączać dźwięk. Nie zapisuje treści ekranu.</string>
     <string name='tab_home'>Strona główna</string>
     <string name='tab_support'>Wsparcie</string>
     <string name='tab_selected'>Wybrana zakładka</string>
@@ -18,7 +18,9 @@
     <string name='how_to_test'>Jak testować</string>
     <string name='test_instructions'>Wykonaj zwykłe połączenie SIM. Odsuń telefon od ucha na około pół sekundy — powinien włączyć się głośnik. Przyłóż telefon ponownie, aby wrócić do słuchawki.</string>
     <string name='privacy_summary'>Aplikacja nie nagrywa rozmów, nie zapisuje treści ekranu i nie używa analityki. Łączy się wyłącznie z GitHub, aby sprawdzać i pobierać aktualizacje wybrane przez użytkownika.</string>
-    <string name='detected_device'>Wykryto: %1$s %2$s • %3$s</string>
+    <string name='detected_device'>Wykryto: %1$s %2$s • %3$s. %4$s</string>
+    <string name='dialer_supported'>Obsługiwana aplikacja Telefon.</string>
+    <string name='dialer_unsupported'>Ta aplikacja Telefon nie jest obsługiwana.</string>
     <string name='phone_permission'>Uprawnienie Telefon</string>
     <string name='autospeaker_service'>Usługa AutoGłośnik</string>
     <string name='status_ready'>✓ %1$s: gotowe</string>

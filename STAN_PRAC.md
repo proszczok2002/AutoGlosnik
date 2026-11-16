@@ -1,8 +1,27 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-11-13
+Data aktualizacji: 2026-11-16
 
-## Aktualna wersja
+## Wersja 1.07 — przygotowanie
+
+- Poprawiono bezpieczne marginesy względem systemowych pasków Androida oraz
+  przebudowano zakładki na wzór Androidowej nawigacji YouTube Downloadera.
+- Uzupełniono [audyt dostępności](AUDYT_DOSTEPNOSCI.md), instrukcję i politykę
+  prywatności.
+- `versionCode 112`, `versionName 1.07`, podpisany APK:
+  `AutoGlosnik-v1.07.apk`, 2190330 bajtów, SHA-256
+  `9A89B00ABDE0625C5B5E8931126D6C3684CB66E4CF35A944F7BBBBBE94F9B845`.
+- Certyfikat podpisu jest zgodny z 1.06:
+  `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
+- `testDebugUnitTest` (4 testy), `lintDebug`, `lintRelease`, `assembleRelease`:
+  powodzenie; oba raporty lint: bez problemów.
+- Na Pixelu 11 potwierdzono nakładanie się interfejsu 1.06 na pasek stanu i
+  systemową nawigację. APK 1.07 przekazano do systemowego instalatora;
+  wynik kontroli nowego interfejsu na urządzeniu jest jeszcze oczekiwany.
+- Główny `update.json` wskazuje 1.07; manifest migracyjny w
+  `AutoGlosnik-Releases` pozostaje przy 1.03 dla wersji 1.02.
+
+## Poprzednia wersja
 
 - Opublikowana wersja aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.

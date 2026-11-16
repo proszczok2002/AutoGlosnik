@@ -2,7 +2,7 @@
 <resources>
     <string name='app_name'>AutoSpeaker</string>
     <string name='service_name'>AutoSpeaker — call audio switching</string>
-    <string name='service_description'>During calls in Google Phone or Samsung Phone, uses the proximity sensor to switch between the earpiece and speaker. It does not read or store screen content.</string>
+    <string name='service_description'>During calls in Google Phone or Samsung Phone, uses the proximity sensor and reads the speaker control to switch audio. It does not store screen content.</string>
     <string name='tab_home'>Home</string>
     <string name='tab_support'>Support</string>
     <string name='tab_selected'>Selected tab</string>
@@ -18,7 +18,9 @@
     <string name='how_to_test'>How to test</string>
     <string name='test_instructions'>Make a normal SIM call. Move the phone away from your ear for about half a second — the speaker should turn on. Move it back to your ear to return to the earpiece.</string>
     <string name='privacy_summary'>The app does not record calls, store screen content or use analytics. It connects only to GitHub to check and download updates selected by you.</string>
-    <string name='detected_device'>Detected: %1$s %2$s • %3$s</string>
+    <string name='detected_device'>Detected: %1$s %2$s • %3$s. %4$s</string>
+    <string name='dialer_supported'>Supported Phone app.</string>
+    <string name='dialer_unsupported'>This Phone app is not supported.</string>
     <string name='phone_permission'>Phone permission</string>
     <string name='autospeaker_service'>AutoSpeaker service</string>
     <string name='status_ready'>✓ %1$s: ready</string>

@@ -1,5 +1,17 @@
 # Historia zmian
 
+## 1.07 — bezpieczne marginesy i dostępniejsze zakładki
+
+- Odsunięto nagłówek i dolne zakładki od systemowych pasków Androida oraz wycięć ekranu.
+- Dolne zakładki mają ikony z podpisami i wyróżnioną aktywną pozycję, na wzór
+  androidowej nawigacji w YouTube Downloaderze. Przy dużej czcionce używają
+  szerszych przycisków z czytelnym tekstem.
+- Zachowano nazwy, stany wyboru i kolejność dla TalkBacka; przywracana jest
+  otwarta zakładka po zmianie konfiguracji.
+- Doprecyzowano opis usługi dostępności, politykę prywatności i informację
+  o wykrytej aplikacji Telefon.
+- Zwiększono `versionCode` z 111 do 112.
+
 ## 1.06 — osobne ścieżki dla Telefonu Google i Samsunga
 
 - Wykrywanie sposobu obsługi rozmowy opiera się na domyślnej aplikacji Telefon,

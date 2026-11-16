@@ -2,7 +2,7 @@
 <resources>
     <string name='app_name'>Автодинамик</string>
     <string name='service_name'>Автодинамик — переключение звука звонка</string>
-    <string name='service_description'>Во время звонков в приложении «Телефон» Google или Samsung использует датчик приближения для переключения между разговорным и внешним динамиком. Не читает и не сохраняет содержимое экрана.</string>
+    <string name='service_description'>Во время звонков в приложении «Телефон» Google или Samsung использует датчик приближения и считывает элемент управления динамиком для переключения звука. Не сохраняет содержимое экрана.</string>
     <string name='tab_home'>Главная</string>
     <string name='tab_support'>Поддержка</string>
     <string name='tab_selected'>Выбранная вкладка</string>
@@ -18,7 +18,9 @@
     <string name='how_to_test'>Как проверить</string>
     <string name='test_instructions'>Совершите обычный звонок через SIM-карту. Отведите телефон от уха примерно на полсекунды — должна включиться громкая связь. Поднесите телефон к уху, чтобы вернуться к разговорному динамику.</string>
     <string name='privacy_summary'>Приложение не записывает звонки, не сохраняет содержимое экрана и не использует аналитику. Оно подключается только к GitHub для проверки и загрузки выбранных вами обновлений.</string>
-    <string name='detected_device'>Обнаружено: %1$s %2$s • %3$s</string>
+    <string name='detected_device'>Обнаружено: %1$s %2$s • %3$s. %4$s</string>
+    <string name='dialer_supported'>Поддерживаемое приложение «Телефон».</string>
+    <string name='dialer_unsupported'>Это приложение «Телефон» не поддерживается.</string>
     <string name='phone_permission'>Доступ к телефону</string>
     <string name='autospeaker_service'>Служба «Автодинамик»</string>
     <string name='status_ready'>✓ %1$s: готово</string>

@@ -38,7 +38,9 @@ Możesz zgłosić błąd, zaproponować zmianę, utworzyć fork i wysłać Pull 
   Telefonu Samsung;
 - pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
 - interfejs po polsku, angielsku, niemiecku i rosyjsku;
-- wyraźne dolne zakładki **Strona główna** i **Wsparcie** z dużymi przyciskami;
+- dolne zakładki **Strona główna** i **Wsparcie** z ikonami, podpisami i wyróżnieniem
+  wybranej pozycji; układ omija systemowe paski Androida i dostosowuje się do
+  większej czcionki;
 - nazwy, stan wyboru i kolejność zakładek udostępnione TalkBackowi i innym
   czytnikom ekranu;
 - aktualizacje z GitHuba, zatwierdzane przez użytkownika;
@@ -159,6 +161,7 @@ Opis architektury i procedury wydawniczej: [JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
 - [Opis techniczny i utrzymanie](JAK_TO_DZIALA.md)
 - [Historia zmian](CHANGELOG.md)
 - [Stan projektu i wyniki weryfikacji](STAN_PRAC.md)
+- [Audyt dostępności interfejsu 1.07](AUDYT_DOSTEPNOSCI.md)
 - [Polityka prywatności](PRIVACY.md)
 - [Zasady współpracy](CONTRIBUTING.md)
 - [Zasady bezpieczeństwa](SECURITY.md)
