@@ -1,18 +1,20 @@
 # Polityka prywatności — AutoGłośnik
 
-Ostatnia aktualizacja: 2026-10-30
+Ostatnia aktualizacja: 2026-11-16
 
 ## W skrócie
 
 AutoGłośnik nie tworzy kont, nie wyświetla reklam, nie używa analityki i nie
-zbiera danych osobowych. Nie nagrywa rozmów, nie odczytuje numerów telefonów i
-nie zapisuje zawartości ekranu.
+zbiera danych osobowych. Nie nagrywa rozmów, nie zapisuje numerów telefonów ani
+zawartości ekranu.
 
 ## Usługa dostępności
 
 Usługa dostępności służy wyłącznie do rozpoznania i aktywowania przycisku
-głośnika w obsługiwanej aplikacji Telefon podczas trwającej rozmowy. Zdarzenia
-i treści interfejsu nie są zapisywane ani wysyłane. Usługa nie zmienia ustawień
+głośnika w obsługiwanej aplikacji Telefon podczas trwającej rozmowy. W tym celu
+przegląda drzewo interfejsu rozmowy, w którym mogą znajdować się także inne
+etykiety, np. numer rozmówcy. Zdarzenia i teksty interfejsu nie są zapisywane
+ani wysyłane. Usługa nie zmienia ustawień
 systemowych, nie wykonuje działań poza obsługiwanym ekranem rozmowy i może być
 w każdej chwili wyłączona przez użytkownika.
 
@@ -60,12 +62,13 @@ informacjach o nowej wersji.
 
 # Privacy Policy — AutoSpeaker
 
-Last updated: 2026-10-30
+Last updated: 2026-11-16
 
 AutoSpeaker does not create accounts, show ads, use analytics, record calls,
-read phone numbers or retain screen content. Its accessibility service is used
-only to identify and activate the speaker control in a supported Phone app
-during an active call. Interface events and content are not stored or sent.
+or retain phone numbers or screen content. Its accessibility service is used
+to identify and activate the speaker control in a supported Phone app during
+an active call. It scans the call interface tree, which can include other labels
+such as the caller's number. Interface events and content are not stored or sent.
 
 The app stores only its enabled setting, the latest local status message and
 the technical state of an update in progress. Network access is limited to the

@@ -50,7 +50,9 @@ a potem ponownie skonfigurować usługę dostępności i uprawnienie Telefon.
 
 1. Na zakładce **Strona główna** włącz główny przełącznik AutoGłośnika.
 2. Wybierz **Uprawnienie Telefon** i zezwól aplikacji na rozpoznanie, czy trwa
-   rozmowa. Aplikacja nie odczytuje numeru ani historii połączeń.
+   rozmowa. To uprawnienie nie służy do pobierania numeru ani historii połączeń;
+   usługa dostępności przegląda jedynie interfejs rozmowy, by znaleźć przycisk
+   głośnika. Teksty interfejsu nie są zapisywane ani wysyłane.
 3. Wybierz **Usługa AutoGłośnik**, znajdź AutoGłośnik na liście dostępności i
    włącz usługę.
 4. Jeżeli Android pokazuje komunikat o ustawieniu z ograniczeniami, otwórz
