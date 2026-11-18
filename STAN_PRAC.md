@@ -1,6 +1,6 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-11-16
+Data aktualizacji: 2026-11-18
 
 ## Aktualna wersja — 1.07
 
@@ -223,16 +223,17 @@ Issues, Pull Requesty, zasady bezpieczeństwa, Dependabot i Android CI. Klucz
 wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
 `.signing`.
 
-## Otwarte automatyczne Pull Requesty
+## Narzędzia budowania na `main`
 
-- [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1) proponuje Gradle
-  Wrapper 9.8.2 i ma poprawny workflow.
-- [PR #2](https://github.com/proszczok2002/AutoGlosnik/pull/2) proponuje Android
-  Gradle Plugin 9.4.1 i samodzielnie nie przechodzi, ponieważ wymaga Gradle co
-  najmniej 9.6.0.
-
-Żaden z tych PR-ów nie jest częścią wydania 1.03. Narzędzia pozostają w
-zweryfikowanej konfiguracji Gradle 9.4.1 i Android Gradle Plugin 9.2.0.
+- Zaktualizowano Gradle Wrapper do 9.8.2. [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1)
+  · [GitHub CI](https://github.com/proszczok2002/AutoGlosnik/actions/runs/44331055183).
+- Po aktualizacji Gradle zaktualizowano Android Gradle Plugin do 9.5.1.
+  [PR #3](https://github.com/proszczok2002/AutoGlosnik/pull/3)
+  · [GitHub CI](https://github.com/proszczok2002/AutoGlosnik/actions/runs/44331510514).
+- Na Windows oba warianty APK zbudowały się poprawnie, lint zakończył się
+  bez problemów, a wszystkie cztery testy jednostkowe przeszły. `apksigner`
+  potwierdził zgodność certyfikatu lokalnego APK release z certyfikatem 1.07.
+  Publicznym wydaniem aplikacji pozostaje 1.07 (`versionCode 112`).
 
 ## Urządzenia bazowo przetestowane dla linii 1.02
 
