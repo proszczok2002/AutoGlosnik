@@ -19,8 +19,11 @@ import android.telecom.TelecomManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowInsets;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
@@ -35,14 +38,16 @@ public final class MainActivity extends Activity {
     static final String KEY_ENABLED = "enabled";
     static final String KEY_LAST_STATUS = "last_status";
     private static final int REQUEST_PHONE = 10;
+    private static final String STATE_SUPPORT_TAB = "support_tab";
     private static final String REVOLUT_URL = "https://revolut.me/r_rosiejka";
     private static final String PAYPAL_URL = "https://paypal.me/proszczok";
     private static final String PRIVACY_URL =
-            "https://github.com/proszczok2002/AutoGlosnik-Releases/blob/main/PRIVACY.md";
+            "https://github.com/proszczok2002/AutoGlosnik/blob/main/PRIVACY.md";
 
     private FrameLayout content;
-    private Button homeTab;
-    private Button supportTab;
+    private NavigationTab homeTab;
+    private NavigationTab supportTab;
+    private TextView contentHeading;
     private TextView phoneStatus;
     private TextView deviceStatus;
     private TextView serviceStatus;
@@ -50,14 +55,25 @@ public final class MainActivity extends Activity {
     private TextView runtimeStatus;
     private Switch enabledSwitch;
     private UpdateManager updateManager;
+    private boolean supportSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         updateManager = new UpdateManager(this);
         setContentView(buildShell());
-        showHome();
+        if (savedInstanceState != null && savedInstanceState.getBoolean(STATE_SUPPORT_TAB)) {
+            showSupport();
+        } else {
+            showHome();
+        }
         updateManager.checkForUpdates(false);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(STATE_SUPPORT_TAB, supportSelected);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -83,6 +99,12 @@ public final class MainActivity extends Activity {
         LinearLayout shell = new LinearLayout(this);
         shell.setOrientation(LinearLayout.VERTICAL);
         shell.setBackgroundColor(getColor(R.color.surface));
+        shell.setOnApplyWindowInsetsListener((view, insets) -> {
+            android.graphics.Insets safe = insets.getInsets(
+                    WindowInsets.Type.systemBars() | WindowInsets.Type.displayCutout());
+            view.setPadding(safe.left, safe.top, safe.right, safe.bottom);
+            return insets;
+        });
 
         content = new FrameLayout(this);
         shell.addView(content, new LinearLayout.LayoutParams(
@@ -96,29 +118,46 @@ public final class MainActivity extends Activity {
         LinearLayout navigation = new LinearLayout(this);
         navigation.setOrientation(LinearLayout.HORIZONTAL);
         navigation.setGravity(Gravity.CENTER);
-        navigation.setPadding(dp(8), dp(6), dp(8), dp(8));
+        navigation.setBaselineAligned(false);
+        navigation.setPadding(dp(12), dp(10), dp(12), dp(12));
         navigation.setBackgroundColor(getColor(R.color.surface_nav));
 
-        homeTab = navigationButton(R.string.tab_home);
-        supportTab = navigationButton(R.string.tab_support);
+        boolean largeText = getResources().getConfiguration().fontScale > 1.4f;
+        homeTab = new NavigationTab(R.string.tab_home, R.drawable.ic_home, largeText);
+        supportTab = new NavigationTab(R.string.tab_support, R.drawable.ic_favorite, largeText);
+        homeTab.setId(View.generateViewId());
+        supportTab.setId(View.generateViewId());
+        homeTab.setAccessibilityTraversalBefore(supportTab.getId());
         homeTab.setOnClickListener(v -> showHome());
         supportTab.setOnClickListener(v -> showSupport());
-        navigation.addView(homeTab, new LinearLayout.LayoutParams(0, dp(54), 1f));
-        navigation.addView(supportTab, new LinearLayout.LayoutParams(0, dp(54), 1f));
+        LinearLayout.LayoutParams homeParams = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        homeParams.setMarginEnd(dp(6));
+        navigation.addView(homeTab, homeParams);
+        LinearLayout.LayoutParams supportParams = new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        supportParams.setMarginStart(dp(6));
+        navigation.addView(supportTab, supportParams);
         shell.addView(navigation);
         return shell;
     }
 
     private void showHome() {
+        supportSelected = false;
         content.removeAllViews();
         content.addView(buildHomeContent());
+        content.setAccessibilityPaneTitle(getString(R.string.tab_home));
+        supportTab.setAccessibilityTraversalBefore(contentHeading.getId());
         updateTabStyles(true);
         refreshStatus();
     }
 
     private void showSupport() {
+        supportSelected = true;
         content.removeAllViews();
         content.addView(buildSupportContent());
+        content.setAccessibilityPaneTitle(getString(R.string.tab_support));
+        supportTab.setAccessibilityTraversalBefore(contentHeading.getId());
         updateTabStyles(false);
     }
 
@@ -129,7 +168,10 @@ public final class MainActivity extends Activity {
         root.setPadding(pad, dp(28), pad, dp(28));
         root.setBackgroundColor(getColor(R.color.surface));
 
-        root.addView(text(getString(R.string.app_name), 30, true, R.color.text_primary));
+        contentHeading = text(getString(R.string.app_name), 30, true, R.color.text_primary);
+        contentHeading.setId(View.generateViewId());
+        contentHeading.setAccessibilityHeading(true);
+        root.addView(contentHeading);
 
         TextView lead = text(getString(R.string.home_lead), 17, false, R.color.text_secondary);
         lead.setPadding(0, dp(8), 0, dp(22));
@@ -140,6 +182,7 @@ public final class MainActivity extends Activity {
         enabledSwitch.setTextSize(18);
         enabledSwitch.setTextColor(getColor(R.color.text_primary));
         enabledSwitch.setPadding(0, dp(10), 0, dp(18));
+        enabledSwitch.setMinimumHeight(dp(56));
         SharedPreferences preferences = getSharedPreferences(PREFS, MODE_PRIVATE);
         enabledSwitch.setChecked(preferences.getBoolean(KEY_ENABLED, true));
         enabledSwitch.setOnCheckedChangeListener((button, checked) ->
@@ -194,14 +237,16 @@ public final class MainActivity extends Activity {
         root.setPadding(pad, dp(28), pad, dp(28));
         root.setBackgroundColor(getColor(R.color.surface));
 
-        root.addView(text(getString(R.string.support_title), 30, true, R.color.text_primary));
+        contentHeading = text(getString(R.string.support_title), 30, true, R.color.text_primary);
+        contentHeading.setId(View.generateViewId());
+        contentHeading.setAccessibilityHeading(true);
+        root.addView(contentHeading);
         TextView lead = text(getString(R.string.support_lead), 17, false, R.color.text_secondary);
         lead.setPadding(0, dp(8), 0, dp(18));
         root.addView(lead);
 
         LinearLayout supportCard = card();
         supportCard.addView(text(getString(R.string.revolut_title), 20, true, R.color.text_primary));
-        supportCard.addView(text("revolut.me/r_rosiejka", 15, false, R.color.text_secondary));
         Button revolut = primaryButton(R.string.open_revolut);
         revolut.setOnClickListener(v -> openExternal(REVOLUT_URL));
         supportCard.addView(revolut);
@@ -211,7 +256,6 @@ public final class MainActivity extends Activity {
         supportCard.addView(spacer);
 
         supportCard.addView(text(getString(R.string.paypal_title), 20, true, R.color.text_primary));
-        supportCard.addView(text("paypal.me/proszczok", 15, false, R.color.text_secondary));
         Button paypal = primaryButton(R.string.open_paypal);
         paypal.setOnClickListener(v -> openExternal(PAYPAL_URL));
         supportCard.addView(paypal);
@@ -222,6 +266,7 @@ public final class MainActivity extends Activity {
                 updateManager.currentVersionName()), 16, true, R.color.text_primary));
         TextView updateStatus = text(getString(R.string.update_ready_to_check),
                 15, false, R.color.text_secondary);
+        updateStatus.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
         updateStatus.setPadding(0, dp(8), 0, dp(2));
         root.addView(updateStatus);
         updateManager.bindStatus(updateStatus);
@@ -259,6 +304,7 @@ public final class MainActivity extends Activity {
     private TextView sectionTitle(int stringId) {
         TextView view = text(getString(stringId), 19, true, R.color.text_primary);
         view.setPadding(0, dp(18), 0, dp(8));
+        view.setAccessibilityHeading(true);
         return view;
     }
 
@@ -297,6 +343,7 @@ public final class MainActivity extends Activity {
         result.setTextSize(16);
         result.setTypeface(result.getTypeface(), Typeface.BOLD);
         result.setPadding(dp(14), dp(12), dp(14), dp(12));
+        result.setMinimumHeight(dp(56));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.topMargin = dp(12);
@@ -304,21 +351,77 @@ public final class MainActivity extends Activity {
         return result;
     }
 
-    private Button navigationButton(int stringId) {
-        Button result = new Button(this);
-        result.setText(stringId);
-        result.setAllCaps(false);
-        result.setTextSize(15);
-        result.setTypeface(result.getTypeface(), Typeface.BOLD);
-        result.setBackgroundColor(Color.TRANSPARENT);
-        return result;
+    private void updateTabStyles(boolean homeSelected) {
+        homeTab.setActive(homeSelected);
+        supportTab.setActive(!homeSelected);
     }
 
-    private void updateTabStyles(boolean homeSelected) {
-        homeTab.setTextColor(getColor(homeSelected ? R.color.brand : R.color.text_secondary));
-        supportTab.setTextColor(getColor(homeSelected ? R.color.text_secondary : R.color.brand));
-        homeTab.setSelected(homeSelected);
-        supportTab.setSelected(!homeSelected);
+    private final class NavigationTab extends LinearLayout {
+        private final FrameLayout iconPill;
+        private final ImageView icon;
+        private final TextView label;
+        private final boolean largeText;
+
+        NavigationTab(int labelId, int iconId, boolean largeText) {
+            super(MainActivity.this);
+            this.largeText = largeText;
+            setOrientation(largeText ? HORIZONTAL : VERTICAL);
+            setGravity(Gravity.CENTER);
+            setPadding(dp(8), dp(8), dp(8), dp(8));
+            setMinimumHeight(dp(72));
+            setClickable(true);
+            setFocusable(true);
+            setContentDescription(getString(labelId));
+            setAccessibilityDelegate(new View.AccessibilityDelegate() {
+                @Override
+                public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+                    super.onInitializeAccessibilityNodeInfo(host, info);
+                    info.setClassName(Button.class.getName());
+                }
+            });
+
+            iconPill = new FrameLayout(MainActivity.this);
+            icon = new ImageView(MainActivity.this);
+            icon.setImageResource(iconId);
+            icon.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            FrameLayout.LayoutParams iconParams = new FrameLayout.LayoutParams(
+                    dp(24), dp(24), Gravity.CENTER);
+            iconPill.addView(icon, iconParams);
+            addView(iconPill, new LayoutParams(dp(64), dp(32)));
+
+            label = text(getString(labelId), largeText ? 14 : 12, false, R.color.text_secondary);
+            label.setGravity(Gravity.CENTER);
+            label.setMaxLines(2);
+            label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            LayoutParams labelParams = new LayoutParams(
+                    largeText ? 0 : LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+                    largeText ? 1f : 0f);
+            if (largeText) labelParams.setMarginStart(dp(8));
+            else labelParams.topMargin = dp(4);
+            addView(label, labelParams);
+        }
+
+        void setActive(boolean active) {
+            setSelected(active);
+            setStateDescription(getString(active ? R.string.tab_selected : R.string.tab_not_selected));
+            label.setTextColor(getColor(active ? R.color.text_primary : R.color.text_secondary));
+            label.setTypeface(label.getTypeface(), active ? Typeface.BOLD : Typeface.NORMAL);
+            icon.setImageTintList(android.content.res.ColorStateList.valueOf(
+                    getColor(active ? R.color.text_primary : R.color.text_secondary)));
+
+            GradientDrawable pill = new GradientDrawable();
+            pill.setColor(getColor(active ? R.color.tab_selected : R.color.surface_nav));
+            pill.setCornerRadius(dp(20));
+            iconPill.setBackground(pill);
+            if (largeText) {
+                GradientDrawable outline = new GradientDrawable();
+                outline.setColor(getColor(active ? R.color.tab_selected : R.color.surface_nav));
+                outline.setCornerRadius(dp(16));
+                outline.setStroke(dp(1), getColor(active
+                        ? R.color.tab_selected_border : R.color.divider));
+                setBackground(outline);
+            }
+        }
     }
 
     private TextView text(String value, int sp, boolean bold, int color) {
@@ -337,9 +440,12 @@ public final class MainActivity extends Activity {
         String model = Build.MODEL == null ? "" : Build.MODEL;
         TelecomManager telecomManager = getSystemService(TelecomManager.class);
         String dialerPackage = telecomManager == null ? null : telecomManager.getDefaultDialerPackage();
+        boolean supportedDialer = isSupportedDialer(dialerPackage);
         deviceStatus.setText(getString(R.string.detected_device,
-                friendlyManufacturer(manufacturer), model, friendlyDialer(dialerPackage)));
-        deviceStatus.setTextColor(getColor(isSupportedDialer(dialerPackage)
+                friendlyManufacturer(manufacturer), model, friendlyDialer(dialerPackage),
+                getString(supportedDialer
+                        ? R.string.dialer_supported : R.string.dialer_unsupported)));
+        deviceStatus.setTextColor(getColor(supportedDialer
                 ? R.color.success : R.color.warning));
 
         boolean phoneGranted = checkSelfPermission(Manifest.permission.READ_PHONE_STATE)

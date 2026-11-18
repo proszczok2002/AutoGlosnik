@@ -2,9 +2,11 @@
 <resources>
     <string name='app_name'>AutoLautsprecher</string>
     <string name='service_name'>AutoLautsprecher — Anrufaudio umschalten</string>
-    <string name='service_description'>Verwendet bei Anrufen in Google Telefon oder Samsung Telefon den Näherungssensor, um zwischen Hörer und Lautsprecher umzuschalten. Bildschirminhalte werden weder gelesen noch gespeichert.</string>
+    <string name='service_description'>Verwendet bei Anrufen in Google Telefon oder Samsung Telefon den Näherungssensor und liest die Lautsprechersteuerung, um den Ton umzuschalten. Bildschirminhalte werden nicht gespeichert.</string>
     <string name='tab_home'>Startseite</string>
     <string name='tab_support'>Unterstützung</string>
+    <string name='tab_selected'>Ausgewählter Tab</string>
+    <string name='tab_not_selected'>Nicht ausgewählter Tab</string>
     <string name='home_lead'>Schaltet den Anrufton in einer unterstützten Telefon-App automatisch um: am Ohr — Hörer, entfernt — Lautsprecher.</string>
     <string name='automatic_switching'>Automatisches Umschalten</string>
     <string name='configuration_status'>Einrichtungsstatus</string>
@@ -16,7 +18,9 @@
     <string name='how_to_test'>So wird getestet</string>
     <string name='test_instructions'>Einen normalen SIM-Anruf führen. Das Telefon etwa eine halbe Sekunde vom Ohr entfernen — der Lautsprecher sollte aktiviert werden. Wieder ans Ohr halten, um zum Hörer zurückzukehren.</string>
     <string name='privacy_summary'>Die App zeichnet keine Anrufe auf, speichert keine Bildschirminhalte und verwendet keine Analysefunktionen. Sie verbindet sich nur mit GitHub, um von dir ausgewählte Updates zu prüfen und herunterzuladen.</string>
-    <string name='detected_device'>Erkannt: %1$s %2$s • %3$s</string>
+    <string name='detected_device'>Erkannt: %1$s %2$s • %3$s. %4$s</string>
+    <string name='dialer_supported'>Unterstützte Telefon-App.</string>
+    <string name='dialer_unsupported'>Diese Telefon-App wird nicht unterstützt.</string>
     <string name='phone_permission'>Telefonberechtigung</string>
     <string name='autospeaker_service'>AutoLautsprecher-Dienst</string>
     <string name='status_ready'>✓ %1$s: bereit</string>

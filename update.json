@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "versionCode": 112,
+  "versionName": "1.07",
+  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.07/AutoGlosnik-v1.07.apk",
+  "sha256": "9a89b00abde0625c5b5e8931126d6c3684cb66e4cf35a944f7bbbbbe94f9b845",
+  "notes": {
+    "pl": "Poprawiono dolne zakładki i odsunięto je od przycisków systemowych Androida. Dodano czytelne ikony, obsługę większej czcionki oraz dokładniejsze opisy dostępności i prywatności.",
+    "en": "Improved the bottom tabs and moved them clear of Android system navigation. Added readable icons, large-text support, and clearer accessibility and privacy descriptions.",
+    "de": "Die unteren Tabs überdecken die Android-Systemnavigation nicht mehr. Symbole, größere Schrift und Beschreibungen zu Barrierefreiheit und Datenschutz wurden verbessert.",
+    "ru": "Нижние вкладки больше не перекрывают системную навигацию Android. Улучшены значки, поддержка крупного шрифта, описание доступности и конфиденциальности."
+  }
+}

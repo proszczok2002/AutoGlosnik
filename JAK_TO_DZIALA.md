@@ -12,21 +12,37 @@
 5. Stan działania i diagnostyka są prezentowane lokalnie w aplikacji. Dane
    zdarzeń nie opuszczają telefonu.
 
+## Profil aplikacji Telefon
+
+Usługa sprawdza pakiet domyślnej aplikacji Telefon. `com.google.android.dialer`
+wybiera ścieżkę Google na Pixelu i na telefonach innych producentów. Dla tej
+ścieżki ogranicza zdarzenia i okna rozmowy do Telefonu Google, preferuje jego
+okno przed System UI i najpierw używa reguł wyboru przycisku z dostarczonego
+APK 1.2.0. Rozszerzone etykiety pomagają, jeżeli starsze reguły nie znajdą
+przycisku. `com.samsung.android.dialer` wybiera obecną ścieżkę Samsunga wraz z
+`com.samsung.android.incallui`; `com.android.dialer` ma własny profil AOSP.
+Gdy Android nie zwróci domyślnego pakietu, usługa korzysta z zaobserwowanego
+interfejsu rozmowy. Nie przełącza trasy dla nieobsługiwanej aplikacji Telefon.
+
+Przełączenie domyślnego dialera podczas działania usługi unieważnia oczekujące
+próby poprzedniego profilu. Zachowano pierwszeństwo zewnętrznych urządzeń audio.
+Reguły kodu nie zastępują testów rozmowy na rzeczywistych telefonach.
+
 ## Architektura aktualizatora
 
 Głównym repozytorium projektu jest publiczne
 `proszczok2002/AutoGlosnik`. Zawiera kod źródłowy, dokumentację, Issues, Pull
 Requesty i kopię najnowszego oficjalnego APK.
 
-Wersja 1.02 ma zapisany adres publicznego repozytorium
-`proszczok2002/AutoGlosnik-Releases`, z którego pobiera manifest `update.json`
-i wskazany przez niego APK. Repozytorium to jest utrzymywane jako kanał
-zgodności dla istniejących instalacji. Nie zawiera sekretów ani nie daje
-aplikacji dostępu do konta GitHub.
+Wersja 1.03 pobiera manifest `update.json` i APK z głównego repozytorium
+`proszczok2002/AutoGlosnik`. Wersja 1.02 ma jeszcze zapisany adres
+`proszczok2002/AutoGlosnik-Releases`. Dlatego podpisane wydanie 1.03 trafia do
+obu repozytoriów: stary kanał dostarcza jednorazową migrację urządzeniom z 1.02,
+a po instalacji 1.03 kolejne aktualizacje są obsługiwane przez główne repo.
 
 APK przechodzi dwie weryfikacje: po pobraniu oraz bezpośrednio przed utworzeniem
 sesji instalacji. Sprawdzane są SHA-256, pakiet `pl.bumbox.autospeaker`, rosnący
-`versionCode` i zgodność certyfikatu podpisu. Wersja 1.02 przekazuje bajty APK
+`versionCode` i zgodność certyfikatu podpisu. Wersja 1.02 i nowsze przekazują bajty APK
 bezpośrednio do systemowej sesji `PackageInstaller`; ogólny `ACTION_VIEW` nie
 jest używany, więc zewnętrzny instalator APK nie przejmuje tego etapu. Android
 nadal zawsze wymaga decyzji użytkownika.
@@ -62,7 +78,7 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - po publikacji trzeba ponownie pobrać publiczny APK i porównać SHA-256, pakiet,
   wersję oraz certyfikat z artefaktem lokalnym.
 
-Wydania 1.0 (`105`), 1.01 (`106`) i 1.02 (`107`) należą do jednej linii
+Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`), 1.03 (`108`), 1.04 (`109`), 1.05 (`110`) i 1.06 (`111`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 
 ## Pliki stanu

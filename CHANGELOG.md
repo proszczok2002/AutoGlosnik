@@ -1,5 +1,55 @@
 # Historia zmian
 
+## 1.07 — bezpieczne marginesy i dostępniejsze zakładki
+
+- Odsunięto nagłówek i dolne zakładki od systemowych pasków Androida oraz wycięć ekranu.
+- Dolne zakładki mają ikony z podpisami i wyróżnioną aktywną pozycję, na wzór
+  androidowej nawigacji w YouTube Downloaderze. Przy dużej czcionce używają
+  szerszych przycisków z czytelnym tekstem.
+- Zachowano nazwy, stany wyboru i kolejność dla TalkBacka; przywracana jest
+  otwarta zakładka po zmianie konfiguracji.
+- Doprecyzowano opis usługi dostępności, politykę prywatności i informację
+  o wykrytej aplikacji Telefon.
+- Zwiększono `versionCode` z 111 do 112.
+
+## 1.06 — osobne ścieżki dla Telefonu Google i Samsunga
+
+- Wykrywanie sposobu obsługi rozmowy opiera się na domyślnej aplikacji Telefon,
+  więc ścieżka Google działa także na urządzeniach innych producentów z Telefonem Google.
+- Dla Telefonu Google przywrócono kolejność wyboru interfejsu i wyszukiwania
+  przycisku głośnika ze sprawdzonego APK 1.2.0; rozszerzone etykiety pozostają
+  zapasową metodą dla innych języków.
+- Dla Telefonu Samsung zachowano aktualną ścieżkę z jego interfejsem rozmowy,
+  gestem i opóźnieniem dla TalkBacka.
+- Zablokowano wykonywanie oczekujących prób przełączenia po zmianie wykrytego
+  profilu aplikacji Telefon.
+- Zwiększono `versionCode` z 110 do 111.
+
+## 1.05 — dyskretniejsza zakładka Wsparcie
+
+- Usunięto z widoku Wsparcie adresy i identyfikatory kont nad przyciskami Revolut i PayPal.
+- Przyciski nadal otwierają właściwe strony usług po ich wybraniu.
+- Zwiększono `versionCode` z 109 do 110.
+
+## 1.04 — czytelniejsze i łatwiej dostępne zakładki
+
+- Zwiększono dolne przyciski nawigacji i ich tekst oraz dodano wyraźne tło i obramowanie.
+- Wybrana zakładka ma osobny, kontrastowy wygląd; jej stan jest podawany czytnikowi ekranu w czterech językach.
+- Ustawiono zakładki przed treścią w kolejności dostępności, oznaczono nagłówki ekranów i nazwano obszary treści.
+- Zwiększono `versionCode` z 108 do 109.
+
+## 1.03 — migracja aktualizatora do głównego repozytorium
+
+- Zwiększono `versionCode` z 107 do 108.
+- Manifest przyszłych aktualizacji jest pobierany z publicznego repozytorium
+  `proszczok2002/AutoGlosnik`.
+- Aktualizator ufa wyłącznie zasobom Releases głównego repozytorium.
+- Link polityki prywatności prowadzi do głównego repozytorium.
+- Zachowano kontrole HTTPS, SHA-256, pakietu, rosnącego numeru wersji i podpisu.
+- Zachowano systemowy `PackageInstaller` oraz wymagane potwierdzenie użytkownika.
+- Wersja 1.03 jest publikowana także w starym kanale zgodności, aby zainstalowana
+  wersja 1.02 mogła bezpiecznie przejść do nowego kanału.
+
 ## 1.02 — systemowy instalator aktualizacji
 
 - Usunięto ogólny mechanizm `ACTION_VIEW`, który mógł uruchamiać Uptodown App

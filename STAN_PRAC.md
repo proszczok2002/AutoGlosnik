@@ -1,78 +1,240 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-10-24
+Data aktualizacji: 2026-11-16
 
-## Aktualna wersja
+## Aktualna wersja — 1.07
 
-- Wersja aplikacji: `1.02` (`versionCode 107`).
+- Poprawiono bezpieczne marginesy względem systemowych pasków Androida oraz
+  przebudowano zakładki na wzór Androidowej nawigacji YouTube Downloadera.
+- Uzupełniono [audyt dostępności](AUDYT_DOSTEPNOSCI.md), instrukcję i politykę
+  prywatności.
+- `versionCode 112`, `versionName 1.07`, podpisany APK:
+  `AutoGlosnik-v1.07.apk`, 2190330 bajtów, SHA-256
+  `9A89B00ABDE0625C5B5E8931126D6C3684CB66E4CF35A944F7BBBBBE94F9B845`.
+- Certyfikat podpisu jest zgodny z 1.06:
+  `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
+- `testDebugUnitTest` (4 testy), `lintDebug`, `lintRelease`, `assembleRelease`:
+  powodzenie; oba raporty lint: bez problemów.
+- Na Pixelu 11 potwierdzono nakładanie się interfejsu 1.06 na pasek stanu i
+  systemową nawigację. Po zatwierdzonej instalacji 1.07 oba ekrany i obie
+  zakładki są widoczne ponad przyciskami Androida. Hierarchia UI pokazuje
+  granice zakładek do `y=2266` na ekranie 2424 px i właściwy stan zaznaczenia.
+  Przy skali czcionki 1,6 podpisy pozostają czytelne; przywrócono skalę 1,0.
+  Szczegóły i ograniczenia testu są w audycie dostępności.
+- [Wydanie 1.07](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.07)
+  i tag opublikowano w głównym repozytorium. Publiczne APK i ZIP źródeł
+  pobrano niezależnie: ich rozmiary i SHA-256 są identyczne z lokalnymi.
+  ZIP: 122489 bajtów, SHA-256
+  `501FF6ECCFF52ECC933376068AB0FFF5C0D90F7DC5F733915DEA4F7C25843CA3`.
+- Publiczny surowy `update.json` wskazuje 1.07/112 i właściwy hash APK;
+  manifest migracyjny w
+  `AutoGlosnik-Releases` pozostaje przy 1.03 dla wersji 1.02.
+- [Android CI dla commita wydania](https://github.com/proszczok2002/AutoGlosnik/actions/runs/43869380190):
+  lint, cztery testy i kompilacja debug zakończone powodzeniem.
+- Poprzedni APK 1.06 przeniesiono odwracalnie do `hasiok/release-artifacts/`.
+
+## Poprzednia wersja
+
+- Wcześniejsze wydanie aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Najnowszy artefakt: `AutoGlosnik-v1.02.apk`.
+- Archiwalny artefakt lokalny: `hasiok/release-artifacts/AutoGlosnik-v1.06.apk`.
+- Rozmiar APK: 2185410 bajtów.
 - SHA-256 APK:
-  `FE84A901AED68C34A7330B2DF9C5645F8D44547BAD4D66EF0946B4268344D5F4`.
+  `1F8E106F7E40311AB3ACAFDB78BFAD865F50CF05EFB17260D40A62E1779375C6`.
+- Publiczny pakiet kodu: `AutoGlosnik-v1.06-source.zip`.
+- Rozmiar pakietu kodu: 114401 bajtów.
+- SHA-256 pakietu kodu:
+  `8B251E81E6131C3AD3E1A971D5FFB5BE3F759BE732E62CC58B99170D1B421379`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- Wydania 1.0 (`105`), 1.01 (`106`) i 1.02 (`107`) korzystają z tej
-  samej linii podpisu wydawniczego.
+- APK 1.05 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
+  pozostają na GitHubie. W katalogu głównym są nowy APK oraz dostarczony do
+  porównania `AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk`.
 
-## Repozytorium i licencja
+## Cel wersji 1.06
 
-- Główne publiczne repozytorium:
-  <https://github.com/proszczok2002/AutoGlosnik>.
-- Repozytorium zawiera kod źródłowy, dokumentację, Issues, Pull Requesty oraz
-  kopię najnowszego oficjalnego APK w GitHub Releases.
-- Projekt jest udostępniony na licencji Apache License 2.0.
-- Historia Gita została sprawdzona przed publikacją: nie zawiera klucza
-  podpisu, pliku właściwości podpisu, haseł, tokenów ani plików APK.
-- Klucz wydawniczy pozostaje lokalnie w ignorowanym katalogu `.signing` i nie
-  jest dostępny dla GitHub Actions.
-- Każdy push i Pull Request przechodzi workflow: `lintDebug`,
-  `testDebugUnitTest` i `assembleDebug`.
+Przywrócić dla domyślnego Telefonu Google reguły z referencyjnego APK 1.2.0,
+niezależnie od producenta telefonu, i zachować aktualną ścieżkę Samsunga dla
+Telefonu Samsung. Wykrywanie opiera się na pakiecie domyślnego dialera; jeśli
+Android go nie zwraca, wykorzystywany jest zaobserwowany interfejs rozmowy.
+Zmiana profilu unieważnia oczekujące próby poprzedniego dialera. Dla Google
+starszy wybór przycisku ma pierwszeństwo, a rozszerzone etykiety stanowią
+zapasową metodę. Zewnętrzne trasy audio nadal mają pierwszeństwo.
 
-## Dystrybucja i aktualizator
+Referencyjny APK: SHA-256
+`6DF582606DE8A6F63449B2A4926492CE092DF5EFE8460AE59266F912D2AB07BC`,
+`versionCode 102`, `versionName 1.2.0`, pakiet `pl.bumbox.autospeaker`.
+Jego certyfikat SHA-256
+`C033826456D8A38F662306C5D3253EF0A7B8B4D19582DD50408D0861CD4CC41E`
+jest inny od certyfikatu wydań GitHub; instalacja na nim wymaga wcześniejszego
+odinstalowania tej wersji testowej.
 
-- Oficjalne wydanie 1.02 jest dostępne w głównym repozytorium:
-  <https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.02>.
-- Wersja 1.02 nadal pobiera `update.json` i wskazany APK z
-  <https://github.com/proszczok2002/AutoGlosnik-Releases>.
-- Repozytorium `AutoGlosnik-Releases` pozostaje publicznym kanałem zgodności
-  dla istniejących instalacji i nie może zostać usunięte.
-- Publiczny manifest wskazuje wersję 1.02 i zweryfikowany zasób APK.
-- Opublikowanego APK nie wolno podmieniać pod istniejącym tagiem.
+## Weryfikacja lokalna 1.06
 
-## Funkcje gotowe w 1.02
+- `testDebugUnitTest`: 4 testy profilu, 0 błędów;
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- APK Signature Scheme v2: poprawny, certyfikat zgodny z wersją 1.05;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 111`, `versionName 1.06`;
+- w tej sesji nie było podłączonego urządzenia ADB. Nie potwierdzono jeszcze
+  faktycznej rozmowy na Pixelu, innym telefonie Google ani Samsungu z TalkBackiem.
 
-- automatyczne przełączanie rozmowy na podstawie czujnika zbliżeniowego;
-- obsługa Telefonu Google/AOSP i Telefonu Samsung;
-- pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
-- interfejs PL, EN, DE i RU;
-- dolne zakładki **Strona główna** i **Wsparcie**;
-- dobrowolne wsparcie przez Revolut i PayPal;
-- kontrola HTTPS, SHA-256, pakietu, rosnącego `versionCode` i podpisu APK;
-- bezpośrednia instalacja przez systemową sesję `PackageInstaller`, bez
-  przekazywania pliku do Uptodown ani innego zewnętrznego instalatora;
-- dokumentacja użytkownika, prywatności, architektury, bezpieczeństwa i
-  współpracy.
+## Publikacja 1.06
 
-## Weryfikacja
+- Kod i tag `v1.06` opublikowano w głównym repozytorium.
+- [Wydanie 1.06](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.06)
+  zawiera podpisany APK i pakiet źródeł.
+- Oba pliki pobrano ponownie przez publiczny HTTPS; rozmiary i SHA-256 są
+  identyczne z plikami lokalnymi.
+- Główny `update.json` wskazuje APK 1.06; kanał zgodności pozostaje przy
+  migracyjnej wersji 1.03 dla instalacji 1.02.
 
-- lokalne `lintDebug`: zakończone powodzeniem 2026-10-24;
-- lokalne `testDebugUnitTest`: zakończone powodzeniem; projekt nie zawiera
-  obecnie testów jednostkowych, więc zadanie miało stan `NO-SOURCE`;
-- lokalne `assembleDebug`: zakończone powodzeniem 2026-10-24;
-- wcześniejsze `lintRelease` i `assembleRelease` dla 1.02: zakończone
-  powodzeniem;
-- publiczny APK 1.02 został wcześniej pobrany ponownie i potwierdzono zgodność
-  SHA-256, pakietu, `versionCode 107`, `versionName 1.02` i certyfikatu;
-- nie było podłączonego urządzenia ADB podczas ostatniej automatycznej
-  weryfikacji, dlatego kliknięcie końcowego potwierdzenia instalacji pozostaje
-  testem wykonywanym na fizycznym telefonie.
+## Cel wersji 1.05
 
-Kontrole kodu i build nie są tym samym co ręczny test TalkBacka lub rozmowy na
-urządzeniu. Takie testy należy opisywać osobno w Issue albo Pull Requeście.
+Zakładka Wsparcie nie pokazuje nad przyciskami identyfikatorów ani adresów
+Revolut i PayPal. Nazwy usług i przyciski pozostają widoczne, a ich wybranie
+otwiera dotychczasowe strony. Adresy są nadal zapisane w kodzie jako cele
+przycisków, więc nie jest to ukrywanie danych w samym pakiecie APK.
 
-## Urządzenia zgłoszone jako przetestowane
+## Weryfikacja lokalna 1.05
 
-Wersja 1.02 została przetestowana na:
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- `testDebugUnitTest`: zadanie `NO-SOURCE` — brak testów jednostkowych;
+- podpis APK Signature Scheme v2: poprawny, certyfikat zgodny z wersją 1.04;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 110`, `versionName 1.05`;
+- kontrola kodu widoku Wsparcie: tylko nazwy Revolut i PayPal są tekstem nad
+  przyciskami, a przyciski nadal wywołują odpowiednie linki;
+- nie było podłączonego urządzenia ADB, więc nie wykonano testu dotykowego
+  ani testu TalkBacka na telefonie.
+
+## Publikacja 1.05
+
+- Kod i tag `v1.05` opublikowano w głównym repozytorium.
+- [Wydanie 1.05](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.05)
+  zawiera podpisany APK i pakiet źródeł.
+- Oba zasoby pobrano ponownie przez publiczny HTTPS; rozmiary i SHA-256 są
+  identyczne z lokalnymi plikami.
+- Główny `update.json` wskazuje APK 1.05; stary kanał zgodności pozostawia
+  migracyjną wersję 1.03 dla instalacji 1.02.
+
+## Cel wersji 1.04
+
+Dolne zakładki mają teraz większy obszar dotyku, czytelny tekst, obramowanie
+i osobne, kontrastowe tło wybranej pozycji. Dla czytnika ekranu mają nazwy
+oraz opis stanu wyboru w czterech językach. W kolejności dostępności są przed
+treścią ekranu; nagłówki ekranów i obszar treści są odpowiednio oznaczone.
+
+## Weryfikacja lokalna 1.04
+
+- `lintRelease` i `assembleRelease`: powodzenie, lint: brak problemów;
+- `testDebugUnitTest`: powodzenie zadania, stan `NO-SOURCE` — projekt nie ma
+  jeszcze testów jednostkowych;
+- podpis APK Signature Scheme v2: poprawny, certyfikat zgodny z linią 1.0–1.03;
+- pakiet: `pl.bumbox.autospeaker`, `versionCode 109`, `versionName 1.04`;
+- w chwili kompilacji nie było podłączonego urządzenia ADB.
+
+Kontrole statyczne nie zastępują testu wizualnego na telefonie ani testu
+faktycznych wypowiedzi i nawigacji TalkBacka. Działanie rozmów telefonicznych
+nie było ponownie testowane na urządzeniu w tej wersji.
+
+## Publikacja 1.04
+
+- Kod i tag `v1.04` opublikowano w głównym repozytorium.
+- [Wydanie 1.04](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.04)
+  zawiera podpisany APK oraz pakiet źródeł.
+- Oba zasoby pobrano ponownie przez publiczny HTTPS; rozmiary i SHA-256 są
+  identyczne z plikami lokalnymi.
+- Główny `update.json` wskazuje nowe APK. Stary kanał zgodności nadal dostarcza
+  wydanie migracyjne 1.03 dla instalacji 1.02.
+
+## Cel wersji 1.03
+
+Wersja 1.03 jest wydaniem migracyjnym pozwalającym zakończyć podział projektu na
+dwa aktywne repozytoria:
+
+- manifest przyszłych aktualizacji:
+  `https://raw.githubusercontent.com/proszczok2002/AutoGlosnik/main/update.json`;
+- dozwolone APK:
+  `/proszczok2002/AutoGlosnik/releases/download/`;
+- polityka prywatności:
+  `https://github.com/proszczok2002/AutoGlosnik/blob/main/PRIVACY.md`.
+
+Kontrole HTTPS, SHA-256, pakietu, rosnącego `versionCode` i certyfikatu oraz
+instalacja przez systemowy `PackageInstaller` nie zostały osłabione. Android
+nadal wymaga świadomego potwierdzenia pobrania i instalacji.
+
+## Zrealizowana publikacja 1.03
+
+1. Podpisane APK 1.03 opublikowano w głównym
+   [`proszczok2002/AutoGlosnik`](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.03).
+2. To samo binarnie identyczne APK opublikowano również w
+   [`proszczok2002/AutoGlosnik-Releases`](https://github.com/proszczok2002/AutoGlosnik-Releases/releases/tag/v1.03).
+3. Główny `update.json` wskazuje zasób w głównym repozytorium.
+4. Stary `update.json` wskazuje zasób 1.03 w starym repozytorium, ponieważ
+   wersja 1.02 ufa wyłącznie temu adresowi.
+5. Po instalacji 1.03 urządzenie pobiera następne aktualizacje już z głównego
+   repozytorium.
+
+Kod wersji 1.03 i główny manifest zapisano w commicie `9950d7b` i tagu
+`v1.03`. Stary manifest migracyjny zapisano w commicie `95ff1dc`.
+
+`AutoGlosnik-Releases` nie może zostać usunięte natychmiast po publikacji.
+Urządzenia pozostające na 1.02 potrzebują go do znalezienia wersji migracyjnej.
+Po fizycznym teście 1.02 → 1.03 i okresie przejściowym repozytorium można
+oznaczyć jako archiwalne. Usunięcie pozostawiłoby niemigrowane instalacje bez
+aktualizacji.
+
+## Weryfikacja lokalna 1.03
+
+- `clean`: powodzenie;
+- `lintDebug`: powodzenie;
+- `testDebugUnitTest`: powodzenie, ale projekt nie ma jeszcze testów
+  jednostkowych, więc zadanie ma stan `NO-SOURCE`;
+- `assembleDebug`: powodzenie;
+- `lintRelease`: powodzenie;
+- `assembleRelease`: powodzenie;
+- weryfikacja APK Signature Scheme v2: powodzenie;
+- pakiet: `pl.bumbox.autospeaker`;
+- `versionCode 108`, `versionName 1.03`;
+- `minSdk 31`, `targetSdk 36`, `compileSdk 36`;
+- certyfikat jest identyczny z wersjami 1.0–1.02;
+- publiczne APK pobrane z obu repozytoriów mają identyczny rozmiar i SHA-256;
+- publiczne APK ma pakiet `pl.bumbox.autospeaker`, `versionCode 108`,
+  `versionName 1.03` oraz właściwy certyfikat;
+- dokładne publiczne adresy `raw.githubusercontent.com/.../main/update.json`
+  używane przez aplikacje zwracają wersję 1.03/108 i właściwe zasoby w
+  odpowiednich repozytoriach;
+- publiczny pakiet źródeł został pobrany ponownie i ma zgodny hash;
+- publiczny pakiet źródeł nie zawiera `.signing`, `local.properties`, APK ani
+  plików kluczy;
+- Android CI dla commita wydania zakończył się powodzeniem:
+  <https://github.com/proszczok2002/AutoGlosnik/actions/runs/41132243042>;
+- podczas weryfikacji nie było podłączonego urządzenia ADB.
+
+Kontrole kodu i pliku APK nie zastępują fizycznego testu rozmowy, TalkBacka ani
+potwierdzenia instalacji Androida. Test migracji 1.02 → 1.03 na telefonie
+pozostaje wymagany przed wyłączeniem starego kanału.
+
+## Repozytorium główne
+
+<https://github.com/proszczok2002/AutoGlosnik>
+
+Repozytorium jest publiczne na licencji Apache 2.0 i zawiera kod, dokumentację,
+Issues, Pull Requesty, zasady bezpieczeństwa, Dependabot i Android CI. Klucz
+wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
+`.signing`.
+
+## Otwarte automatyczne Pull Requesty
+
+- [PR #1](https://github.com/proszczok2002/AutoGlosnik/pull/1) proponuje Gradle
+  Wrapper 9.8.2 i ma poprawny workflow.
+- [PR #2](https://github.com/proszczok2002/AutoGlosnik/pull/2) proponuje Android
+  Gradle Plugin 9.4.1 i samodzielnie nie przechodzi, ponieważ wymaga Gradle co
+  najmniej 9.6.0.
+
+Żaden z tych PR-ów nie jest częścią wydania 1.03. Narzędzia pozostają w
+zweryfikowanej konfiguracji Gradle 9.4.1 i Android Gradle Plugin 9.2.0.
+
+## Urządzenia bazowo przetestowane dla linii 1.02
 
 - POCO F8 Ultra;
 - Samsung Galaxy S25;
@@ -82,15 +244,5 @@ Wersja 1.02 została przetestowana na:
 - Google Pixel 10;
 - Google Pixel 11 Pro.
 
-Lista nie jest ograniczeniem zgodności. Aplikacja może działać także na innych
-telefonach z Androidem 12 lub nowszym, czujnikiem zbliżeniowym i obsługiwaną
-aplikacją Telefon.
-
-## Następne wydanie
-
-Zmiany funkcjonalne wymagają nowego, rosnącego `versionCode`, osobnego tagu,
-podpisanego APK oraz aktualizacji manifestu. Przed wskazaniem nowej wersji w
-`update.json` trzeba pobrać publiczny zasób i ponownie sprawdzić hash, pakiet,
-wersję i certyfikat. Migrację adresu aktualizatora do głównego repozytorium
-należy wykonać dopiero w nowej wersji, zachowując działanie już zainstalowanej
-1.02.
+Lista pochodzi z wcześniejszych testów 1.02 i nie jest twierdzeniem, że 1.03
+została ponownie sprawdzona na wszystkich tych telefonach.

@@ -34,10 +34,15 @@ Możesz zgłosić błąd, zaproponować zmianę, utworzyć fork i wysłać Pull 
 ## Najważniejsze funkcje
 
 - automatyczne przełączanie: przy uchu — słuchawka, po odsunięciu — głośnik;
+- osobne reguły dla Telefonu Google na Pixelach i innych telefonach oraz dla
+  Telefonu Samsung;
 - pierwszeństwo Bluetooth, słuchawek przewodowych/USB i aparatów słuchowych;
 - interfejs po polsku, angielsku, niemiecku i rosyjsku;
-- zakładki **Strona główna** i **Wsparcie**;
-- zgodność interfejsu z TalkBackiem i czytnikami ekranu;
+- dolne zakładki **Strona główna** i **Wsparcie** z ikonami, podpisami i wyróżnieniem
+  wybranej pozycji; układ omija systemowe paski Androida i dostosowuje się do
+  większej czcionki;
+- nazwy, stan wyboru i kolejność zakładek udostępnione TalkBackowi i innym
+  czytnikom ekranu;
 - aktualizacje z GitHuba, zatwierdzane przez użytkownika;
 - weryfikacja HTTPS, SHA-256, pakietu, rosnącego `versionCode` i podpisu APK;
 - instalacja przez systemowy `PackageInstaller`, bez przekazywania pliku do
@@ -136,14 +141,17 @@ Uprawnienie `INTERNET` służy do sprawdzania i pobierania aktualizacji z GitHub
 oraz otwierania wybranego przez użytkownika linku do polityki prywatności lub
 wsparcia. Szczegóły: [PRIVACY.md](PRIVACY.md).
 
-## Aktualizator i repozytorium zgodności
+## Aktualizator i migracja repozytorium
 
 To repozytorium jest głównym miejscem kodu, wydań APK, zgłoszeń i Pull
-Requestów. Wersja 1.02 nadal odczytuje manifest aktualizacji z publicznego
-repozytorium
+Requestów. Wersja 1.03 i nowsze pobierają manifest oraz APK bezpośrednio z
+`proszczok2002/AutoGlosnik`.
+
+Wersja 1.02 nadal odczytuje manifest z publicznego repozytorium
 [`AutoGlosnik-Releases`](https://github.com/proszczok2002/AutoGlosnik-Releases).
-Repozytorium to pozostaje aktywne jako kanał zgodności dla już zainstalowanych
-wersji. Nie należy go usuwać ani zmieniać istniejących zasobów wydań.
+Wydanie 1.03 jest więc publikowane w obu miejscach. Stare repozytorium pozostaje
+tymczasowym mostem dla urządzeń z wersją 1.02 i nie może zostać usunięte przed
+zakończeniem migracji.
 
 Opis architektury i procedury wydawniczej: [JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
 
@@ -153,6 +161,7 @@ Opis architektury i procedury wydawniczej: [JAK_TO_DZIALA.md](JAK_TO_DZIALA.md).
 - [Opis techniczny i utrzymanie](JAK_TO_DZIALA.md)
 - [Historia zmian](CHANGELOG.md)
 - [Stan projektu i wyniki weryfikacji](STAN_PRAC.md)
+- [Audyt dostępności interfejsu 1.07](AUDYT_DOSTEPNOSCI.md)
 - [Polityka prywatności](PRIVACY.md)
 - [Zasady współpracy](CONTRIBUTING.md)
 - [Zasady bezpieczeństwa](SECURITY.md)

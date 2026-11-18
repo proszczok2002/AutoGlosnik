@@ -4,7 +4,8 @@
 
 | Wersja | Aktualizacje bezpieczeństwa |
 | --- | --- |
-| 1.02 | Tak |
+| 1.03 | Tak |
+| 1.02 | Tylko migracja do 1.03 |
 | 1.01 i starsze | Nie |
 
 ## Prywatne zgłoszenie podatności
@@ -24,7 +25,7 @@ osobowych.
 Oficjalne APK pobieraj wyłącznie z
 [GitHub Releases](https://github.com/proszczok2002/AutoGlosnik/releases).
 Każde wydanie podaje SHA-256 pliku. Odcisk SHA-256 certyfikatu oficjalnej linii
-wydań 1.0–1.02 wynosi:
+wydań 1.0–1.03 wynosi:
 
 ```text
 60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326

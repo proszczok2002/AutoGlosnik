@@ -11,6 +11,10 @@ plugins {
     id("com.android.application")
 }
 
+dependencies {
+    testImplementation("junit:junit:4.13.2")
+}
+
 android {
     namespace = "pl.bumbox.autospeaker"
     compileSdk = 36
@@ -19,8 +23,8 @@ android {
         applicationId = "pl.bumbox.autospeaker"
         minSdk = 31
         targetSdk = 36
-        versionCode = 107
-        versionName = "1.02"
+        versionCode = 112
+        versionName = "1.07"
     }
 
     signingConfigs {

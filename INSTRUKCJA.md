@@ -34,18 +34,25 @@ polski, angielski, niemiecki i rosyjski.
    przeglądarce lub menedżerowi plików, z którego otwierasz oficjalny APK.
 5. Uruchom AutoGłośnik z listy aplikacji.
 
-### Migracja ze starej wersji 1.3.1
+### Migracja ze starszych wydań testowych
 
 Stara wersja 1.3.1 była podpisana innym, testowym kluczem. Jeżeli Android
 wyświetla błąd konfliktu pakietu lub podpisu, odinstaluj 1.3.1 i dopiero wtedy
 zainstaluj wydanie 1.0 lub nowsze. Jest to jednorazowa operacja. Wydania od 1.0
-do 1.02 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
+do 1.06 korzystają z tego samego certyfikatu i aktualizują się bez odinstalowania.
+
+Dostarczony do porównania plik `AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk` również
+ma inny, testowy certyfikat niż wydania z GitHuba. Android nie zainstaluje 1.06
+bezpośrednio na tej wersji. Przed przejściem z tego APK trzeba go odinstalować,
+a potem ponownie skonfigurować usługę dostępności i uprawnienie Telefon.
 
 ## 4. Konfiguracja po uruchomieniu
 
 1. Na zakładce **Strona główna** włącz główny przełącznik AutoGłośnika.
 2. Wybierz **Uprawnienie Telefon** i zezwól aplikacji na rozpoznanie, czy trwa
-   rozmowa. Aplikacja nie odczytuje numeru ani historii połączeń.
+   rozmowa. To uprawnienie nie służy do pobierania numeru ani historii połączeń;
+   usługa dostępności przegląda jedynie interfejs rozmowy, by znaleźć przycisk
+   głośnika. Teksty interfejsu nie są zapisywane ani wysyłane.
 3. Wybierz **Usługa AutoGłośnik**, znajdź AutoGłośnik na liście dostępności i
    włącz usługę.
 4. Jeżeli Android pokazuje komunikat o ustawieniu z ograniczeniami, otwórz
@@ -66,19 +73,35 @@ do 1.02 korzystają z tego samego certyfikatu i aktualizują się bez odinstalow
 4. Powtórz test z podłączonym Bluetooth albo słuchawkami — aplikacja nie powinna
    przejmować trasy dźwięku z urządzenia zewnętrznego.
 
+W wersji 1.06 wykonaj ten sam test osobno na Pixelu lub innym telefonie z
+domyślną aplikacją **Telefon Google** oraz na Samsungu z domyślnym **Telefonem
+Samsung**. Na stronie głównej sprawdź nazwę wykrytej aplikacji Telefon. W obu
+przypadkach przetestuj rozmowę z TalkBackiem i bez niego; sama kompilacja nie
+potwierdza przełączania dźwięku na konkretnym urządzeniu.
+
 Na dole ekranu są dwie zakładki:
 
 - **Strona główna** — konfiguracja, stan czujnika i diagnostyka działania;
 - **Wsparcie** — dobrowolne wsparcie, wersja programu, aktualizacje i polityka
   prywatności.
 
+W wersji 1.05 w zakładce Wsparcie przyciski Revolut i PayPal nie pokazują nad
+sobą adresów ani identyfikatorów kont. Wybranie przycisku otwiera odpowiednią
+stronę usługi poza aplikacją.
+
+W wersji 1.04 zakładki mają większe, wyraźnie obramowane przyciski. Wybrana
+zakładka jest wyróżniona kolorem. Czytnik ekranu odczytuje nazwę i stan
+zakładki; w kolejności dostępności zakładki znajdują się przed treścią ekranu.
+
 ## 6. Aktualizacje z GitHuba
 
-Aplikacja sprawdza publiczny manifest w repozytorium zgodności
-`proszczok2002/AutoGlosnik-Releases`. Kod źródłowy, najnowsze APK, zgłoszenia
-i Pull Requesty znajdują się w głównym publicznym repozytorium
-`proszczok2002/AutoGlosnik`. Rozdzielenie pozostaje zachowane, aby aktualizator
-już zainstalowanej wersji 1.02 nadal działał.
+Wersja 1.03 i nowsze sprawdzają publiczny manifest w głównym repozytorium
+`proszczok2002/AutoGlosnik`. Kod źródłowy, najnowsze APK, zgłoszenia i Pull
+Requesty znajdują się w tym samym miejscu.
+
+Wersja 1.02 korzysta jeszcze z repozytorium zgodności
+`proszczok2002/AutoGlosnik-Releases`. Wydanie 1.03 jest publikowane także tam,
+aby istniejące instalacje mogły przejść do nowego kanału bez odinstalowania.
 
 Przebieg aktualizacji:
 
@@ -135,7 +158,7 @@ głównym repozytorium projektu.
 - upewnij się, że instalujesz nowszy `versionCode` i APK z tym samym podpisem;
 - jeśli pojawia się konflikt ze starą wersją 1.3.1, wykonaj jednorazową migrację
   opisaną w punkcie 3;
-- wersja 1.02 używa bezpośrednio systemowego instalatora i nie powinna uruchamiać
+- wersja 1.02 i nowsze używają bezpośrednio systemowego instalatora i nie powinny uruchamiać
   Uptodown App Installer.
 
 ### Android zatrzymuje usługę
