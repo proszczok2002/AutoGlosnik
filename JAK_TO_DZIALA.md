@@ -76,10 +76,37 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - najpierw publikuje się podpisany zasób APK, a dopiero po zweryfikowaniu jego
   publicznej sumy aktualizuje `update.json`;
 - po publikacji trzeba ponownie pobrać publiczny APK i porównać SHA-256, pakiet,
-  wersję oraz certyfikat z artefaktem lokalnym.
+  wersję oraz certyfikat z artefaktem lokalnym;
+- po sprawdzeniu publicznego `update.json` wykonuje się lokalną [archiwizację
+  po wydaniu](#archiwizacja-po-wydaniu).
 
 Wydania 1.0 (`105`), 1.01 (`106`), 1.02 (`107`), 1.03 (`108`), 1.04 (`109`), 1.05 (`110`) i 1.06 (`111`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
+
+## Archiwizacja po wydaniu
+
+Archiwizację wykonuje się przy każdym wydaniu. Aktualny podpisany APK
+`AutoGlosnik-v<wersja>.apk` pozostaje w katalogu projektu. Kod źródłowy wydania
+w ZIP można zachować w `.tools/`. Tymczasowe kopie, logi i rozpakowane pliki
+na potrzeby wydania odkłada się do `build/release-work/v<wersja>/`.
+
+```powershell
+powershell -NoProfile -ExecutionPolicy RemoteSigned -File .\tools\Archiwizuj-PoWydaniu.ps1 -WhatIf
+powershell -NoProfile -ExecutionPolicy RemoteSigned -File .\tools\Archiwizuj-PoWydaniu.ps1
+```
+
+Skrypt sprawdza zgodność aktualnego APK z lokalnym `update.json`. Przenosi
+poprzednie numerowane APK i ZIP ze źródłami, kopie kontrolne aktualnego
+i starszych wydań oraz ich katalogi robocze. Pozostałe zbędne wyniki pracy
+przenosi się po sprawdzeniu, czy nie są potrzebne do odtworzenia lub budowania.
+Źródła, Android SDK, Gradle Wrapper, `local.properties` i `.signing/` są
+częścią środowiska do dalszej pracy.
+
+Każda partia ma własny katalog pod `niepotrzebne/`, z zachowaniem oryginalnych
+ścieżek względem katalogu projektu. Aby odtworzyć plik, przenieś go z partii
+na taką samą ścieżkę względem katalogu projektu. Sprawdź najpierw, czy pod tym
+adresem nie ma już pliku. Archiwum jest ignorowane przez Git i zostaje na tym
+samym dysku.
 
 ## Pliki stanu
 
@@ -90,4 +117,4 @@ podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 - `STAN_PRAC.md` — aktualny stan techniczny oraz wyniki weryfikacji;
 - `CONTRIBUTING.md` — budowanie, standard zmian i proces Pull Requestów;
 - `SECURITY.md` — prywatne zgłaszanie podatności i weryfikacja APK;
-- `hasiok/` — odzyskiwalne lokalne archiwum; katalog jest ignorowany przez Git.
+- `niepotrzebne/` — odzyskiwalne lokalne archiwum; katalog jest ignorowany przez Git.

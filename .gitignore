@@ -6,5 +6,7 @@ local.properties
 *.iml
 captures/
 hasiok/
+/niepotrzebne/
+/AutoGlosnik-v*-source.zip
 .signing/
 *.apk

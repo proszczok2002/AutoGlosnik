@@ -1,6 +1,6 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-11-18
+Data aktualizacji: 2026-11-19
 
 ## Aktualna wersja — 1.07
 
@@ -31,13 +31,14 @@ Data aktualizacji: 2026-11-18
   `AutoGlosnik-Releases` pozostaje przy 1.03 dla wersji 1.02.
 - [Android CI dla commita wydania](https://github.com/proszczok2002/AutoGlosnik/actions/runs/43869380190):
   lint, cztery testy i kompilacja debug zakończone powodzeniem.
-- Poprzedni APK 1.06 przeniesiono odwracalnie do `hasiok/release-artifacts/`.
+- Lokalną kopię kontrolną APK 1.06 przeniesiono do `niepotrzebne/`. Szczegóły
+  odtworzenia są w sekcji o lokalnych porządkach.
 
 ## Poprzednia wersja
 
 - Wcześniejsze wydanie aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.
-- Archiwalny artefakt lokalny: `hasiok/release-artifacts/AutoGlosnik-v1.06.apk`.
+- Archiwalna kopia APK: `niepotrzebne/20261119T154306688Z-wydanie-1.07/.tools/verify-AutoGlosnik-v1.06.apk`.
 - Rozmiar APK: 2185410 bajtów.
 - SHA-256 APK:
   `1F8E106F7E40311AB3ACAFDB78BFAD865F50CF05EFB17260D40A62E1779375C6`.
@@ -47,9 +48,9 @@ Data aktualizacji: 2026-11-18
   `8B251E81E6131C3AD3E1A971D5FFB5BE3F759BE732E62CC58B99170D1B421379`.
 - SHA-256 certyfikatu podpisu:
   `60A685333B8B79BD70998D692FD44F73D236B043429505C7555DDF7BECBF3326`.
-- APK 1.05 przeniesiono do `hasiok/release-artifacts/`; wcześniejsze wydania
-  pozostają na GitHubie. W katalogu głównym są nowy APK oraz dostarczony do
-  porównania `AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk`.
+- APK 1.05 przeniesiono wcześniej do `hasiok/release-artifacts/`. Podczas
+  porządków z 2026-11-19 folder `hasiok` nie występował w tym katalogu projektu.
+  Wcześniejsze wydania pozostają dostępne na GitHubie.
 
 ## Cel wersji 1.06
 
@@ -61,7 +62,8 @@ Zmiana profilu unieważnia oczekujące próby poprzedniego dialera. Dla Google
 starszy wybór przycisku ma pierwszeństwo, a rozszerzone etykiety stanowią
 zapasową metodę. Zewnętrzne trasy audio nadal mają pierwszeństwo.
 
-Referencyjny APK: SHA-256
+Referencyjny APK: `niepotrzebne/2026-11-19-porzadki/AutoGlosnik-v1.2.0-SZYBKI-TALKBACK.apk`.
+SHA-256
 `6DF582606DE8A6F63449B2A4926492CE092DF5EFE8460AE59266F912D2AB07BC`,
 `versionCode 102`, `versionName 1.2.0`, pakiet `pl.bumbox.autospeaker`.
 Jego certyfikat SHA-256
@@ -234,6 +236,22 @@ wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
   bez problemów, a wszystkie cztery testy jednostkowe przeszły. `apksigner`
   potwierdził zgodność certyfikatu lokalnego APK release z certyfikatem 1.07.
   Publicznym wydaniem aplikacji pozostaje 1.07 (`versionCode 112`).
+
+## Lokalne porządki
+
+- 2026-11-19 przeniesiono 1309 plików do `niepotrzebne/`, zachowując ścieżki
+  względem projektu. Sprawdzono zgodność sum SHA-256 przed przeniesieniem i po nim.
+- Główna partia `2026-11-19-porzadki/` zawiera Gradle 9.4.1, stare wyniki
+  kompilacji i pamięć podręczną projektu, dawną lokalną kopię repozytorium
+  migracyjnego oraz materiały referencyjne i z audytu. `PRZENIESIONE.csv`
+  w tej partii wymienia pliki, ich rozmiary i SHA-256. Osobna partia zakończona
+  `-wydanie-1.07` zawiera cztery kopie kontrolne APK i ZIP z wersji 1.06 i 1.07.
+- Aktywne artefakty to `AutoGlosnik-v1.07.apk` i `.tools/AutoGlosnik-v1.07-source.zip`.
+  Sprzątanie jest częścią [procedury wydania](JAK_TO_DZIALA.md#archiwizacja-po-wydaniu).
+- Po przeniesieniu plików czysta kompilacja debug, lint i cztery testy
+  jednostkowe przeszły bez korzystania ze starego Gradle ani lokalnych wyników
+  kompilacji. Skrypt sprawdzono w trybie podglądu i przenoszenia, również przy
+  błędnej sumie APK oraz z plikami nadchodzącej wersji.
 
 ## Urządzenia bazowo przetestowane dla linii 1.02
 
