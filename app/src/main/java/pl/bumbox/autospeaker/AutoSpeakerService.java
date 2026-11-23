@@ -587,12 +587,14 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     }
 
     private Boolean verifiedSpeakerState(AccessibilityNodeInfo speaker) {
-        Boolean state = speaker == null ? null : inferSpeakerState(speaker);
-        return state != null ? state : currentSpeakerState();
+        if (speaker == null) return currentSpeakerState();
+        if (speaker.isCheckable()) return speaker.isChecked();
+        Boolean labeledState = GalaxyS23CallProfile.speakerStateFromLabel(speakerLabel(speaker));
+        return labeledState != null ? labeledState : currentSpeakerState();
     }
 
     private static boolean usesVerifiedSpeakerButton(CallUiProfile.Mode mode) {
-        return CallUiProfile.usesVerifiedSpeakerButton(mode, Build.MODEL, Build.DEVICE);
+        return GalaxyS23CallProfile.matches(mode, Build.MODEL, Build.DEVICE);
     }
 
     private boolean isExternalAudioRoute() {
@@ -743,8 +745,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private int routeButtonScore(AccessibilityNodeInfo node, boolean legacyGoogle, boolean verifiedOnly) {
         String id = normalize(node.getViewIdResourceName());
-        String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
-        if (verifiedOnly && (!supportsClick(node) || !CallUiProfile.isVerifiedSpeakerControl(id, label))) {
+        String label = speakerLabel(node);
+        if (verifiedOnly && (!supportsClick(node) || !GalaxyS23CallProfile.isSpeakerControl(id, label))) {
             return 0;
         }
         int score = 0;
@@ -781,8 +783,21 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private Boolean inferSpeakerState(AccessibilityNodeInfo node) {
         if (node.isCheckable()) return node.isChecked();
-        String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
-        return CallUiProfile.speakerStateFromLabel(label);
+        String label = speakerLabel(node);
+        if (!CallUiProfile.containsSpeakerWord(label, false)) return null;
+        if (label.contains("wylaczony") || label.contains("speaker off")) return false;
+        if (label.contains("wlaczony") || label.contains("speaker on")) return true;
+        if (label.contains("wylacz glos") || label.contains("turn speaker off")) return true;
+        if (label.contains("wlacz glos") || label.contains("turn speaker on")) return false;
+        if (label.contains("lautsprecher aus") || label.contains("динамик выключен")) return false;
+        if (label.contains("lautsprecher ein") || label.contains("динамик включен")) return true;
+        if (label.contains("lautsprecher ausschalten") || label.contains("выключить динамик")) return true;
+        if (label.contains("lautsprecher einschalten") || label.contains("включить динамик")) return false;
+        return null;
+    }
+
+    private static String speakerLabel(AccessibilityNodeInfo node) {
+        return normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
     }
 
     private AccessibilityNodeInfo actionableClickNode(AccessibilityNodeInfo node) {

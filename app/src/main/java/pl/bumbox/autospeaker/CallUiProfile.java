@@ -38,20 +38,6 @@ final class CallUiProfile {
         };
     }
 
-    static boolean usesVerifiedSpeakerButton(Mode mode, String model, String device) {
-        return mode == Mode.SAMSUNG_PHONE && ("dm1q".equalsIgnoreCase(device)
-                || (model != null && model.regionMatches(true, 0, "SM-S911", 0, 7)));
-    }
-
-    static boolean isVerifiedSpeakerControl(String id, String label) {
-        String details = id + " " + label;
-        if (details.contains("mute") || details.contains("microphone")
-                || details.contains("mikrofon") || details.contains("wycisz")
-                || details.contains("stumm") || details.contains("микрофон")
-                || details.contains("без звука")) return false;
-        return id.contains("speaker") || containsSpeakerWord(label, false);
-    }
-
     static boolean containsSpeakerWord(String value, boolean legacyGoogle) {
         return value.contains("glosnik") || value.contains("glosnomow")
                 || value.contains("speaker")
@@ -60,29 +46,6 @@ final class CallUiProfile {
                 || value.contains("freisprech")
                 || value.contains("динамик")
                 || value.contains("громкая связь")));
-    }
-
-    static Boolean speakerStateFromLabel(String label) {
-        if (!containsSpeakerWord(label, false)) return null;
-
-        // An action describes what will happen on click, not the current state.
-        if (label.contains("wylacz glos") || label.contains("turn speaker off")
-                || label.contains("lautsprecher ausschalten") || label.contains("выключить динамик")) {
-            return true;
-        }
-        if (label.contains("wlacz glos") || label.contains("turn speaker on")
-                || label.contains("lautsprecher einschalten") || label.contains("включить динамик")) {
-            return false;
-        }
-        if (label.contains("wylaczony") || label.contains("speaker off")
-                || label.contains("lautsprecher aus") || label.contains("динамик выключен")) {
-            return false;
-        }
-        if (label.contains("wlaczony") || label.contains("speaker on")
-                || label.contains("lautsprecher ein") || label.contains("динамик включен")) {
-            return true;
-        }
-        return null;
     }
 
     static boolean acceptsWindow(Mode mode, CharSequence packageName) {

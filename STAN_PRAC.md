@@ -2,7 +2,25 @@
 
 Data aktualizacji: 2026-11-23
 
-## Aktualna wersja — 1.07
+## Wersja 1.08 — osobny profil Galaxy S23
+
+- `versionCode 113`, pakiet `pl.bumbox.autospeaker`, plik
+  `AutoGlosnik-v1.08.apk` (2190746 bajtów), SHA-256
+  `3E5B4169CE23AE359AB20486F793339516C218E117B4D66A86D0702480E483F1`.
+  Certyfikat podpisu zgodny z 1.07.
+- Zgłoszenie dotyczy głosu wysyłanego do rozmówcy po powrocie z głośnika do
+  słuchawki. `GalaxyS23CallProfile` korzysta wyłącznie z rozpoznanego przycisku
+  „Głośnik” w Telefonie Samsung. Trasę słuchawki i mikrofonu wybiera Telefon
+  Samsung. Profil jest wybierany dla `SM-S911…` lub `dm1q` z Telefonem Samsung.
+- Reguły Telefonu Google, AOSP i pozostałych modeli z Telefonem Samsung
+  pozostają takie jak w 1.07. Dźwięk zewnętrzny zachowuje pierwszeństwo.
+- Lokalnie przeszło 7 testów jednostkowych, lint debug/release oraz kompilacja
+  obu wariantów APK. Sprawdzono numer pakietu i podpis APK release.
+- Próba na Galaxy S23 pozostaje do wykonania. W zwykłej rozmowie należy
+  kilkukrotnie przejść z głośnika do słuchawki i potwierdzić, że rozmówca
+  nadal słyszy głos, także przy włączonym TalkBacku.
+
+## Poprzednie wydanie — 1.07
 
 - Poprawiono bezpieczne marginesy względem systemowych pasków Androida oraz
   przebudowano zakładki na wzór Androidowej nawigacji YouTube Downloadera.
@@ -26,7 +44,7 @@ Data aktualizacji: 2026-11-23
   pobrano niezależnie: ich rozmiary i SHA-256 są identyczne z lokalnymi.
   ZIP: 122489 bajtów, SHA-256
   `501FF6ECCFF52ECC933376068AB0FFF5C0D90F7DC5F733915DEA4F7C25843CA3`.
-- Publiczny surowy `update.json` wskazuje 1.07/112 i właściwy hash APK;
+- Po publikacji 1.07 publiczny `update.json` wskazywał 1.07/112 i właściwy hash APK;
   manifest migracyjny w
   `AutoGlosnik-Releases` pozostaje przy 1.03 dla wersji 1.02.
 - [Android CI dla commita wydania](https://github.com/proszczok2002/AutoGlosnik/actions/runs/43869380190):
@@ -34,25 +52,7 @@ Data aktualizacji: 2026-11-23
 - Lokalną kopię kontrolną APK 1.06 przeniesiono do `niepotrzebne/`. Szczegóły
   odtworzenia są w sekcji o lokalnych porządkach.
 
-## Poprawka testowa dla Galaxy S23
-
-- Zgłoszenie: po powrocie z głośnika do słuchawki rozmówca przestaje słyszeć
-  osobę na S23. Do sprawdzenia pozostaje, czy występuje też przy ręcznym
-  przełączeniu z wyłączoną automatyzacją.
-- Profil Galaxy S23 z Telefonem Samsung przełącza trasę przez rozpoznany
-  przycisk „Głośnik”. Używa stanu kontrolki do sprawdzenia zmiany i pomija
-  trasy zewnętrzne. Wyłączono wymuszanie trasy przez `AudioManager` i gest
-  oparty na współrzędnych Galaxy S25 w tym profilu.
-- `testDebugUnitTest`: 7 testów, wszystkie przeszły. Lint debug i release
-  bez problemów. Kompilacja release i weryfikacja oficjalnego podpisu
-  zakończone powodzeniem. Na podłączonym Pixelu gałąź S23 nie jest aktywna.
-- Lokalny plik `build/s23-test/AutoGlosnik-v1.07-S23-test.apk` nosi numer
-  1.07/112, żeby po próbie można było wrócić do oficjalnego APK 1.07.
-  SHA-256: `A5998BC4E8D7BBC0A89978367C32284C339B90B4825DF5296D702442BFCE7EF2`.
-  Poprawkę trzeba potwierdzić w zwykłej rozmowie na S23, sprawdzając dźwięk
-  u rozmówcy po kilkukrotnym przejściu głośnik → słuchawka.
-
-## Poprzednia wersja
+## Poprzednie wydanie — 1.06
 
 - Wcześniejsze wydanie aplikacji: `1.06` (`versionCode 111`).
 - Pakiet: `pl.bumbox.autospeaker`.

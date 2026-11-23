@@ -1,5 +1,15 @@
 # Historia zmian
 
+## 1.08 — profil rozmów dla Galaxy S23
+
+- Na Galaxy S23 z Telefonem Samsung AutoGłośnik przełącza trasę przez rozpoznany
+  przycisk „Głośnik”, a Telefon Samsung dobiera słuchawkę i mikrofon.
+- Zmiana dotyczy zgłoszenia utraty głosu po powrocie z głośnika do słuchawki.
+  Test rozmowy na Galaxy S23 pozostaje do wykonania.
+- Profil S23 jest oddzielony od profili Telefonu Google, AOSP i pozostałych
+  modeli z Telefonem Samsung.
+- Zwiększono `versionCode` do 113.
+
 ## 1.07 — bezpieczne marginesy i dostępniejsze zakładki
 
 - Odsunięto nagłówek i dolne zakładki od systemowych pasków Androida oraz wycięć ekranu.
