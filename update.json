@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "versionCode": 113,
-  "versionName": "1.08",
-  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.08/AutoGlosnik-v1.08.apk",
-  "sha256": "3e5b4169ce23ae359ab20486f793339516c218e117b4d66a86d0702480e483f1",
+  "versionCode": 114,
+  "versionName": "1.09",
+  "apkUrl": "https://github.com/proszczok2002/AutoGlosnik/releases/download/v1.09/AutoGlosnik-v1.09.apk",
+  "sha256": "d1318a07d06a1a963d457f98de1c327f9261a46cb1bcfdaf0d9916364dbc1b58",
   "notes": {
-    "pl": "Dodano osobny profil Galaxy S23 z Telefonem Samsung. Przełączanie przez przycisk Głośnik ma zapobiec utracie głosu po powrocie do słuchawki. Test rozmowy na S23 pozostaje do wykonania.",
-    "en": "Added a separate Galaxy S23 profile for Samsung Phone. Using the Speaker button aims to prevent microphone audio loss when switching back to the earpiece. An on-device call test remains pending.",
-    "de": "Eigenes Profil für das Galaxy S23 mit Samsung Telefon. Das Umschalten über die Lautsprechertaste soll den Ausfall des Mikrofons beim Wechsel zum Hörer verhindern. Ein Anruftest am S23 steht noch aus.",
-    "ru": "Добавлен отдельный профиль Galaxy S23 для приложения «Телефон Samsung». Переключение через кнопку громкой связи должно предотвратить потерю звука микрофона при возврате к разговорному динамику. Проверка звонком на S23 ещё предстоит."
+    "pl": "Przywrócono obsługę Galaxy S23 z wersji 1.07 po zgłoszeniu, że w 1.08 ustało automatyczne przełączanie między głośnikiem a słuchawką.",
+    "en": "Restored Galaxy S23 handling from version 1.07 after reports that 1.08 stopped automatically switching between the speaker and earpiece.",
+    "de": "Die Unterstützung für das Galaxy S23 aus Version 1.07 wurde wiederhergestellt, nachdem das automatische Umschalten zwischen Lautsprecher und Hörer in 1.08 ausgefallen war.",
+    "ru": "Восстановлена поддержка Galaxy S23 из версии 1.07 после сообщения о том, что в 1.08 перестало работать автоматическое переключение между громкой связью и разговорным динамиком."
   }
 }

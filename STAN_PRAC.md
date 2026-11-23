@@ -20,6 +20,10 @@ Data aktualizacji: 2026-11-23
   testy jednostkowe, lint debug/release oraz kompilacja obu wariantów APK.
   Certyfikat podpisu APK jest zgodny z 1.08.
 - [Wydanie 1.09 i sumy kontrolne plików](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.09).
+- [GitHub CI dla kodu wydania 1.09](https://github.com/proszczok2002/AutoGlosnik/actions/runs/45170268365).
+- Publiczny APK i ZIP są identyczne z lokalnymi. APK ma 2188670 bajtów,
+  SHA-256 `d1318a07d06a1a963d457f98de1c327f9261a46cb1bcfdaf0d9916364dbc1b58`.
+  Po ich weryfikacji manifest aktualizacji na `main` wskazuje 1.09/114.
 
 ## Poprzednie wydanie — 1.08
 
@@ -286,7 +290,7 @@ wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
   migracyjnego oraz materiały referencyjne i z audytu. `PRZENIESIONE.csv`
   w tej partii wymienia pliki, ich rozmiary i SHA-256. Osobna partia zakończona
   `-wydanie-1.07` zawiera cztery kopie kontrolne APK i ZIP z wersji 1.06 i 1.07.
-- Po wydaniu 1.08 poprzednie APK i ZIP 1.07 trafiają do partii `-wydanie-1.08`.
+- Po wydaniu 1.08 poprzednie APK i ZIP 1.07 trafiły do partii `-wydanie-1.08`.
   Sprzątanie jest częścią [procedury wydania](JAK_TO_DZIALA.md#archiwizacja-po-wydaniu).
 - Po przeniesieniu plików czysta kompilacja debug, lint i cztery testy
   jednostkowe przeszły bez korzystania ze starego Gradle ani lokalnych wyników
