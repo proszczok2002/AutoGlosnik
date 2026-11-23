@@ -1,5 +1,14 @@
 # Historia zmian
 
+## 1.09 — przywrócenie obsługi Galaxy S23 z 1.07
+
+- Usunięto profil Galaxy S23 z 1.08 po zgłoszeniu, że telefon przestał
+  automatycznie przełączać między głośnikiem a słuchawką.
+- Galaxy S23 z Telefonem Samsung ponownie korzysta ze wspólnej ścieżki
+  Samsunga z 1.07. Wcześniejsze zgłoszenie utraty głosu po powrocie do
+  słuchawki pozostaje otwarte.
+- Zwiększono `versionCode` do 114.
+
 ## 1.08 — profil rozmów dla Galaxy S23
 
 - Na Galaxy S23 z Telefonem Samsung AutoGłośnik przełącza trasę przez rozpoznany

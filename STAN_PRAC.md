@@ -2,7 +2,26 @@
 
 Data aktualizacji: 2026-11-23
 
-## Wersja 1.08 — osobny profil Galaxy S23
+## Wersja 1.09 — przywrócenie ścieżki Samsunga z 1.07
+
+- W 1.08 użytkownik zgłosił całkowity brak automatycznego przełączania na
+  Galaxy S23. Osobny profil pomijał zmianę, gdy nie znalazł jednoznacznej
+  kontrolki „Głośnik”. W 1.09 wycofano ten profil i przywrócono wszystkie
+  źródła aplikacji z tagu `v1.07`. Zachowano obecne narzędzia budowania.
+- Dokumentacja Androida potwierdza, że system sam dobiera mikrofon do
+  wyjścia przekazanego do `setCommunicationDevice`. Podobny objaw utraty
+  głosu podczas ręcznego przełączania głośnika zgłosił użytkownik S23+,
+  również w trybie bezpiecznym. Zgłoszenie nie ustala przyczyny na testowanym
+  S23. [Android AudioManager](https://developer.android.com/reference/android/media/AudioManager#setCommunicationDevice(android.media.AudioDeviceInfo)) · [Zgłoszenie S23+](https://www.reddit.com/r/GalaxyS23/comments/16dr6pg/s23_call_issue/)
+- Dostępny przez ADB był Pixel 11. Na Galaxy S23 trzeba sprawdzić w zwykłej
+  rozmowie, czy automatyczne przełączanie wróciło i czy rozmówca nadal słyszy
+  głos po przejściu z głośnika do słuchawki.
+- `versionCode 114`, pakiet `pl.bumbox.autospeaker`. Lokalnie przeszły cztery
+  testy jednostkowe, lint debug/release oraz kompilacja obu wariantów APK.
+  Certyfikat podpisu APK jest zgodny z 1.08.
+- [Wydanie 1.09 i sumy kontrolne plików](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.09).
+
+## Poprzednie wydanie — 1.08
 
 - `versionCode 113`, pakiet `pl.bumbox.autospeaker`, plik
   `AutoGlosnik-v1.08.apk` (2190746 bajtów), SHA-256
@@ -20,9 +39,8 @@ Data aktualizacji: 2026-11-23
 - [GitHub CI dla zmian w kodzie 1.08](https://github.com/proszczok2002/AutoGlosnik/actions/runs/45166833797).
 - Po weryfikacji pobranego APK publiczny `update.json` kieruje na 1.08/113.
   Kanał migracyjny z wersji 1.02 pozostaje przy 1.03.
-- Próba na Galaxy S23 pozostaje do wykonania. W zwykłej rozmowie należy
-  kilkukrotnie przejść z głośnika do słuchawki i potwierdzić, że rozmówca
-  nadal słyszy głos, także przy włączonym TalkBacku.
+- Według późniejszego zgłoszenia 1.08 przestała automatycznie przełączać
+  trasę na Galaxy S23. Profil wycofano w 1.09.
 
 ## Poprzednie wydanie — 1.07
 

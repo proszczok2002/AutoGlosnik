@@ -38,16 +38,6 @@ final class CallUiProfile {
         };
     }
 
-    static boolean containsSpeakerWord(String value, boolean legacyGoogle) {
-        return value.contains("glosnik") || value.contains("glosnomow")
-                || value.contains("speaker")
-                || value.contains("speakerphone")
-                || (!legacyGoogle && (value.contains("lautsprecher")
-                || value.contains("freisprech")
-                || value.contains("динамик")
-                || value.contains("громкая связь")));
-    }
-
     static boolean acceptsWindow(Mode mode, CharSequence packageName) {
         if (packageName == null) return false;
         return acceptsEvent(mode, packageName)

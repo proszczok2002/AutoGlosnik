@@ -28,12 +28,9 @@ Przełączenie domyślnego dialera podczas działania usługi unieważnia oczeku
 próby poprzedniego profilu. Zachowano pierwszeństwo zewnętrznych urządzeń audio.
 Reguły kodu nie zastępują testów rozmowy na rzeczywistych telefonach.
 
-Galaxy S23 (`SM-S911…` lub `dm1q`) z Telefonem Samsung ma osobny profil
-`GalaxyS23CallProfile`.
-Do przełączania używa rozpoznanej kontrolki „Głośnik” w interfejsie rozmowy.
-Telefon Samsung dobiera trasę wyjścia i mikrofon, a usługa sprawdza stan
-głośnika przed następną próbą. Brak rozpoznanej kontrolki oznacza pominięcie
-zmiany trasy.
+Od wersji 1.09 Galaxy S23 z Telefonem Samsung ponownie korzysta ze wspólnej
+ścieżki Samsunga z 1.07. W wersji 1.08 osobny profil mógł pominąć zmianę trasy,
+gdy nie rozpoznał przycisku „Głośnik” w oknie rozmowy.
 
 ## Architektura aktualizatora
 
@@ -87,7 +84,7 @@ uniemożliwi przygotowanie aktualizacji dla istniejących instalacji.
 - po sprawdzeniu publicznego `update.json` wykonuje się lokalną [archiwizację
   po wydaniu](#archiwizacja-po-wydaniu).
 
-Oficjalne wydania od 1.0 (`105`) do 1.08 (`113`) należą do jednej linii
+Oficjalne wydania od 1.0 (`105`) do 1.09 (`114`) należą do jednej linii
 podpisu. Stare 1.3.1 było podpisane testowo i wymaga jednorazowej deinstalacji.
 
 ## Archiwizacja po wydaniu
