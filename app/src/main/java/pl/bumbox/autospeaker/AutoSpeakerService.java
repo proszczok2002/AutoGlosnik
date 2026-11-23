@@ -14,6 +14,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
@@ -58,6 +59,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private boolean coordinateGesturePending;
     private Boolean stabilizationTarget;
     private int routeGeneration;
+    private int verifiedSpeakerClickGeneration = -1;
     private int lateRetryCount;
     private long lastCallUiSeen;
     private String lastObservedCallUiPackage;
@@ -193,18 +195,18 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
         if (stabilizationTarget != null && stabilizationTarget == wantsSpeaker) return;
 
-        Boolean actualSpeaker = currentSpeakerState();
-        if (actualSpeaker != null && actualSpeaker == wantsSpeaker && !directRouteRequested) {
-            lastAppliedSpeaker = wantsSpeaker;
-            stabilizationTarget = wantsSpeaker;
-            return;
-        }
-        if (actualSpeaker == null && lastAppliedSpeaker != null && lastAppliedSpeaker == wantsSpeaker
-                && !directRouteRequested) {
-            stabilizationTarget = wantsSpeaker;
-            return;
+        if (!usesVerifiedSpeakerButton(mode)) {
+            Boolean actualSpeaker = currentSpeakerState();
+            Boolean knownSpeaker = actualSpeaker != null ? actualSpeaker : lastAppliedSpeaker;
+            if (knownSpeaker != null && knownSpeaker == wantsSpeaker && !directRouteRequested) {
+                lastAppliedSpeaker = wantsSpeaker;
+                stabilizationTarget = wantsSpeaker;
+                return;
+            }
         }
 
+        // For Galaxy S23 a new target also cancels old retries when a previous
+        // click has not yet become visible in Samsung Phone.
         stabilizationTarget = wantsSpeaker;
         coordinateGesturePending = false;
         int generation = ++routeGeneration;
@@ -224,6 +226,11 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         if (generation != routeGeneration || !isEnabledByUser()
                 || activeMode() != routeMode || !isCallActive() || isExternalAudioRoute()
                 || coordinateGesturePending) return;
+
+        if (usesVerifiedSpeakerButton(routeMode)) {
+            attemptVerifiedSpeakerChange(wantsSpeaker, firstAttempt, lastAttempt, generation);
+            return;
+        }
 
         Boolean actualSpeaker = currentSpeakerState();
         if (actualSpeaker != null && actualSpeaker == wantsSpeaker) {
@@ -247,13 +254,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         AccessibilityNodeInfo button = findRouteButton();
         if (button == null) {
             if (firstAttempt) {
-                if (telecomManager != null) {
-                    try {
-                        telecomManager.showInCallScreen(false);
-                    } catch (SecurityException ignored) {
-                        // Permission status is shown in the main activity.
-                    }
-                }
+                showCallScreen();
                 scheduleCoordinateRouteGesture(wantsSpeaker, generation);
             }
             if (lastAttempt) {
@@ -286,6 +287,39 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         }
     }
 
+    private void attemptVerifiedSpeakerChange(
+            boolean wantsSpeaker, boolean firstAttempt, boolean lastAttempt, int generation) {
+        if (verifiedSpeakerClickGeneration == generation) return;
+
+        AccessibilityNodeInfo speaker = findRouteButton(routeMode);
+        Boolean actualSpeaker = verifiedSpeakerState(speaker);
+        if (actualSpeaker != null && actualSpeaker == wantsSpeaker) {
+            if (lastAttempt) scheduleFinalConfirmation(wantsSpeaker, generation);
+            return;
+        }
+
+        if (speaker != null && actualSpeaker != null
+                && speaker.performAction(AccessibilityNodeInfo.ACTION_CLICK)) {
+            // Samsung Phone updates both the output and microphone after the click.
+            verifiedSpeakerClickGeneration = generation;
+            Log.i(TAG, "Galaxy S23: zlecono kliknięcie rozpoznanego przycisku Głośnik.");
+            scheduleFinalConfirmation(wantsSpeaker, generation);
+            return;
+        }
+
+        if (speaker == null && firstAttempt) showCallScreen();
+        if (lastAttempt) scheduleFinalConfirmation(wantsSpeaker, generation);
+    }
+
+    private void showCallScreen() {
+        if (telecomManager == null) return;
+        try {
+            telecomManager.showInCallScreen(false);
+        } catch (SecurityException ignored) {
+            // Permission status is shown in the main activity.
+        }
+    }
+
     private void scheduleCoordinateRouteGesture(boolean wantsSpeaker, int generation) {
         handler.postDelayed(() -> {
             if (generation != routeGeneration || activeMode() != routeMode
@@ -303,7 +337,8 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         }, 0L);
     }
     private boolean dispatchCoordinateRouteGesture(boolean wantsSpeaker, int generation) {
-        if (activeMode() != routeMode || !isCallActive() || coordinateGesturePending) return false;
+        if (activeMode() != routeMode || !isCallActive() || coordinateGesturePending
+                || usesVerifiedSpeakerButton(routeMode)) return false;
         AccessibilityNodeInfo callRoot = findCallUiRoot();
         if (callRoot == null) {
             return false;
@@ -463,7 +498,10 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         handler.postDelayed(() -> {
             if (generation != routeGeneration || activeMode() != routeMode
                     || !isCallActive()) return;
-            Boolean actualSpeaker = currentSpeakerState();
+            boolean verifiedOnly = usesVerifiedSpeakerButton(routeMode);
+            if (verifiedOnly && (!isEnabledByUser() || isExternalAudioRoute())) return;
+            Boolean actualSpeaker = verifiedOnly
+                    ? verifiedSpeakerState(findRouteButton(routeMode)) : currentSpeakerState();
             if (actualSpeaker != null && actualSpeaker == wantsSpeaker) {
                 lateRetryCount = 0;
                 reportStatus(getString(wantsSpeaker
@@ -507,7 +545,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     }
 
     private void tryDirectAudioRoute(boolean wantsSpeaker) {
-        if (audioManager == null) return;
+        if (audioManager == null || usesVerifiedSpeakerButton(routeMode)) return;
         // Ponowne ustawienie tej samej trasy wymaga odświeżenia wcześniejszego żądania.
         if (directRouteRequested) clearDirectAudioRequest();
         int wantedType = wantsSpeaker
@@ -548,6 +586,15 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         return null;
     }
 
+    private Boolean verifiedSpeakerState(AccessibilityNodeInfo speaker) {
+        Boolean state = speaker == null ? null : inferSpeakerState(speaker);
+        return state != null ? state : currentSpeakerState();
+    }
+
+    private static boolean usesVerifiedSpeakerButton(CallUiProfile.Mode mode) {
+        return CallUiProfile.usesVerifiedSpeakerButton(mode, Build.MODEL, Build.DEVICE);
+    }
+
     private boolean isExternalAudioRoute() {
         if (audioManager == null) return false;
         AudioDeviceInfo device = audioManager.getCommunicationDevice();
@@ -583,20 +630,27 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private AccessibilityNodeInfo findRouteButton(CallUiProfile.Mode mode) {
         if (mode == CallUiProfile.Mode.NONE) return null;
+        boolean verifiedOnly = usesVerifiedSpeakerButton(mode);
         List<AccessibilityWindowInfo> windows = getWindows();
         for (AccessibilityWindowInfo window : windows) {
             AccessibilityNodeInfo root = window.getRoot();
             if (root == null) continue;
-            if (!CallUiProfile.acceptsWindow(mode, root.getPackageName())) continue;
-            AccessibilityNodeInfo candidate = findRouteButtonInRoot(root, mode);
+            if (!acceptsRouteWindow(mode, root.getPackageName(), verifiedOnly)) continue;
+            AccessibilityNodeInfo candidate = findRouteButtonInRoot(root, mode, verifiedOnly);
             if (candidate != null) return candidate;
         }
 
         AccessibilityNodeInfo activeRoot = getRootInActiveWindow();
-        if (activeRoot != null && CallUiProfile.acceptsWindow(mode, activeRoot.getPackageName())) {
-            return findRouteButtonInRoot(activeRoot, mode);
+        if (activeRoot != null && acceptsRouteWindow(mode, activeRoot.getPackageName(), verifiedOnly)) {
+            return findRouteButtonInRoot(activeRoot, mode, verifiedOnly);
         }
         return null;
+    }
+
+    private static boolean acceptsRouteWindow(
+            CallUiProfile.Mode mode, CharSequence packageName, boolean verifiedOnly) {
+        return verifiedOnly ? CallUiProfile.acceptsEvent(mode, packageName)
+                : CallUiProfile.acceptsWindow(mode, packageName);
     }
 
     private AccessibilityNodeInfo findCallUiRoot() {
@@ -657,7 +711,7 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     }
 
     private AccessibilityNodeInfo findRouteButtonInRoot(
-            AccessibilityNodeInfo root, CallUiProfile.Mode mode) {
+            AccessibilityNodeInfo root, CallUiProfile.Mode mode, boolean verifiedOnly) {
         AccessibilityNodeInfo best = null;
         int bestScore = 0;
         AccessibilityNodeInfo fallback = null;
@@ -666,13 +720,13 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         queue.add(root);
         while (!queue.isEmpty()) {
             AccessibilityNodeInfo node = queue.removeFirst();
-            int score = routeButtonScore(node, mode == CallUiProfile.Mode.GOOGLE_PHONE);
+            int score = routeButtonScore(node, mode == CallUiProfile.Mode.GOOGLE_PHONE, verifiedOnly);
             if (score > bestScore) {
                 best = node;
                 bestScore = score;
             }
             if (mode == CallUiProfile.Mode.GOOGLE_PHONE) {
-                int extendedScore = routeButtonScore(node, false);
+                int extendedScore = routeButtonScore(node, false, false);
                 if (extendedScore > fallbackScore) {
                     fallback = node;
                     fallbackScore = extendedScore;
@@ -687,14 +741,17 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
         return fallbackScore >= 50 ? fallback : null;
     }
 
-    private int routeButtonScore(AccessibilityNodeInfo node, boolean legacyGoogle) {
+    private int routeButtonScore(AccessibilityNodeInfo node, boolean legacyGoogle, boolean verifiedOnly) {
         String id = normalize(node.getViewIdResourceName());
         String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
+        if (verifiedOnly && (!supportsClick(node) || !CallUiProfile.isVerifiedSpeakerControl(id, label))) {
+            return 0;
+        }
         int score = 0;
         if (id.contains("audio_route") || id.contains("audioroute") || id.contains("speaker")) {
             score += 100;
         }
-        if (containsSpeakerWord(label, legacyGoogle)) score += 70;
+        if (CallUiProfile.containsSpeakerWord(label, legacyGoogle)) score += 70;
         boolean genericAudioLabel = label.equals("audio")
                 || label.contains("wyjscie audio")
                 || label.contains("urzadzenie audio")
@@ -725,28 +782,23 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
     private Boolean inferSpeakerState(AccessibilityNodeInfo node) {
         if (node.isCheckable()) return node.isChecked();
         String label = normalize(join(node.getText(), node.getContentDescription(), node.getStateDescription()));
-        if (!containsSpeakerWord(label, false)) return null;
-        if (label.contains("wylaczony") || label.contains("speaker off")) return false;
-        if (label.contains("wlaczony") || label.contains("speaker on")) return true;
-        if (label.contains("wylacz glos") || label.contains("turn speaker off")) return true;
-        if (label.contains("wlacz glos") || label.contains("turn speaker on")) return false;
-        if (label.contains("lautsprecher aus") || label.contains("динамик выключен")) return false;
-        if (label.contains("lautsprecher ein") || label.contains("динамик включен")) return true;
-        if (label.contains("lautsprecher ausschalten") || label.contains("выключить динамик")) return true;
-        if (label.contains("lautsprecher einschalten") || label.contains("включить динамик")) return false;
-        return null;
+        return CallUiProfile.speakerStateFromLabel(label);
     }
 
     private AccessibilityNodeInfo actionableClickNode(AccessibilityNodeInfo node) {
         AccessibilityNodeInfo current = node;
         for (int i = 0; current != null && i < 6; i++) {
-            if (current.isClickable()
-                    || current.getActionList().contains(AccessibilityNodeInfo.AccessibilityAction.ACTION_CLICK)) {
+            if (supportsClick(current)) {
                 return current;
             }
             current = current.getParent();
         }
         return null;
+    }
+
+    private static boolean supportsClick(AccessibilityNodeInfo node) {
+        return node.isClickable()
+                || node.getActionList().contains(AccessibilityNodeInfo.AccessibilityAction.ACTION_CLICK);
     }
 
     private boolean performNodeClick(
@@ -770,16 +822,6 @@ public final class AutoSpeakerService extends AccessibilityService implements Se
 
     private boolean isEnabledByUser() {
         return preferences == null || preferences.getBoolean(MainActivity.KEY_ENABLED, true);
-    }
-
-    private static boolean containsSpeakerWord(String value, boolean legacyGoogle) {
-        return value.contains("glosnik") || value.contains("glosnomow")
-                || value.contains("speaker")
-                || value.contains("speakerphone")
-                || (!legacyGoogle && (value.contains("lautsprecher")
-                || value.contains("freisprech")
-                || value.contains("динамик")
-                || value.contains("громкая связь")));
     }
 
     private static String join(CharSequence... values) {

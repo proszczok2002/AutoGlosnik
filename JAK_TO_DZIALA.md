@@ -28,6 +28,12 @@ Przełączenie domyślnego dialera podczas działania usługi unieważnia oczeku
 próby poprzedniego profilu. Zachowano pierwszeństwo zewnętrznych urządzeń audio.
 Reguły kodu nie zastępują testów rozmowy na rzeczywistych telefonach.
 
+Galaxy S23 (`SM-S911…` lub `dm1q`) z Telefonem Samsung ma osobną ścieżkę.
+Do przełączania używa rozpoznanej kontrolki „Głośnik” w interfejsie rozmowy.
+Telefon Samsung dobiera trasę wyjścia i mikrofon, a usługa sprawdza stan
+głośnika przed następną próbą. Brak rozpoznanej kontrolki oznacza pominięcie
+zmiany trasy.
+
 ## Architektura aktualizatora
 
 Głównym repozytorium projektu jest publiczne

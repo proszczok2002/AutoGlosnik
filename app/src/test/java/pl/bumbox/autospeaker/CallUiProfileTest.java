@@ -28,6 +28,39 @@ public final class CallUiProfileTest {
     }
 
     @Test
+    public void verifiedSpeakerButtonIsLimitedToGalaxyS23WithSamsungPhone() {
+        CallUiProfile.Mode samsung = CallUiProfile.Mode.SAMSUNG_PHONE;
+        assertTrue(CallUiProfile.usesVerifiedSpeakerButton(samsung, "SM-S911B", null));
+        assertTrue(CallUiProfile.usesVerifiedSpeakerButton(samsung, "SC-51D", "dm1q"));
+        assertFalse(CallUiProfile.usesVerifiedSpeakerButton(samsung, "SM-S931B", null));
+        assertFalse(CallUiProfile.usesVerifiedSpeakerButton(samsung, null, null));
+        assertFalse(CallUiProfile.usesVerifiedSpeakerButton(
+                CallUiProfile.Mode.GOOGLE_PHONE, "SM-S911B", "dm1q"));
+    }
+
+    @Test
+    public void verifiedSpeakerButtonRejectsMicrophoneAndPositionalControls() {
+        assertTrue(CallUiProfile.isVerifiedSpeakerControl("fourth_button", "glosnik"));
+        assertTrue(CallUiProfile.isVerifiedSpeakerControl("speaker_button", ""));
+        assertTrue(CallUiProfile.isVerifiedSpeakerControl("", "lautsprecher ausschalten"));
+        assertFalse(CallUiProfile.isVerifiedSpeakerControl("fourth_button", ""));
+        assertFalse(CallUiProfile.isVerifiedSpeakerControl("audio_route", "dzwiek"));
+        assertFalse(CallUiProfile.isVerifiedSpeakerControl("mute_button", "glosnik"));
+        assertFalse(CallUiProfile.isVerifiedSpeakerControl("speaker_button", "wycisz mikrofon"));
+        assertFalse(CallUiProfile.isVerifiedSpeakerControl("speaker_button", "микрофон"));
+    }
+
+    @Test
+    public void speakerActionsDescribeTheOppositeOfTheCurrentState() {
+        assertEquals(Boolean.TRUE, CallUiProfile.speakerStateFromLabel("turn speaker off"));
+        assertEquals(Boolean.FALSE, CallUiProfile.speakerStateFromLabel("turn speaker on"));
+        assertEquals(Boolean.TRUE, CallUiProfile.speakerStateFromLabel("lautsprecher ausschalten"));
+        assertEquals(Boolean.FALSE, CallUiProfile.speakerStateFromLabel("lautsprecher einschalten"));
+        assertEquals(Boolean.FALSE, CallUiProfile.speakerStateFromLabel("speaker off"));
+        assertEquals(Boolean.TRUE, CallUiProfile.speakerStateFromLabel("speaker on"));
+    }
+
+    @Test
     public void observedCallUiIsFallbackOnlyWhenDefaultIsUnknown() {
         assertEquals(CallUiProfile.Mode.GOOGLE_PHONE,
                 CallUiProfile.select(null, CallUiProfile.GOOGLE));

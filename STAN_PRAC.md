@@ -1,6 +1,6 @@
 # Stan prac — AutoGłośnik
 
-Data aktualizacji: 2026-11-19
+Data aktualizacji: 2026-11-23
 
 ## Aktualna wersja — 1.07
 
@@ -33,6 +33,24 @@ Data aktualizacji: 2026-11-19
   lint, cztery testy i kompilacja debug zakończone powodzeniem.
 - Lokalną kopię kontrolną APK 1.06 przeniesiono do `niepotrzebne/`. Szczegóły
   odtworzenia są w sekcji o lokalnych porządkach.
+
+## Poprawka testowa dla Galaxy S23
+
+- Zgłoszenie: po powrocie z głośnika do słuchawki rozmówca przestaje słyszeć
+  osobę na S23. Do sprawdzenia pozostaje, czy występuje też przy ręcznym
+  przełączeniu z wyłączoną automatyzacją.
+- Profil Galaxy S23 z Telefonem Samsung przełącza trasę przez rozpoznany
+  przycisk „Głośnik”. Używa stanu kontrolki do sprawdzenia zmiany i pomija
+  trasy zewnętrzne. Wyłączono wymuszanie trasy przez `AudioManager` i gest
+  oparty na współrzędnych Galaxy S25 w tym profilu.
+- `testDebugUnitTest`: 7 testów, wszystkie przeszły. Lint debug i release
+  bez problemów. Kompilacja release i weryfikacja oficjalnego podpisu
+  zakończone powodzeniem. Na podłączonym Pixelu gałąź S23 nie jest aktywna.
+- Lokalny plik `build/s23-test/AutoGlosnik-v1.07-S23-test.apk` nosi numer
+  1.07/112, żeby po próbie można było wrócić do oficjalnego APK 1.07.
+  SHA-256: `A5998BC4E8D7BBC0A89978367C32284C339B90B4825DF5296D702442BFCE7EF2`.
+  Poprawkę trzeba potwierdzić w zwykłej rozmowie na S23, sprawdzając dźwięk
+  u rozmówcy po kilkukrotnym przejściu głośnik → słuchawka.
 
 ## Poprzednia wersja
 
