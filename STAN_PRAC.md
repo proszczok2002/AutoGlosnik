@@ -16,6 +16,10 @@ Data aktualizacji: 2026-11-23
   pozostają takie jak w 1.07. Dźwięk zewnętrzny zachowuje pierwszeństwo.
 - Lokalnie przeszło 7 testów jednostkowych, lint debug/release oraz kompilacja
   obu wariantów APK. Sprawdzono numer pakietu i podpis APK release.
+- [Wydanie 1.08 i sumy kontrolne plików](https://github.com/proszczok2002/AutoGlosnik/releases/tag/v1.08).
+- [GitHub CI dla zmian w kodzie 1.08](https://github.com/proszczok2002/AutoGlosnik/actions/runs/45166833797).
+- Po weryfikacji pobranego APK publiczny `update.json` kieruje na 1.08/113.
+  Kanał migracyjny z wersji 1.02 pozostaje przy 1.03.
 - Próba na Galaxy S23 pozostaje do wykonania. W zwykłej rozmowie należy
   kilkukrotnie przejść z głośnika do słuchawki i potwierdzić, że rozmówca
   nadal słyszy głos, także przy włączonym TalkBacku.
@@ -253,7 +257,7 @@ wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
 - Na Windows oba warianty APK zbudowały się poprawnie, lint zakończył się
   bez problemów, a wszystkie cztery testy jednostkowe przeszły. `apksigner`
   potwierdził zgodność certyfikatu lokalnego APK release z certyfikatem 1.07.
-  Publicznym wydaniem aplikacji pozostaje 1.07 (`versionCode 112`).
+  W tym czasie publicznym wydaniem była wersja 1.07 (`versionCode 112`).
 
 ## Lokalne porządki
 
@@ -264,7 +268,7 @@ wydawniczy oraz hasła pozostają wyłącznie lokalnie w ignorowanym katalogu
   migracyjnego oraz materiały referencyjne i z audytu. `PRZENIESIONE.csv`
   w tej partii wymienia pliki, ich rozmiary i SHA-256. Osobna partia zakończona
   `-wydanie-1.07` zawiera cztery kopie kontrolne APK i ZIP z wersji 1.06 i 1.07.
-- Aktywne artefakty to `AutoGlosnik-v1.07.apk` i `.tools/AutoGlosnik-v1.07-source.zip`.
+- Po wydaniu 1.08 poprzednie APK i ZIP 1.07 trafiają do partii `-wydanie-1.08`.
   Sprzątanie jest częścią [procedury wydania](JAK_TO_DZIALA.md#archiwizacja-po-wydaniu).
 - Po przeniesieniu plików czysta kompilacja debug, lint i cztery testy
   jednostkowe przeszły bez korzystania ze starego Gradle ani lokalnych wyników
